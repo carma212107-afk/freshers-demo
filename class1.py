@@ -116,7 +116,7 @@ class Driver(User):
 
     def create_ride(
         self,
-        seat_count: int,
+        seat_count: int = Car.num_seats - 1,   # Default to max passengers based on car seats
     ) -> "Ride":
         """Create a new Ride offered by this driver."""
         ride = Ride(
@@ -326,7 +326,7 @@ if __name__ == "__main__":
     passenger.create_account()
 
     # --- Driver creates a ride ---
-    ride = driver.create_ride(seat_count=3)
+    ride = driver.create_ride()
 
     # --- Passenger searches and sets an alert ---
     search = Search(city_from="Oxford", city_to="London", prefer_quiet=True)
