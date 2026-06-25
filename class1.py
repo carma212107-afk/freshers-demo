@@ -72,6 +72,20 @@ class User:
         """Delete the user account."""
         print(f"[User] Account deleted for {self.name}")
 
+    def detectUniversity(self) -> str:
+
+        # move dictionary outside of the method to avoid recreating it every time
+        uniEmailDomains = {
+            "uni.ac.uk": "University of Oxford",
+            "cam.ac.uk": "University of Cambridge",
+        }
+        
+        """Detect the university from the email domain."""
+        for d in uniEmailDomains.keys():
+            if d in self.email:
+                return uniEmailDomains[d]
+        return "Unknown University"
+
 
 # ---------------------------------------------------------------------------
 # Car (composed inside Driver)
