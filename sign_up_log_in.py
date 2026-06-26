@@ -58,7 +58,7 @@ def sign_up_process():
 
 def verifyEmail(email: str):
     # Send verification email to the provided email address
-    
+
     # Update the user's verifiedStudentEmail status in the database upon successful verification
     user = Login.logins[email]
     user.verifiedStudentEmail = True
@@ -159,7 +159,6 @@ def checkValidEmail(email: str) -> bool:
             # Check if the domain part contains a valid university domain (e.g., 'ox.ac.uk', 'cam.ac.uk', etc.)
             return True
     return False
-    pass
 
 def checkValidPassword(password: str) -> bool:
     # Check if the password meets security requirements (e.g., length, complexity)
