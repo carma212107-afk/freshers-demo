@@ -22,6 +22,7 @@ class Login:
     user_id: uuid.UUID = field(default_factory=uuid.uuid4)
     email: str = ""
     password: str = ""          # Store hashed in production
+    verifiedStudentEmail: bool = False
 
     def verify(self) -> bool:
         """Verify login credentials. Returns True if valid."""
@@ -48,7 +49,6 @@ class User:
     name: str = ""
     email: str = ""
     password: str = ""          # Store hashed in production
-    verifiedStudentEmail: bool = False
     hometown: str = ""
     university: str = ""
     year: int = 1               # Integer 1–5
