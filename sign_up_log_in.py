@@ -142,7 +142,9 @@ def reset_password_process(email: str):
 def checkValidName(name: str) -> bool:
     # Check if the name is valid (e.g., not empty, no special characters)
     # Return True if valid, False otherwise
-    pass
+    if name and all(char.isalpha() or char.isspace() for char in name):
+        return True
+    return False
 
 def checkValidEmail(email: str) -> bool:
     # Check if the email is valid <name>@<uniDomain> where <uniDomain> ends in .ac.uk
