@@ -46,3 +46,23 @@ def forgot_password_process():
     # 4. if true, verifyEmail(email)
         # 5. reset password
     pass
+    
+
+# ---------------------------------------------------------------------------
+# Input validation checks
+# ---------------------------------------------------------------------------
+
+def checkValidName(name: str) -> bool:
+    # Check if the name is valid (e.g., not empty, no special characters)
+    # Return True if valid, False otherwise
+    pass
+
+def checkValidEmail(email: str) -> bool:
+    # Check if the email is valid (e.g., regex check)
+    # Return True if valid, False otherwise
+    pass
+
+def checkValidPassword(password: str) -> bool:
+    # Check if the password meets security requirements (e.g., length, complexity)
+    # Return True if valid, False otherwise
+    pass
