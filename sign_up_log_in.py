@@ -59,10 +59,15 @@ def log_in_process():
 
 def forgot_password_process():
     # 1. valid email input
+    email = input("Enter your email for password reset: ")
+
     # 2. doesUserExist(email) -> bool
     # 3. if false, prompt user to sign_up_process()
     # 4. if true, resetPassword(email)
-    pass
+    if doesUserExist(email): reset_password_process(email)
+    else:
+        print("Email does not exist. Please sign up first.")
+        sign_up_process()
 
 def reset_password_process(email: str):
     # 1. send password reset link to email
