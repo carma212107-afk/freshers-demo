@@ -35,6 +35,7 @@ def isEmailVerified(email: str) -> bool:
 def sign_up_process():
     # 1. valid name & email input
     name = input("Enter your name: ") # Will have UI implementation later
+    name = name.totitle() # Capitalize the first letter of each word in the name
     email = input("Enter your email: ") # Will have UI implementation later
 
     # 2. doesUserExist(email) -> bool
