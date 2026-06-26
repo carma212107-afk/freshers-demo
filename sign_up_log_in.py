@@ -34,12 +34,25 @@ def isEmailVerified(email: str) -> bool:
 
 def sign_up_process():
     # 1. valid name & email input
+    name = input("Enter your name: ") # Will have UI implementation later
+    email = input("Enter your email: ") # Will have UI implementation later
+
     # 2. doesUserExist(email) -> bool
     # 3. if false, verifyEmail(email)
         # 4. add new User to database
         # 5. password reset
     # 3. if true, prompt user to log_in_process()
-    pass
+    if doesUserExist(email):
+        print("User already exists. Please log in.")
+        log_in_process() # don't automatically take them there, but prompt them to log in instead
+    else:
+        if checkValidName(name) and checkValidEmail(email):
+            # Add new User to database (not implemented)
+            print("User registered successfully. Please reset your password.")
+            reset_password_process(email)
+        else:
+            print("Invalid name or email. Please try again.")
+            sign_up_process()  # Prompt user to sign up again
 
 
 # ---------------------------------------------------------------------------
