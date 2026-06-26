@@ -48,14 +48,35 @@ def sign_up_process():
 
 def log_in_process():
     # 1. valid email input
+    email = input("Enter your email: ") # Will have UI implementation later
+
     # 2. password input
+    password = input("Enter your password: ") # Will have UI implementation later
+
     # 3. doesUserExist(email) -> bool
     # 4. if false, prompt user to sign_up_process()
     # 4. if true, verifyPassword(email, password) -> bool
     # 5. if false, prompt user to reset password (3-5 attempts)
         # 6. if 3-5 attempts fail, showCAPTCHA()
     # 5. if true, log user in
-    pass
+    if not doesUserExist(email):
+        print("User does not exist. Please sign up first.")
+        sign_up_process() # don't automatically take them there, but prompt them to sign up instead
+    else:
+        attempts = 0
+        while True:
+            if verifyPassword(email, password): break
+            else:
+                print("Incorrect password. Please try again.")
+                attempts += 1
+                if attempts >= 5:
+                    print("Too many failed attempts. Please reset your password.")
+                    forgot_password_process()
+                    return
+
+        print("Login successful!")
+        # Proceed to the next step in the application
+    
 
 
 # ---------------------------------------------------------------------------
