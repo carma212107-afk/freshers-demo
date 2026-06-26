@@ -1,18 +1,19 @@
 from class1 import Login, User, Passenger, Driver, Car
 
 
-def doesUserExist(email: str, pswd: str = None) -> bool:
+def doesUserExist(email: str) -> bool:
     # Check if the user exists as a Login in the database
-    # If pswd is provided, also check if the password matches
     # Return True if user exists (and password matches if provided), False otherwise
-    if pswd is None:
-        if email in Login.logins: return True
-        else: return False
-    else:
-        if email in Login.logins and Login.logins[email] == pswd: return True
-        else: return False
+    if email in Login.logins: return True
+    else: return False
 
     # double check Login.logins dictionary for email and password match actually WORKS
+
+def verifyPassword(email: str, pswd: str) -> bool:
+    # Check if the provided password matches the stored password for the given email
+    # Return True if it matches, False otherwise
+    user = Login.logins[email]
+    return user.password == pswd
 
 def isEmailVerified(email: str) -> bool:
     # Check if the user's email is verified
