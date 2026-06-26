@@ -70,8 +70,8 @@ def log_in_process():
                 print("Incorrect password. Please try again.")
                 attempts += 1
                 if attempts >= 5:
-                    print("Too many failed attempts. Please reset your password.")
-                    forgot_password_process()
+                    print("Too many failed attempts. Please verify you are a human.")
+                    # showCAPTCHA() # not implemented yet
                     return
 
         print("Login successful!")
