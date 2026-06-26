@@ -53,7 +53,8 @@ class User:
     year: int = 1               # Integer 1–5
     course: str = ""
     profile_pic: Optional[bytes] = None   # Raw image bytes
-    rating: float = 0.0         # 0–5, 1 decimal place
+    rating: float = 0.0         # 0–5, 1 decimal place, represents average rating from other users
+    no_of_ratings: int = 0      # Number of ratings received
     pronouns: str = ""          # e.g. "she/her"
 
     def create_account(self) -> None:
@@ -96,6 +97,15 @@ class User:
         if (datetime.now().month == 9 and datetime.now().day == 1) and self.year < 5:
             self.year += 1
             print(f"[User] {self.name}'s year updated to {self.year}")
+
+    def updateRating(self, new_rating: float) -> float:
+        """Update the user's average rating based on a new rating received."""
+        old_total = self.rating * self.no_of_ratings
+        self.no_of_ratings += 1
+        old_total += new_rating
+        self.rating = old_total / self.no_of_ratings
+        print(f"[User] {self.name}'s new average rating: {self.rating:.1f} based on {self.no_of_ratings} ratings")
+        return self.rating
 
 
 # ---------------------------------------------------------------------------
