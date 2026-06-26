@@ -65,4 +65,14 @@ def checkValidEmail(email: str) -> bool:
 def checkValidPassword(password: str) -> bool:
     # Check if the password meets security requirements (e.g., length, complexity)
     # Return True if valid, False otherwise
-    pass
+    if len(password) < 8:
+        return False
+    elif not any(char.isdigit() for char in password):
+        return False
+    elif not any(char.isupper() for char in password):
+        return False
+    elif not any(char.islower() for char in password):
+        return False
+    elif not any(char in "!@#$%^&*()-_=+[{]}\|;:'\",<.>/?`~" for char in password):
+        return False
+    else: return True
