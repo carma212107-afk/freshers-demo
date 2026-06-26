@@ -43,8 +43,15 @@ def forgot_password_process():
     # 1. valid email input
     # 2. doesUserExist(email) -> bool
     # 3. if false, prompt user to sign_up_process()
-    # 4. if true, verifyEmail(email)
-        # 5. reset password
+    # 4. if true, resetPassword(email)
+    pass
+
+def reset_password_process(email: str):
+    # 1. send password reset link to email
+    # 2. user clicks link and enters new password
+    # 3. checkValidPassword(new_password) -> bool
+    # 4. if false, prompt user to re-enter new password
+    # 5. if true, update password in database
     pass
     
 
