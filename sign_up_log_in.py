@@ -14,6 +14,14 @@ def doesUserExist(email: str, pswd: str = None) -> bool:
 
     # double check Login.logins dictionary for email and password match actually WORKS
 
+def isEmailVerified(email: str) -> bool:
+    # Check if the user's email is verified
+    # Return True if verified, False otherwise
+    if email in Login.logins:
+        user = Login.logins[email]
+        return user.verifiedStudentEmail
+    return False
+
 
 # ---------------------------------------------------------------------------
 # Sign-up
