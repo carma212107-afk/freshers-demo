@@ -84,6 +84,7 @@ def reset_password_process(email: str):
             break
         else:
             print("Invalid password. Please try again.")
+    log_in_process()  # Prompt user to log in after password reset
     
 
 # ---------------------------------------------------------------------------
