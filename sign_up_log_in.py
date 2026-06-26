@@ -49,12 +49,19 @@ def sign_up_process():
         if checkValidName(name) and checkValidEmail(email):
             # Add new User to database (not implemented)
             print("Please verify your student email.")
-            # verifyEmail(email) # not implemented yet
+            verifyEmail(email) # not implemented yet
             print("User registered successfully. Please reset your password.")
             reset_password_process(email)
         else:
             print("Invalid name or email. Please try again.")
             sign_up_process()  # Prompt user to sign up again
+
+def verifyEmail(email: str):
+    # Send verification email to the provided email address
+    
+    # Update the user's verifiedStudentEmail status in the database upon successful verification
+    user = Login.logins[email]
+    user.verifiedStudentEmail = True
 
 
 # ---------------------------------------------------------------------------
