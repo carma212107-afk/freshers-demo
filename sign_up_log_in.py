@@ -29,7 +29,7 @@ def log_in_process():
 
 
 # ---------------------------------------------------------------------------
-# Log-in (ForgotPassword button always available)
+# Forgot Password button always available
 # ---------------------------------------------------------------------------
 
 def forgot_password_process():
