@@ -16,6 +16,7 @@ def sign_up_process():
         # 4. add new User to database
         # 5. password reset
     # 3. if true, prompt user to log_in_process()
+    pass
 
 
 # ---------------------------------------------------------------------------
@@ -31,6 +32,7 @@ def log_in_process():
     # 5. if false, prompt user to reset password (3-5 attempts)
         # 6. if 3-5 attempts fail, showCAPTCHA()
     # 5. if true, log user in
+    pass
 
 
 # ---------------------------------------------------------------------------
@@ -43,3 +45,4 @@ def forgot_password_process():
     # 3. if false, prompt user to sign_up_process()
     # 4. if true, verifyEmail(email)
         # 5. reset password
+    pass
