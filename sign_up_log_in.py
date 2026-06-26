@@ -48,6 +48,8 @@ def sign_up_process():
     else:
         if checkValidName(name) and checkValidEmail(email):
             # Add new User to database (not implemented)
+            print("Please verify your student email.")
+            # verifyEmail(email) # not implemented yet
             print("User registered successfully. Please reset your password.")
             reset_password_process(email)
         else:
