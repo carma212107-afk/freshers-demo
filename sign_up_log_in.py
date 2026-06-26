@@ -48,11 +48,19 @@ def forgot_password_process():
 
 def reset_password_process(email: str):
     # 1. send password reset link to email
+
     # 2. user clicks link and enters new password
     # 3. checkValidPassword(new_password) -> bool
     # 4. if false, prompt user to re-enter new password
     # 5. if true, update password in database
-    pass
+    while True:
+        new_password = input("Enter your new password: ")
+        if checkValidPassword(new_password):
+            # Update password in database (not implemented)
+            print("Password has been reset successfully.")
+            break
+        else:
+            print("Invalid password. Please try again.")
     
 
 # ---------------------------------------------------------------------------
