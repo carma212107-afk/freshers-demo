@@ -48,6 +48,7 @@ class User:
     name: str = ""
     email: str = ""
     password: str = ""          # Store hashed in production
+    verifiedStudentEmail: bool = False
     hometown: str = ""
     university: str = ""
     year: int = 1               # Integer 1–5
@@ -147,6 +148,7 @@ class Driver(User):
 
     num_rides: int = 0
     co2_saved_kg: int = 0
+    verifiedDriversLicence: bool = False
     car: Optional[Car] = None   # Composition: Driver "has" a Car
 
     def create_ride(
