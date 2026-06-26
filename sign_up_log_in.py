@@ -1,5 +1,10 @@
 from class1 import Login, User, Passenger, Driver, Car
 
+def doesUserExist(email: str) -> bool:
+    # Check if the user exists in the database
+    # Return True if exists, False otherwise
+    pass
+
 # ---------------------------------------------------------------------------
 # Sign-up
 # ---------------------------------------------------------------------------
