@@ -86,6 +86,17 @@ class User:
                 return uniEmailDomains[d]
         return "Unknown University"
 
+    def autoChangeUniYear(self) -> None:
+
+        # 1. needs to be automatically triggered every September 1st,
+        #           but for now we can call it manually in the test code
+        # 2. does not currently account for placement years or repeating years
+
+        """Automatically increment the year every September 1st based on the current date."""
+        if (datetime.now().month == 9 and datetime.now().day == 1) and self.year < 5:
+            self.year += 1
+            print(f"[User] {self.name}'s year updated to {self.year}")
+
 
 # ---------------------------------------------------------------------------
 # Car (composed inside Driver)
