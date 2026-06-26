@@ -59,7 +59,7 @@ def log_in_process():
 
 def forgot_password_process():
     # 1. valid email input
-    email = input("Enter your email for password reset: ")
+    email = input("Enter your email for password reset: ") # Will have UI implementation later
 
     # 2. doesUserExist(email) -> bool
     # 3. if false, prompt user to sign_up_process()
@@ -77,7 +77,7 @@ def reset_password_process(email: str):
     # 4. if false, prompt user to re-enter new password
     # 5. if true, update password in database
     while True:
-        new_password = input("Enter your new password: ")
+        new_password = input("Enter your new password: ") # Will have UI implementation later
         if checkValidPassword(new_password):
             # Update password in database (not implemented)
             print("Password has been reset successfully.")
