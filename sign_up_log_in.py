@@ -1,6 +1,10 @@
 from class1 import Login, User, Passenger, Driver, Car
 
 
+# ---------------------------------------------------------------------------
+# Login.logins database getters
+# ---------------------------------------------------------------------------
+
 def doesUserExist(email: str) -> bool:
     # Check if the user exists as a Login in the database
     # Return True if user exists (and password matches if provided), False otherwise
@@ -89,7 +93,7 @@ def reset_password_process(email: str):
     
 
 # ---------------------------------------------------------------------------
-# Input validation checks
+# Input Validation Checks
 # ---------------------------------------------------------------------------
 
 def checkValidName(name: str) -> bool:
