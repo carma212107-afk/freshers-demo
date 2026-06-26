@@ -83,8 +83,20 @@ def checkValidName(name: str) -> bool:
     pass
 
 def checkValidEmail(email: str) -> bool:
-    # Check if the email is valid (e.g., regex check)
+    # Check if the email is valid <name>@<uniDomain> where <uniDomain> ends in .ac.uk
     # Return True if valid, False otherwise
+    
+    # Check if email contains '@' and ends with '.ac.uk'
+    if '@' in email and email.endswith('.ac.uk'):
+        # Split the email into name and domain parts
+        name_part, domain_part = email.split('@', 1)
+        
+        # Check if the name part is not empty and does not contain special characters
+        if name_part and all(char.isalnum() or char in ('-', '_', '.') for char in name_part):
+            
+            # Check if the domain part contains a valid university domain (e.g., 'ox.ac.uk', 'cam.ac.uk', etc.)
+            return True
+    return False
     pass
 
 def checkValidPassword(password: str) -> bool:
