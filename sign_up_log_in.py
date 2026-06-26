@@ -34,9 +34,9 @@ def isEmailVerified(email: str) -> bool:
 
 def sign_up_process():
     # 1. valid name & email input
-    name = input("Enter your name: ") # Will have UI implementation later
+    name = input("Enter your name: ") # Will have UI integration later
     name = name.totitle() # Capitalize the first letter of each word in the name
-    email = input("Enter your email: ") # Will have UI implementation later
+    email = input("Enter your email: ") # Will have UI integration later
 
     # 2. doesUserExist(email) -> bool
     # 3. if false, verifyEmail(email)
@@ -71,10 +71,10 @@ def verifyEmail(email: str):
 
 def log_in_process():
     # 1. valid email input
-    email = input("Enter your email: ") # Will have UI implementation later
+    email = input("Enter your email: ") # Will have UI integration later
 
     # 2. password input
-    password = input("Enter your password: ") # Will have UI implementation later
+    password = input("Enter your password: ") # Will have UI integration later
 
     # 3. doesUserExist(email) -> bool
     # 4. if false, prompt user to sign_up_process()
@@ -108,7 +108,7 @@ def log_in_process():
 
 def forgot_password_process():
     # 1. valid email input
-    email = input("Enter your email for password reset: ") # Will have UI implementation later
+    email = input("Enter your email for password reset: ") # Will have UI integration later
 
     # 2. doesUserExist(email) -> bool
     # 3. if false, prompt user to sign_up_process()
@@ -126,7 +126,7 @@ def reset_password_process(email: str):
     # 4. if false, prompt user to re-enter new password
     # 5. if true, update password in database
     while True:
-        new_password = input("Enter your new password: ") # Will have UI implementation later
+        new_password = input("Enter your new password: ") # Will have UI integration later
         if checkValidPassword(new_password):
             # Update password in database (not implemented)
             print("Password has been reset successfully.")
