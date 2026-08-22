@@ -98,7 +98,7 @@ fun CoverPage(
         )
       }
 
-      StageIndicator(currentStage = 1, noStages = 5)
+      StageIndicator(currentStage = 1, noStages = 5, primaryColour = Variables.Accent)
 
       AsyncImage( // Carma logo
         model = carmaLogoAsset,

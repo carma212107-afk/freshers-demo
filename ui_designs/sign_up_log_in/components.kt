@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
 @Composable
-private fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1, noStages: Int = 5) {
+private fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1, noStages: Int = 5, primaryColour: Color = Variables.LightModePrimary, secondaryColour: Color = Variables.LightModeSecondary) {
   Column(
 
     // determine position of current stage indicator based on int parameter
@@ -46,19 +46,19 @@ private fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1,
     ) {
       repeat(noStagesBefore) {
         AsyncImage(
-          model = IndividualStageIndicator(isCurrentStage = false),
+          model = IndividualStageIndicator(isCurrentStage = false, color = secondaryColour),
           contentDescription = null,
           modifier = Modifier.size(10.dp),
         )
       }
       AsyncImage(
-          model = IndividualStageIndicator(isCurrentStage = true),
+          model = IndividualStageIndicator(isCurrentStage = true, color = primaryColour),
           contentDescription = null,
           modifier = Modifier.size(10.dp),
         )
       repeat(noStagesAfter) {
         AsyncImage(
-          model = IndividualStageIndicator(isCurrentStage = false),
+          model = IndividualStageIndicator(isCurrentStage = false, color = secondaryColour),
           contentDescription = null,
           modifier = Modifier.size(10.dp),
         )
@@ -68,24 +68,24 @@ private fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1,
 }
 
 @Composable
-private fun IndividualStageIndicator(modifier: Modifier = Modifier, isCurrentStage: Boolean = false) {
+private fun IndividualStageIndicator(modifier: Modifier = Modifier, isCurrentStage: Boolean = false, colour: Color = Variables.LightModeSecondary) {
   if (isCurrentStage) {
     Box(
       modifier = Modifier
         .size(width = 25.dp, height = 10.dp)
-        .background(color = Variables.LightModePrimary, shape = RoundedCornerShape(size = 20.dp)),
+        .background(color = primaryColour, shape = RoundedCornerShape(size = 20.dp)),
     )
   } else {
     Ellipse(
       modifer = Modifier
         .padding(1.dp)
         .size(width=10.dp, height=10.dp)
-        .background(color = Variables.LightModeSecondary)
+        .background(color = secondaryColour)
     )
   }
 }
 
 Object Variables {
-  val LightModePrimary = Color(0xFF1A1A1A)
-  val LightModeSecondary = Color(0xFFB5DDC3)
+  val LightModePrimary = Colours.LightModePrimary
+  val LightModeSecondary = Colours.LightModeSecondary
 }
