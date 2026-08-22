@@ -29,10 +29,7 @@ import coil.compose.AsyncImage
 
 private const val carmaLogoAsset =
   "https://www.figma.com/api/mcp/asset/e1afa15d-63da-47ec-94a8-58773cf9ff06.png"
-private const val timeAsset = 
-  "https://www.figma.com/api/mcp/asset/a3121e18-4222-405c-9eca-d748c5f06502.svg"
-private const val rightSideAsset =
-  "https://www.figma.com/api/mcp/asset/3042e646-380b-478e-a3ec-48dbd73ad777.svg"
+
 
 @Composable
 fun CoverPage(
