@@ -46,23 +46,46 @@ private fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1,
     ) {
       repeat(noStagesBefore) {
         AsyncImage(
-          model = ellipseAsset,
+          model = IndividualStageIndicator(isCurrentStage = false),
           contentDescription = null,
           modifier = Modifier.size(10.dp),
         )
       }
-      Box(
-        modifier = Modifier
-          .size(width = 25.dp, height = 10.dp)
-          .background(Variables.Accent, RoundedCornerShape(20.dp)),
-      )
+      AsyncImage(
+          model = IndividualStageIndicator(isCurrentStage = true),
+          contentDescription = null,
+          modifier = Modifier.size(10.dp),
+        )
       repeat(noStagesAfter) {
         AsyncImage(
-          model = ellipseAsset,
+          model = IndividualStageIndicator(isCurrentStage = false),
           contentDescription = null,
           modifier = Modifier.size(10.dp),
         )
       }
     }
   }
+}
+
+@Composable
+private fun IndividualStageIndicator(modifier: Modifier = Modifier, isCurrentStage: Boolean = false) {
+  if (isCurrentStage) {
+    Box(
+      modifier = Modifier
+        .size(width = 25.dp, height = 10.dp)
+        .background(color = Variables.LightModePrimary, shape = RoundedCornerShape(size = 20.dp)),
+    )
+  } else {
+    Ellipse(
+      modifer = Modifier
+        .padding(1.dp)
+        .size(width=10.dp, height=10.dp)
+        .background(color = Variables.LightModeSecondary)
+    )
+  }
+}
+
+Object Variables {
+  val LightModePrimary = Color(0xFF1A1A1A)
+  val LightModeSecondary = Color(0xFFB5DDC3)
 }
