@@ -40,31 +40,8 @@ fun CoverPage(
   onLogin: () -> Unit = {},
   modifier: Modifier = Modifier,
 ) {
-  Box( // Status bar & Home indicator
-    modifier = modifier
-      .fillMaxSize()
-      .background(Variables.DarkModeBackground),
-  ) {
-    Row(
-      modifier = Modifier
-        .align(Alignment.TopCenter)
-        .fillMaxWidth()
-        .padding(horizontal = 30.dp, vertical = 20.dp),
-      horizontalArrangement = Arrangement.SpaceBetween,
-      verticalAlignment = Alignment.CenterVertically,
-    ) {
-      AsyncImage(
-        model = timeAsset,
-        contentDescription = "Current time",
-        modifier = Modifier.size(width = 54.dp, height = 21.dp),
-      )
-      AsyncImage(
-        model = rightSideAsset,
-        contentDescription = "Signal, Wi-Fi, and battery status",
-        modifier = Modifier.size(width = 67.dp, height = 12.dp),
-      )
-    }
-
+  
+  StatusBar()
 
     // Main content
 

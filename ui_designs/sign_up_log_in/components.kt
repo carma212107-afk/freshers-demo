@@ -27,6 +27,35 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
+
+@Composable
+private fun StatusBar(modifier: Modifier = Modifier) {
+    Box( // Status bar & Home indicator
+    modifier = modifier
+      .fillMaxSize()
+      .background(Color(0xFF0A5C2E)),
+  ) {
+    Row(
+      modifier = Modifier
+        .align(Alignment.TopCenter)
+        .fillMaxWidth()
+        .padding(horizontal = 30.dp, vertical = 20.dp),
+      horizontalArrangement = Arrangement.SpaceBetween,
+      verticalAlignment = Alignment.CenterVertically,
+    ) {
+      AsyncImage(
+        model = timeAsset,
+        contentDescription = "Current time",
+        modifier = Modifier.size(width = 54.dp, height = 21.dp),
+      )
+      AsyncImage(
+        model = rightSideAsset,
+        contentDescription = "Signal, Wi-Fi, and battery status",
+        modifier = Modifier.size(width = 67.dp, height = 12.dp),
+      )
+    }
+}
+
 @Composable
 private fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1, noStages: Int = 5, primaryColour: Color = Variables.LightModePrimary, secondaryColour: Color = Variables.LightModeSecondary) {
   Column(
