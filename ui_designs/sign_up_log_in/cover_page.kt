@@ -29,9 +29,7 @@ import coil.compose.AsyncImage
 
 private const val carmaLogoAsset =
   "https://www.figma.com/api/mcp/asset/e1afa15d-63da-47ec-94a8-58773cf9ff06.png"
-private const val ellipseAsset =
-  "https://www.figma.com/api/mcp/asset/c1309259-56bd-45e3-86b5-18c3ddc9b1b5.svg"
-private const val timeAsset =
+private const val timeAsset = 
   "https://www.figma.com/api/mcp/asset/a3121e18-4222-405c-9eca-d748c5f06502.svg"
 private const val rightSideAsset =
   "https://www.figma.com/api/mcp/asset/3042e646-380b-478e-a3ec-48dbd73ad777.svg"
@@ -42,7 +40,7 @@ fun CoverPage(
   onLogin: () -> Unit = {},
   modifier: Modifier = Modifier,
 ) {
-  Box(
+  Box( // Status bar & Home indicator
     modifier = modifier
       .fillMaxSize()
       .background(Variables.DarkModeBackground),
@@ -66,14 +64,18 @@ fun CoverPage(
         modifier = Modifier.size(width = 67.dp, height = 12.dp),
       )
     }
+
+
+    // Main content
+
     Column(
       modifier = Modifier
         .fillMaxSize()
-        .padding(horizontal = 30.dp, vertical = 100.dp),
+        .padding(horizontal = 30.dp, vertical = 75.dp),
       horizontalAlignment = Alignment.CenterHorizontally,
       verticalArrangement = Arrangement.SpaceBetween,
     ) {
-      Column(horizontalAlignment = Alignment.CenterHorizontally) {
+      Column(horizontalAlignment = Alignment.CenterHorizontally) { // App name and tagline
         Text(
           text = "Carma",
           color = Color.White,
@@ -95,16 +97,16 @@ fun CoverPage(
         )
       }
 
-      StageIndicator()
+      StageIndicator(currentStage = 1, noStages = 5)
 
-      AsyncImage(
+      AsyncImage( // Carma logo
         model = carmaLogoAsset,
         contentDescription = "Carma ridesharing logo",
         modifier = Modifier.size(200.dp),
         contentScale = ContentScale.Crop,
       )
 
-      Column(
+      Column( // Description text
         horizontalAlignment = Alignment.CenterHorizontally,
       ) {
         Text(
@@ -161,31 +163,6 @@ fun CoverPage(
   }
 }
 
-@Composable
-private fun StageIndicator(modifier: Modifier = Modifier) {
-  Column(
-    modifier = modifier,
-    horizontalAlignment = Alignment.CenterHorizontally,
-  ) {
-    androidx.compose.foundation.layout.Row(
-      horizontalArrangement = Arrangement.spacedBy(5.dp),
-      verticalAlignment = Alignment.CenterVertically,
-    ) {
-      Box(
-        modifier = Modifier
-          .size(width = 25.dp, height = 10.dp)
-          .background(Variables.Accent, RoundedCornerShape(20.dp)),
-      )
-      repeat(4) {
-        AsyncImage(
-          model = ellipseAsset,
-          contentDescription = null,
-          modifier = Modifier.size(10.dp),
-        )
-      }
-    }
-  }
-}
 
 object Variables {
   val DarkModeBackground: Color = Color(0xFF0A5C2E)
