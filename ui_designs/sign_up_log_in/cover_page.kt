@@ -38,7 +38,7 @@ fun CoverPage(
   modifier: Modifier = Modifier,
 ) {
   
-  StatusBar()
+    StatusBar()
 
     // Main content
 
