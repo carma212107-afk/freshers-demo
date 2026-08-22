@@ -28,4 +28,41 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
 @Composable
+private fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1, noStages: Int = 5) {
+  Column(
 
+    // determine position of current stage indicator based on int parameter
+    noStages = noStages
+    currentStage = currentStage,
+    noStagesBefore = currentStage - 1,
+    noStagesAfter = noStages - currentStage,
+
+    modifier = modifier,
+    horizontalAlignment = Alignment.CenterHorizontally,
+  ) {
+    androidx.compose.foundation.layout.Row(
+      horizontalArrangement = Arrangement.spacedBy(5.dp),
+      verticalAlignment = Alignment.CenterVertically,
+    ) {
+      repeat(noStagesBefore) {
+        AsyncImage(
+          model = ellipseAsset,
+          contentDescription = null,
+          modifier = Modifier.size(10.dp),
+        )
+      }
+      Box(
+        modifier = Modifier
+          .size(width = 25.dp, height = 10.dp)
+          .background(Variables.Accent, RoundedCornerShape(20.dp)),
+      )
+      repeat(noStagesAfter) {
+        AsyncImage(
+          model = ellipseAsset,
+          contentDescription = null,
+          modifier = Modifier.size(10.dp),
+        )
+      }
+    }
+  }
+}
