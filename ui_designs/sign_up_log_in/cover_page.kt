@@ -56,8 +56,8 @@ fun CoverPage(
         Text(
           text = "Carma",
           color = Variables.DarkModeText,
-          fontSize = 50.sp,
-          fontWeight = FontWeight.Black,
+          fontSize = Variables.textIntroTitle.size,
+          fontWeight = Variables.textIntroTitle.weight,
         )
         Text(
           text = "Student intercity ridesharing",
@@ -70,8 +70,8 @@ fun CoverPage(
             )
             .padding(horizontal = 25.dp, vertical = 6.dp),
           color = Variables.DarkModeText,
-          fontSize = 16.sp,
-          fontWeight = FontWeight.Medium,
+          fontSize = Variables.textText1.size,
+          fontWeight = Variables.textText1.weight,
         )
       }
 
@@ -90,8 +90,8 @@ fun CoverPage(
         Text(
           text = "The smarter way\nto travel between\nuni cities.",
           color = Variables.DarkModeText,
-          fontSize = 35.sp,
-          fontWeight = FontWeight.Black,
+          fontSize = Variables.textHeading1.size,
+          fontWeight = Variables.textHeading1.weight,
           lineHeight = 52.5.sp,
           textAlign = TextAlign.Center,
         )
@@ -99,7 +99,8 @@ fun CoverPage(
         Text(
           text = "Share rides with verified students.\nSave money.\nCut emissions.",
           color = Variables.DarkModeText,
-          fontSize = 16.sp,
+          fontSize = Variables.textText1.size,
+          fontWeight = Variables.textText1.weight,
           lineHeight = 22.4.sp,
           textAlign = TextAlign.Center,
         )
@@ -120,7 +121,7 @@ fun CoverPage(
             contentColor = Variables.LightModeText,
           ),
         ) {
-          Text("Get started", fontWeight = FontWeight.Bold, fontSize = 16.sp)
+          Text("Get started", fontWeight = Variables.textButton1.weight, fontSize = Variables.textButton1.size)
         }
         Button(
           onClick = onLogin,
@@ -134,7 +135,7 @@ fun CoverPage(
             contentColor = Variables.DarkModeText,
           ),
         ) {
-          Text("I already have an account", fontSize = 16.sp)
+          Text("I already have an account", fontWeight = Variables.textButton2.weight, fontSize = Variables.textButton2.size)
         }
       }
     }
@@ -150,7 +151,14 @@ object Variables {
   val LightModeBackground: Color = Colours.LightModeBackground
   val LightModeText: Color = Colours.LightModeText
   val Accent: Color = Colours.Accent
+
   val xUI = Dimensions.currentUIx
   val xUI = Dimensions.currentUIy
+
+  val textIntroTitle = TextFormatting.IntroTitle
+  val textText1 = TextFormatting.Text1
+  val textHeading1 = TextFormatting.Heading1
+  val textButton1 = TextFormatting.Button1
+  val textButton2 = TextFormatting.Button2
 }
 
