@@ -36,7 +36,7 @@ private const val rightSideAsset =
 @Composable
 private fun StatusBar(modifier: Modifier = Modifier, theme: string = "light") {
     if (theme == "light") { colour = Color(0xFF0A5C2E) }
-    else if (theme == "dark") { colour = Color(0xFFFFFFFF) }
+    else if (theme == "dark") { colour = Color(0xFF0A5C2E) }
     
     Box( // Status bar & Home indicator
     modifier = modifier
