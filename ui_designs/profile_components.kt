@@ -115,15 +115,17 @@ fun NumberRating(modifier: Modifier = Modifier, rating: Float, theme: Theme = Th
 }
 
 @Composable
-fun StarRating(filled: Int = 5, dark: Boolean = false, modifier: Modifier = Modifier) {
+fun StarRating(filled: Int = 5, theme: Theme = Theme.Light, modifier: Modifier = Modifier) {
+    lightMode = theme == Theme.Light
+
 	Row(
 		modifier = modifier
-			.background(if (dark) profileComponentGreen else Color.Transparent, RoundedCornerShape(20.dp))
-			.padding(horizontal = if (dark) 5.dp else 0.dp, vertical = if (dark) 2.dp else 0.dp),
+			.background(Color.Transparent, RoundedCornerShape(20.dp))
+			.padding(horizontal = if (lightMode) 0.dp else 5.dp, vertical = if (lightMode) 0.dp else 2.dp),
 		horizontalArrangement = Arrangement.spacedBy(1.dp),
 	) {
 		repeat(5) { index ->
-			StarGlyph(filled = index < filled, color = if (dark) profileComponentWhite else profileComponentGreen, modifier = Modifier.size(20.dp))
+			StarGlyph(filled = index < filled, color = if (lightMode) Colours.LightModePrimary else Colours.DarkModeSecondary, modifier = Modifier.size(20.dp))
 		}
 	}
 }
