@@ -97,7 +97,8 @@ fun SocialProfileButton(profile: SocialProfile = SocialProfile.Instagram, modifi
 		verticalAlignment = Alignment.CenterVertically,
 	) {
 		if (profile == SocialProfile.Instagram) AsyncImage(model = instagramLogo, contentDescription = "Instagram Logo", modifier = Modifier.size(25.dp)) else AsyncImage(model = snapchatLogo, contentDescription = "Snapchat Logo", modifier = Modifier.size(25.dp))
-		Text(if (profile == SocialProfile.Instagram) "@instagram" else "@snapchat", color = profileComponentGreen, fontSize = 15.sp)
+		Text(if (profile == SocialProfile.Instagram) "${user.socialProfiles[SocialProfile.Instagram]}" else "${user.socialProfiles[SocialProfile.Snapchat]}", color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text.weight)
+		// Add click functionality to open the respective social media profile in a web browser or app
 	}
 }
 
