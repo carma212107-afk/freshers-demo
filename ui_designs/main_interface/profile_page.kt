@@ -30,14 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
-private val profileGreen = Color(0xFF0A5C2E)
-private val profileGreenLight = Color(0xFF2A7149)
-private val profileMint = Color(0xFFB5DDC3)
-private val profileBackground = Color(0xFFF5FFF8)
-
-private const val circleAsset = "https://www.figma.com/api/mcp/asset/53e1e70e-7107-4d9d-9862-3751a27b6936.svg"
-private const val instagramAsset = "https://www.figma.com/api/mcp/asset/1d10f5cd-9e71-45bf-8d3e-42dc236f24ef.png"
-
 
 @Composable
 fun MyProfileExamplePage(
@@ -50,7 +42,7 @@ fun MyProfileExamplePage(
 	modifier: Modifier = Modifier,
 	user: User, // defaults to current user, but can be set to any user for viewing other profiles
 ) {
-	Box(modifier = modifier.fillMaxSize().background(profileBackground)) {
+	Box(modifier = modifier.fillMaxSize().background(Colours.LightModeBackground1)) {
 		Column(modifier = Modifier.fillMaxSize()) {
 			ProfileTopBar(onBack = onBack, onEdit = onEdit)
 			LazyColumn(
