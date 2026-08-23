@@ -32,25 +32,54 @@ import coil.compose.AsyncImage
 
 
 // icons
-private const val carBodyAsset = "https://www.figma.com/api/mcp/asset/3cadbe92-c3b5-4af9-b981-8989ebb52a45.svg"
-private const val carBackWheelAsset = "https://www.figma.com/api/mcp/asset/e3a8667f-5eae-4cb7-b968-82fbbd5868e9.svg"
-private const val carFrontWheelAsset = "https://www.figma.com/api/mcp/asset/23493609-b260-4ca6-a63a-5de3df40df53.svg"
-private const val profileBodyAsset = "https://www.figma.com/api/mcp/asset/4f7672c0-25f1-4d52-b60b-8f0fa33559b2.svg"
-private const val profileHeadAsset = "https://www.figma.com/api/mcp/asset/8ab73d6d-6812-450d-a4c2-973d334dce6a.svg"
 
 @Composable
-private fun carIcon() {
-    Box(Modifier.size(width = 42.dp, height = 21.dp)) {
-		AsyncImage(carBackWheelAsset, null, Modifier.size(7.dp).align(Alignment.BottomEnd).padding(end = 6.dp))
-		AsyncImage(carFrontWheelAsset, null, Modifier.size(7.dp).align(Alignment.BottomStart).padding(start = 7.dp))
-		AsyncImage(carBodyAsset, label, Modifier.fillMaxSize(), contentScale = ContentScale.Fit)
+fun homeIcon(modifier: Modifier = Modifier) {
+	Canvas(modifier.size(width = 23.dp, height = 24.dp)) {
+		val homePath = androidx.compose.ui.graphics.Path().apply {
+			moveTo(1f, 10f)
+			lineTo(11.5f, 1f)
+			lineTo(22f, 10f)
+			lineTo(20f, 10f)
+			lineTo(20f, 23f)
+			lineTo(3f, 23f)
+			lineTo(3f, 10f)
+			close()
+		}
+		drawPath(homePath, Colours.LightModePrimary, style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f, join = StrokeJoin.Round))
+		drawRect(Colours.LightModePrimary, topLeft = androidx.compose.ui.geometry.Offset(8f, 14f), size = androidx.compose.ui.geometry.Size(7f, 9f))
 	}
 }
 
 @Composable
-private fun profileIcon() {
-    Box(Modifier.size(24.dp)) {
-		AsyncImage(profileBodyAsset, null, Modifier.size(20.dp).align(Alignment.BottomCenter))
-		AsyncImage(profileHeadAsset, null, Modifier.size(9.dp).align(Alignment.TopCenter))
+fun pinIcon(modifier: Modifier = Modifier) {
+	Canvas(modifier.size(width = 15.734.dp, height = 19.74.dp)) {
+		val pinPath = androidx.compose.ui.graphics.Path().apply {
+			moveTo(7.87f, 19f)
+			cubicTo(6.8f, 17f, 1f, 12.2f, 1f, 7.4f)
+			cubicTo(1f, 3.8f, 4.1f, 1f, 7.87f, 1f)
+			cubicTo(11.6f, 1f, 14.73f, 3.8f, 14.73f, 7.4f)
+			cubicTo(14.73f, 12.2f, 8.9f, 17f, 7.87f, 19f)
+		}
+		drawPath(pinPath, Colours.LightModePrimary, style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f, join = StrokeJoin.Round))
+		drawCircle(Colours.LightModePrimary, radius = 3f, center = androidx.compose.ui.geometry.Offset(7.87f, 7.3f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1.5f))
+	}
+}
+
+@Composable
+fun carIcon(modifier: Modifier = Modifier) {
+	Canvas(modifier.size(width = 42.dp, height = 20.699.dp)) {
+		drawRoundRect(Colours.LightModePrimary, topLeft = androidx.compose.ui.geometry.Offset(1f, 5f), size = androidx.compose.ui.geometry.Size(40f, 11f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f, 4f))
+		drawCircle(Colours.LightModePrimary, radius = 1.4f, center = androidx.compose.ui.geometry.Offset(9f, 16.5f))
+		drawCircle(Colours.LightModePrimary, radius = 1.4f, center = androidx.compose.ui.geometry.Offset(33f, 16.5f))
+		drawLine(Colours.LightModePrimary, androidx.compose.ui.geometry.Offset(12f, 5f), androidx.compose.ui.geometry.Offset(17f, 1.5f), 2f, StrokeCap.Round)
+		drawLine(Colours.LightModePrimary, androidx.compose.ui.geometry.Offset(17f, 1.5f), androidx.compose.ui.geometry.Offset(30f, 1.5f), 2f, StrokeCap.Round)
+	}
+}
+@Composable
+fun profileIcon(modifier: Modifier = Modifier) {
+	Canvas(modifier.size(width = 20.dp, height = 22.533.dp)) {
+		drawCircle(Colours.LightModePrimary, radius = 4.75f, center = androidx.compose.ui.geometry.Offset(10f, 5f))
+		drawRoundRect(Colours.LightModePrimary, topLeft = androidx.compose.ui.geometry.Offset(1f, 13f), size = androidx.compose.ui.geometry.Size(18f, 9.5f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(6f, 6f))
 	}
 }
