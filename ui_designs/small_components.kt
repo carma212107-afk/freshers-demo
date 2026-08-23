@@ -1,6 +1,7 @@
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,12 +18,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -50,7 +54,6 @@ fun homeIcon(modifier: Modifier = Modifier) {
 		drawRect(Colours.LightModePrimary, topLeft = androidx.compose.ui.geometry.Offset(8f, 14f), size = androidx.compose.ui.geometry.Size(7f, 9f))
 	}
 }
-
 @Composable
 fun pinIcon(modifier: Modifier = Modifier) {
 	Canvas(modifier.size(width = 15.734.dp, height = 19.74.dp)) {
@@ -65,7 +68,6 @@ fun pinIcon(modifier: Modifier = Modifier) {
 		drawCircle(Colours.LightModePrimary, radius = 3f, center = androidx.compose.ui.geometry.Offset(7.87f, 7.3f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1.5f))
 	}
 }
-
 @Composable
 fun carIcon(modifier: Modifier = Modifier) {
 	Canvas(modifier.size(width = 42.dp, height = 20.699.dp)) {
@@ -82,4 +84,81 @@ fun profileIcon(modifier: Modifier = Modifier) {
 		drawCircle(Colours.LightModePrimary, radius = 4.75f, center = androidx.compose.ui.geometry.Offset(10f, 5f))
 		drawRoundRect(Colours.LightModePrimary, topLeft = androidx.compose.ui.geometry.Offset(1f, 13f), size = androidx.compose.ui.geometry.Size(18f, 9.5f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(6f, 6f))
 	}
+}
+
+
+
+// Seat icons and no_of_free_seats indicator
+
+@Composable
+fun SeatIcon(free: Boolean = false, modifier: Modifier = Modifier) {
+	Box(
+		modifier = modifier.size(10.dp).border(1.dp, Colours.LightModePrimary, RoundedCornerShape(3.dp))
+			.background(if (free) Colours.LightModeBackground1 else Colours.LightModePrimary, RoundedCornerShape(3.dp)),
+	)
+}
+@Composable
+fun FreeSeats(modifier: Modifier = Modifier) {
+	Row(modifier = modifier.padding(horizontal = 2.dp), horizontalArrangement = Arrangement.spacedBy(2.dp)) {
+		SeatIcon()
+		SeatIcon(free = true)
+		SeatIcon(free = true)
+	}
+}
+
+
+
+@Composable
+fun BackButton(onClick: () -> Unit = {}, modifier: Modifier = Modifier) {
+	Box(
+		modifier = modifier.size(40.dp).background(Colours.DarkModePrimary, CircleShape)
+			.border(1.dp, Colours.DarkModeBorder, CircleShape).clickable(onClick = onClick),
+		contentAlignment = Alignment.Center,
+	) {
+		Canvas(Modifier.size(22.dp)) {
+			drawLine(Colours.DarkModeSecondary, androidx.compose.ui.geometry.Offset(15f, 3f), androidx.compose.ui.geometry.Offset(7f, 11f), 2.5f, StrokeCap.Round)
+			drawLine(Colours.DarkModeSecondary, androidx.compose.ui.geometry.Offset(7f, 11f), androidx.compose.ui.geometry.Offset(15f, 19f), 2.5f, StrokeCap.Round)
+		}
+	}
+}
+
+
+@Composable
+fun bagsIcon(modifier: Modifier = Modifier) {
+	Canvas(modifier.size(width = 21.dp, height = 26.dp)) {
+		drawRoundRect(Colours.LightModePrimary, topLeft = androidx.compose.ui.geometry.Offset(1f, 5f), size = androidx.compose.ui.geometry.Size(12f, 20f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(2f, 2f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
+		drawLine(Colours.LightModePrimary, androidx.compose.ui.geometry.Offset(5f, 5f), androidx.compose.ui.geometry.Offset(5f, 1f), 2f, StrokeCap.Round)
+		drawLine(Colours.LightModePrimary, androidx.compose.ui.geometry.Offset(5f, 1f), androidx.compose.ui.geometry.Offset(9f, 1f), 2f, StrokeCap.Round)
+		drawRoundRect(Colours.LightModePrimary, topLeft = androidx.compose.ui.geometry.Offset(8f, 18f), size = androidx.compose.ui.geometry.Size(12f, 7f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(1f, 1f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
+		drawLine(Colours.LightModePrimary, androidx.compose.ui.geometry.Offset(11f, 18f), androidx.compose.ui.geometry.Offset(17f, 15f), 2f, StrokeCap.Round)
+	}
+}
+
+
+@Composable
+fun messageIcon(modifier: Modifier = Modifier) {
+	Canvas(modifier.size(width = 23.dp, height = 20.dp)) {
+		drawRoundRect(Colours.LightModePrimary, topLeft = androidx.compose.ui.geometry.Offset(1f, 1f), size = androidx.compose.ui.geometry.Size(21f, 17f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(3f, 3f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
+		drawLine(Colours.LightModePrimary, androidx.compose.ui.geometry.Offset(5f, 18f), androidx.compose.ui.geometry.Offset(4f, 14f), 2f, StrokeCap.Round)
+	}
+}
+
+
+@Composable
+fun searchIcon(modifier: Modifier = Modifier) {
+	Canvas(modifier.size(width = 15.734.dp, height = 19.74.dp)) {
+		drawCircle(Colours.LightModePrimary, radius = 6.5f, center = androidx.compose.ui.geometry.Offset(6.5f, 6.5f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
+		drawLine(Colours.LightModePrimary, androidx.compose.ui.geometry.Offset(11f, 11f), androidx.compose.ui.geometry.Offset(15f, 15f), 2f, StrokeCap.Round)
+	}
+}
+
+
+
+@Composable
+fun calendarIcon(modifier: Modifier = Modifier) {
+	Icon(Icons.Outlined.DateRange, contentDescription = "Calendar", modifier = modifier.size(20.dp), tint = Colours.LightModePrimary)
+}
+@Composable
+fun clockIcon(modifier: Modifier = Modifier) {
+	Icon(Icons.Outlined.AccessTime, contentDescription = "Clock", modifier = modifier.size(20.dp), tint = Colours.LightModePrimary)
 }
