@@ -94,7 +94,7 @@ private fun BottomNavButton(asset: String?, label: String, onClick: () -> Unit) 
 // Stage indicator components
 
 @Composable
-private fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1, noStages: Int = 5, primaryColour: Color = Variables.LightModePrimary, secondaryColour: Color = Variables.LightModeSecondary) {
+private fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1, noStages: Int = 5, primaryColour: Color = Colours.LightModePrimary, secondaryColour: Color = Colours.LightModeSecondary) {
   Column(
 
     // determine position of current stage indicator based on int parameter
@@ -134,7 +134,7 @@ private fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1,
 }
 
 @Composable
-private fun IndividualStageIndicator(modifier: Modifier = Modifier, isCurrentStage: Boolean = false, colour: Color = Variables.LightModeSecondary) {
+private fun IndividualStageIndicator(modifier: Modifier = Modifier, isCurrentStage: Boolean = false, colour: Color = Colours.LightModeSecondary) {
   if (isCurrentStage) {
     Box(
       modifier = Modifier
@@ -151,11 +151,4 @@ private fun IndividualStageIndicator(modifier: Modifier = Modifier, isCurrentSta
   }
 }
 
-Object Variables {
-  val LightModePrimary = Colours.LightModePrimary
-  val LightModeSecondary = Colours.LightModeSecondary
-  val LightModeBackground1 = Colours.LightModeBackground1
-  val Accent = Colours.Accent
-
-  val textSmallText1 = TextFormatting.SmallText1
-}
+Object Variables { }
