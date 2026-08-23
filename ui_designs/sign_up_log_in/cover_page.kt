@@ -38,8 +38,7 @@ fun CoverPage(
   modifier: Modifier = Modifier,
 ) {
   
-    StatusBar()
-
+    StatusBar(theme = "dark")
     // Main content
 
     Column(

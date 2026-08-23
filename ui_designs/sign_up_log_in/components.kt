@@ -34,11 +34,14 @@ private const val rightSideAsset =
 
 
 @Composable
-private fun StatusBar(modifier: Modifier = Modifier) {
+private fun StatusBar(modifier: Modifier = Modifier, theme: string = "light") {
+    if (theme == "light") { colour = Color(0xFF0A5C2E) }
+    else if (theme == "dark") { colour = Color(0xFFFFFFFF) }
+    
     Box( // Status bar & Home indicator
     modifier = modifier
       .fillMaxSize()
-      .background(Color(0xFF0A5C2E)),
+      .background(colour),
   ) {
     Row(
       modifier = Modifier
