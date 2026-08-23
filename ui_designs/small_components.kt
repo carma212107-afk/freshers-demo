@@ -24,9 +24,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -36,7 +41,6 @@ import coil.compose.AsyncImage
 
 
 // icons
-
 
 // BottomNavigationBar icons
 @Composable
@@ -143,7 +147,6 @@ fun NoOfFreeSeatsIndicator(modifier: Modifier = Modifier, noOfFreeSeats: Int = 3
 }
 
 
-
 @Composable
 fun BackButton(onClick: () -> Unit = {}, modifier: Modifier = Modifier) {
 	Box(
@@ -155,5 +158,38 @@ fun BackButton(onClick: () -> Unit = {}, modifier: Modifier = Modifier) {
 			drawLine(Colours.DarkModeSecondary, androidx.compose.ui.geometry.Offset(15f, 3f), androidx.compose.ui.geometry.Offset(7f, 11f), 2.5f, StrokeCap.Round)
 			drawLine(Colours.DarkModeSecondary, androidx.compose.ui.geometry.Offset(7f, 11f), androidx.compose.ui.geometry.Offset(15f, 19f), 2.5f, StrokeCap.Round)
 		}
+	}
+}
+
+
+// profile components
+
+@Composable
+fun ProfilePic(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Modifier = Modifier, initials: String = "AB") {
+	val large = theme == Theme.Dark && !unread
+	val diameter = if (large) 75.dp else 30.dp
+	Box(modifier = modifier.size(diameter), contentAlignment = Alignment.Center) {
+		Canvas(Modifier.matchParentSize()) {
+			drawCircle(if (large) Colours.Accent else Colours.LightModeSecondary, radius = size.minDimension / 2f)
+			if (!large) drawCircle(Colours.LightModePrimary, radius = size.minDimension / 2f, style = Stroke(1f))
+		}
+		Text(
+			initials,
+			color = if (large) Colours.LightModeSecondary else Colours.LightModePrimary,
+			fontSize = if (large) TextFormatting.Heading2.size else TextFormatting.Boxes1.size,
+			fontWeight = if (large) TextFormatting.Heading2.weight else TextFormatting.Boxes1.weight,
+		)
+	}
+}
+
+
+@Composable
+fun NumberRating(modifier: Modifier = Modifier, rating: Float, theme: Theme = Theme.Light) {
+    if (theme == Theme.Light) { primaryColour = Colours.LightModePrimary }
+    else { primaryColour = Colours.DarkModeSecondary }
+
+	Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+		StarGlyph(filled = true, color = primaryColour, modifier = Modifier.size(20.dp))
+		Text(rating.toString(), color = primaryColour, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 	}
 }
