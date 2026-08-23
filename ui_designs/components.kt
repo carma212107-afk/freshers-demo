@@ -27,14 +27,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
-private const val timeAsset = 
-  "https://www.figma.com/api/mcp/asset/a3121e18-4222-405c-9eca-d748c5f06502.svg"
-private const val rightSideAsset =
-  "https://www.figma.com/api/mcp/asset/3042e646-380b-478e-a3ec-48dbd73ad777.svg"
-
 
 @Composable
 private fun StatusBar(modifier: Modifier = Modifier, theme: string = "light") {
+    private const val timeAsset = 
+      "https://www.figma.com/api/mcp/asset/a3121e18-4222-405c-9eca-d748c5f06502.svg"
+    private const val rightSideAsset =
+      "https://www.figma.com/api/mcp/asset/3042e646-380b-478e-a3ec-48dbd73ad777.svg"
+
+
     if (theme == "light") { colour = Color(0xFF0A5C2E) }
     else if (theme == "dark") { colour = Color(0xFF0A5C2E) }
     
