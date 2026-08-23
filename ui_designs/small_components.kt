@@ -32,8 +32,11 @@ import coil.compose.AsyncImage
 
 
 // icons
-private const val homeIcon = "https://www.figma.com/api/mcp/asset/bf2e91af-77f1-43fd-a192-20ef560e14a3.svg"
-private const val pinIcon = "https://www.figma.com/api/mcp/asset/d774975f-5f3a-4bf1-91cf-63330e1a3620.svg"
+private const val carBodyAsset = "https://www.figma.com/api/mcp/asset/3cadbe92-c3b5-4af9-b981-8989ebb52a45.svg"
+private const val carBackWheelAsset = "https://www.figma.com/api/mcp/asset/e3a8667f-5eae-4cb7-b968-82fbbd5868e9.svg"
+private const val carFrontWheelAsset = "https://www.figma.com/api/mcp/asset/23493609-b260-4ca6-a63a-5de3df40df53.svg"
+private const val profileBodyAsset = "https://www.figma.com/api/mcp/asset/4f7672c0-25f1-4d52-b60b-8f0fa33559b2.svg"
+private const val profileHeadAsset = "https://www.figma.com/api/mcp/asset/8ab73d6d-6812-450d-a4c2-973d334dce6a.svg"
 
 @Composable
 private fun carIcon() {
