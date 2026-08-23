@@ -143,19 +143,18 @@ private fun StarGlyph(filled: Boolean, color: Color, modifier: Modifier = Modifi
 	}
 }
 
+
+
 @Composable
-fun EGReview(
+fun Review(
 	modifier: Modifier = Modifier,
-	firstName: String = "<FirstN>",
-	startCity: String = "<startC>",
-	endCity: String = "<endC>",
-	quote: String = "“<quote>”",
+	review = Review,
 ) {
 	Column(
 		modifier = modifier
 			.width(342.dp)
 			.border(1.dp, profileComponentMint, RoundedCornerShape(20.dp))
-			.background(Color.White, RoundedCornerShape(20.dp))
+			.background(Colours.LightModeBackground2, RoundedCornerShape(20.dp))
 			.padding(horizontal = 15.dp, vertical = 10.dp),
 		verticalArrangement = Arrangement.spacedBy(5.dp),
 	) {
@@ -166,11 +165,11 @@ fun EGReview(
 		) {
 			ProfilePic(modifier = Modifier.size(30.dp))
 			Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-				Text(firstName, color = profileComponentGreen, fontSize = 15.sp, fontWeight = FontWeight.Bold)
-				Text("$startCity  →  $endCity", color = profileComponentGreen, fontSize = 14.sp, fontWeight = FontWeight.Light)
+				Text(user.getFormattedFirstName(), color = Colours.LightModeText, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
+				Text("${ride.startCity}  →  ${ride.endCity}", color = Colours.LightModeText, fontSize = TextFormatting.Boxes2.size, fontWeight = TextFormatting.Boxes2.weight)
 			}
 			StarRating(filled = 4, modifier = Modifier.width(100.dp))
 		}
-		Text(quote, color = profileComponentGreen, fontSize = 15.sp)
+		Text(quote, color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 	}
 }
