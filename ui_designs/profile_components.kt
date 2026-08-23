@@ -90,14 +90,14 @@ private const val snapchatLogo = "https://play-lh.googleusercontent.com/nOJWJoDA
 fun SocialProfileButton(profile: SocialProfile = SocialProfile.Instagram, modifier: Modifier = Modifier) {
 	Row(
 		modifier = modifier
-			.border(1.dp, profileComponentMint, RoundedCornerShape(20.dp))
-			.background(Color.White, RoundedCornerShape(20.dp))
+			.border(1.dp, Colours.DarkModePrimary, RoundedCornerShape(20.dp))
+			.background(Colours.LightModeBackground2, RoundedCornerShape(20.dp))
 			.padding(horizontal = 15.dp, vertical = 6.dp),
 		horizontalArrangement = Arrangement.spacedBy(5.dp),
 		verticalAlignment = Alignment.CenterVertically,
 	) {
 		if (profile == SocialProfile.Instagram) AsyncImage(model = instagramLogo, contentDescription = "Instagram Logo", modifier = Modifier.size(25.dp)) else AsyncImage(model = snapchatLogo, contentDescription = "Snapchat Logo", modifier = Modifier.size(25.dp))
-		Text(if (profile == SocialProfile.Instagram) "${user.socialProfiles[SocialProfile.Instagram]}" else "${user.socialProfiles[SocialProfile.Snapchat]}", color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text.weight)
+		Text(if (profile == SocialProfile.Instagram) "${user.socialProfiles[SocialProfile.Instagram]}" else "${user.socialProfiles[SocialProfile.Snapchat]}", color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 		// Add click functionality to open the respective social media profile in a web browser or app
 	}
 }
@@ -159,7 +159,7 @@ fun Review(
 	Column(
 		modifier = modifier
 			.width(342.dp)
-			.border(1.dp, profileComponentMint, RoundedCornerShape(20.dp))
+			.border(1.dp, Colours.LightModeBorder, RoundedCornerShape(20.dp))
 			.background(Colours.LightModeBackground2, RoundedCornerShape(20.dp))
 			.padding(horizontal = 15.dp, vertical = 10.dp),
 		verticalArrangement = Arrangement.spacedBy(5.dp),
