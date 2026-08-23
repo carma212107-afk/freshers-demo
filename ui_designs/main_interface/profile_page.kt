@@ -235,32 +235,3 @@ private fun StarGlyph(filled: Boolean, color: Color, modifier: Modifier = Modifi
 		drawPath(star, color, style = if (filled) androidx.compose.ui.graphics.drawscope.Fill else Stroke(width = 1.5f, join = StrokeJoin.Round))
 	}
 }
-
-@Composable
-private fun Review(
-	modifier: Modifier = Modifier,
-	review = Review,
-) {
-	Column(
-		modifier = modifier
-			.width(342.dp)
-			.border(1.dp, Colours.LightModeBorder, RoundedCornerShape(20.dp))
-			.background(Colours.LightModeBackground2, RoundedCornerShape(20.dp))
-			.padding(horizontal = 15.dp, vertical = 10.dp),
-		verticalArrangement = Arrangement.spacedBy(5.dp),
-	) {
-		Row(
-			modifier = Modifier.fillMaxWidth(),
-			verticalAlignment = Alignment.Top,
-			horizontalArrangement = Arrangement.spacedBy(5.dp),
-		) {
-			ProfilePic(modifier = Modifier.size(30.dp), initials = review.reviewer.getInitials())
-			Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-				Text(review.reviewer.getFormattedFirstName(), color = Colours.LightModeText, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
-				Text("${review.ride.startCity}  →  ${review.ride.endCity}", color = Colours.LightModeText, fontSize = TextFormatting.Boxes2.size, fontWeight = TextFormatting.Boxes2.weight)
-			}
-			StarRating(filled = 4, modifier = Modifier.width(100.dp))
-		}
-		Text(review.quote, color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
-	}
-}
