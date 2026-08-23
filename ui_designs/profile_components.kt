@@ -65,7 +65,7 @@ fun ProfileComponents(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ProfilePic(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Modifier = Modifier, initials: String = "BE") {
+fun ProfilePic(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Modifier = Modifier, initials: String = "AB") {
 	val large = theme == Theme.Dark && !unread
 	val diameter = if (large) 75.dp else 30.dp
 	Box(modifier = modifier.size(diameter), contentAlignment = Alignment.Center) {
@@ -163,13 +163,13 @@ fun Review(
 			verticalAlignment = Alignment.Top,
 			horizontalArrangement = Arrangement.spacedBy(5.dp),
 		) {
-			ProfilePic(modifier = Modifier.size(30.dp))
+			ProfilePic(modifier = Modifier.size(30.dp), initials = review.reviewer.getInitials())
 			Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-				Text(user.getFormattedFirstName(), color = Colours.LightModeText, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
-				Text("${ride.startCity}  →  ${ride.endCity}", color = Colours.LightModeText, fontSize = TextFormatting.Boxes2.size, fontWeight = TextFormatting.Boxes2.weight)
+				Text(review.reviewer.getFormattedFirstName(), color = Colours.LightModeText, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
+				Text("${review.ride.startCity}  →  ${review.ride.endCity}", color = Colours.LightModeText, fontSize = TextFormatting.Boxes2.size, fontWeight = TextFormatting.Boxes2.weight)
 			}
 			StarRating(filled = 4, modifier = Modifier.width(100.dp))
 		}
-		Text(quote, color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+		Text(review.quote, color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 	}
 }
