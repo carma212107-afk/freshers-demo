@@ -69,8 +69,6 @@ private fun StatusBar(modifier: Modifier = Modifier, theme: Theme = Theme.Light)
 
 
 // BottomNavigationBar component
-private const val homeIcon = "https://www.figma.com/api/mcp/asset/bf2e91af-77f1-43fd-a192-20ef560e14a3.svg"
-private const val pinIcon = "https://www.figma.com/api/mcp/asset/d774975f-5f3a-4bf1-91cf-63330e1a3620.svg"
 
 @Composable
 private fun BottomNavigationBar(onHome: () -> Unit, onSearch: () -> Unit, onAddRide: () -> Unit, onRides: () -> Unit) {
