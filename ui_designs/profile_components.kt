@@ -65,19 +65,19 @@ fun ProfileComponents(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ProfileComponentPic(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Modifier = Modifier) {
+fun ProfilePic(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Modifier = Modifier, initials: String = "BE") {
 	val large = theme == Theme.Dark && !unread
 	val diameter = if (large) 75.dp else 30.dp
 	Box(modifier = modifier.size(diameter), contentAlignment = Alignment.Center) {
 		Canvas(Modifier.matchParentSize()) {
-			drawCircle(if (large) Color(0xFF1A9E52) else profileComponentMint, radius = size.minDimension / 2f)
-			if (!large) drawCircle(profileComponentGreen, radius = size.minDimension / 2f, style = Stroke(1f))
+			drawCircle(if (large) Colours.Accent else Colours.LightModeSecondary, radius = size.minDimension / 2f)
+			if (!large) drawCircle(Colours.LightModePrimary, radius = size.minDimension / 2f, style = Stroke(1f))
 		}
 		Text(
-			"BE",
-			color = if (large) profileComponentMint else profileComponentGreen,
-			fontSize = if (large) 25.sp else 15.sp,
-			fontWeight = if (large) FontWeight.ExtraBold else FontWeight.Bold,
+			initials,
+			color = if (large) Colours.LightModeSecondary else Colours.LightModePrimary,
+			fontSize = if (large) TextFormatting.Heading2.size else TextFormatting.Boxes1.size,
+			fontWeight = if (large) TextFormatting.Heading2.weight else TextFormatting.Boxes1.weight,
 		)
 	}
 }
@@ -189,7 +189,7 @@ fun EGReview(
 			verticalAlignment = Alignment.Top,
 			horizontalArrangement = Arrangement.spacedBy(5.dp),
 		) {
-			ProfileComponentPic(modifier = Modifier.size(30.dp))
+			ProfilePic(modifier = Modifier.size(30.dp))
 			Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
 				Text(firstName, color = profileComponentGreen, fontSize = 15.sp, fontWeight = FontWeight.Bold)
 				Text("$startCity  →  $endCity", color = profileComponentGreen, fontSize = 14.sp, fontWeight = FontWeight.Light)
