@@ -82,6 +82,10 @@ fun ProfilePic(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Mo
 	}
 }
 
+
+enum class SocialProfile { Instagram, Snapchat }
+private const val instagramLogo = "https://play-lh.googleusercontent.com/yHi59jmO_lVamcyJ1i3rM1_E8bAiAspShnGjjURq05ipQQSUksO3QVEsXTegRSqul038-4YNA7O644XAcx251Q=s48"
+private const val snapchatLogo = "https://play-lh.googleusercontent.com/nOJWJoDAzuRSHmlFfpzHXAj8UbTJwk_JGYf0uAPTKPtiiIX_2Y7r5ATO1ZtxHRqaFTqfIDZ40PnBK4hukeJh=w240-h480-rw"
 @Composable
 fun SocialProfileButton(profile: SocialProfile = SocialProfile.Instagram, modifier: Modifier = Modifier) {
 	Row(
@@ -92,41 +96,12 @@ fun SocialProfileButton(profile: SocialProfile = SocialProfile.Instagram, modifi
 		horizontalArrangement = Arrangement.spacedBy(5.dp),
 		verticalAlignment = Alignment.CenterVertically,
 	) {
-		if (profile == SocialProfile.Instagram) InstagramMark() else SnapchatMark()
+		if (profile == SocialProfile.Instagram) AsyncImage(model = instagramLogo, contentDescription = "Instagram Logo", modifier = Modifier.size(25.dp)) else AsyncImage(model = snapchatLogo, contentDescription = "Snapchat Logo", modifier = Modifier.size(25.dp))
 		Text(if (profile == SocialProfile.Instagram) "@instagram" else "@snapchat", color = profileComponentGreen, fontSize = 15.sp)
 	}
 }
 
-enum class SocialProfile { Instagram, Snapchat }
 
-@Composable
-private fun InstagramMark() {
-	Canvas(Modifier.size(25.dp)) {
-		val stroke = Stroke(width = 2f)
-		drawRoundRect(Color(0xFFE1306C), topLeft = Offset(2f, 2f), size = Size(21f, 21f), cornerRadius = CornerRadius(5f), style = stroke)
-		drawCircle(Color(0xFFE1306C), radius = 5.5f, center = Offset(12.5f, 12.5f), style = stroke)
-		drawCircle(Color(0xFFE1306C), radius = 1.3f, center = Offset(18f, 7f))
-	}
-}
-
-@Composable
-private fun SnapchatMark() {
-	Canvas(Modifier.size(25.dp)) {
-		drawRoundRect(Color(0xFFFFD93D), topLeft = Offset(1f, 1f), size = Size(23f, 23f), cornerRadius = CornerRadius(5f))
-		val ghost = Path().apply {
-			moveTo(8f, 18f)
-			cubicTo(5f, 17f, 6f, 15f, 8f, 14f)
-			lineTo(8f, 9f)
-			cubicTo(8f, 5f, 17f, 5f, 17f, 9f)
-			lineTo(17f, 14f)
-			cubicTo(20f, 15f, 20f, 17f, 17f, 18f)
-			cubicTo(15f, 21f, 10f, 21f, 8f, 18f)
-			close()
-		}
-		drawPath(ghost, Color.White)
-		drawPath(ghost, Color.Black, style = Stroke(1f))
-	}
-}
 
 @Composable
 fun NumberRating(modifier: Modifier = Modifier) {
