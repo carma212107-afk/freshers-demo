@@ -37,13 +37,7 @@ private val profileBackground = Color(0xFFF5FFF8)
 
 private const val circleAsset = "https://www.figma.com/api/mcp/asset/53e1e70e-7107-4d9d-9862-3751a27b6936.svg"
 private const val instagramAsset = "https://www.figma.com/api/mcp/asset/1d10f5cd-9e71-45bf-8d3e-42dc236f24ef.png"
-private const val homeAsset = "https://www.figma.com/api/mcp/asset/bf2e91af-77f1-43fd-a192-20ef560e14a3.svg"
-private const val pinAsset = "https://www.figma.com/api/mcp/asset/d774975f-5f3a-4bf1-91cf-63330e1a3620.svg"
-private const val carBodyAsset = "https://www.figma.com/api/mcp/asset/3cadbe92-c3b5-4af9-b981-8989ebb52a45.svg"
-private const val carBackWheelAsset = "https://www.figma.com/api/mcp/asset/e3a8667f-5eae-4cb7-b968-82fbbd5868e9.svg"
-private const val carFrontWheelAsset = "https://www.figma.com/api/mcp/asset/23493609-b260-4ca6-a63a-5de3df40df53.svg"
-private const val profileBodyAsset = "https://www.figma.com/api/mcp/asset/4f7672c0-25f1-4d52-b60b-8f0fa33559b2.svg"
-private const val profileHeadAsset = "https://www.figma.com/api/mcp/asset/8ab73d6d-6812-450d-a4c2-973d334dce6a.svg"
+
 
 @Composable
 fun MyProfileExamplePage(
@@ -174,31 +168,3 @@ private fun ProfileSection(content: @Composable () -> Unit) {
 	Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp).clip(RoundedCornerShape(20.dp)).border(1.dp, profileMint, RoundedCornerShape(20.dp)).background(Color.White).padding(horizontal = 15.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(5.dp), content = content)
 }
 
-@Composable
-private fun ProfileBottomBar(onHome: () -> Unit, onSearch: () -> Unit, onAddRide: () -> Unit, onRides: () -> Unit) {
-	Row(modifier = Modifier.fillMaxWidth().navigationBarsPadding().border(BorderStroke(1.dp, Color(0xFF1A9E52))).background(profileBackground).padding(top = 7.dp, bottom = 5.dp), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
-		BottomItem(homeAsset, "Home", onHome)
-		BottomItem(pinAsset, "Search", onSearch)
-		Text("+", modifier = Modifier.size(50.dp).clip(CircleShape).background(profileGreen).clickable(onClick = onAddRide).padding(bottom = 5.dp), color = profileBackground, fontSize = 36.sp, textAlign = TextAlign.Center)
-		BottomItem(null, "My Rides", onRides, showCar = true)
-		BottomItem(null, "Profile", {})
-	}
-}
-
-@Composable
-private fun BottomItem(asset: String?, label: String, onClick: () -> Unit, showCar: Boolean = false) {
-	Column(modifier = Modifier.clickable(onClick = onClick), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(2.dp)) {
-		if (showCar) {
-			Box(Modifier.size(width = 42.dp, height = 21.dp)) {
-				AsyncImage(carBackWheelAsset, null, Modifier.size(7.dp).align(Alignment.BottomEnd).padding(end = 6.dp))
-				AsyncImage(carFrontWheelAsset, null, Modifier.size(7.dp).align(Alignment.BottomStart).padding(start = 7.dp))
-				AsyncImage(carBodyAsset, label, Modifier.fillMaxSize(), contentScale = ContentScale.Fit)
-			}
-		} else if (asset != null) AsyncImage(asset, label, Modifier.size(24.dp), contentScale = ContentScale.Fit)
-		else Box(Modifier.size(24.dp)) {
-			AsyncImage(profileBodyAsset, null, Modifier.size(20.dp).align(Alignment.BottomCenter))
-			AsyncImage(profileHeadAsset, null, Modifier.size(9.dp).align(Alignment.TopCenter))
-		}
-		Text(label, color = profileGreen, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-	}
-}

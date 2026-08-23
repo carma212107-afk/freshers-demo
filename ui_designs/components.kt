@@ -65,6 +65,34 @@ private fun StatusBar(modifier: Modifier = Modifier, theme: string = "light") {
     }
 }
 
+
+// BottomNavigationBar component
+private const val homeIcon = "https://www.figma.com/api/mcp/asset/bf2e91af-77f1-43fd-a192-20ef560e14a3.svg"
+private const val pinIcon = "https://www.figma.com/api/mcp/asset/d774975f-5f3a-4bf1-91cf-63330e1a3620.svg"
+
+@Composable
+private fun BottomNavigationBar(onHome: () -> Unit, onSearch: () -> Unit, onAddRide: () -> Unit, onRides: () -> Unit) {
+	Row(modifier = Modifier.fillMaxWidth().navigationBarsPadding().border(BorderStroke(1.dp, Colours.Accent)).background(Colours.LightModeBackground1).padding(top = 7.dp, bottom = 5.dp), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
+		BottomNavButton(homeIcon, "Home", onHome)
+		BottomNavButton(pinIcon, "Search", onSearch)
+		Text("+", modifier = Modifier.size(50.dp).clip(CircleShape).background(Colours.LightModePrimary).clickable(onClick = onAddRide).padding(bottom = 5.dp), color = Colours.LightModeBackground1, fontSize = 36.sp, textAlign = TextAlign.Center)
+		BottomNavButton(carIcon(), "My Rides", onRides)
+		BottomNavButton(profileIcon(), "Profile", {})
+	}
+}
+
+@Composable
+private fun BottomNavButton(asset: String?, label: String, onClick: () -> Unit) {
+	Column(modifier = Modifier.clickable(onClick = onClick), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(2.dp)) {
+		if (asset != null) AsyncImage(asset, label, Modifier.size(24.dp), contentScale = ContentScale.Fit)
+		Text(label, color = Colours.LightModePrimary, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.weight)
+	}
+}
+
+
+
+// Stage indicator components
+
 @Composable
 private fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1, noStages: Int = 5, primaryColour: Color = Variables.LightModePrimary, secondaryColour: Color = Variables.LightModeSecondary) {
   Column(
@@ -126,4 +154,8 @@ private fun IndividualStageIndicator(modifier: Modifier = Modifier, isCurrentSta
 Object Variables {
   val LightModePrimary = Colours.LightModePrimary
   val LightModeSecondary = Colours.LightModeSecondary
+  val LightModeBackground1 = Colours.LightModeBackground1
+  val Accent = Colours.Accent
+
+  val textSmallText1 = TextFormatting.SmallText1
 }
