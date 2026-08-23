@@ -27,42 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-private val profileComponentGreen = Color(0xFF0A5C2E)
-private val profileComponentMint = Color(0xFFB5DDC3)
-private val profileComponentWhite = Color(0xFFF5FFF8)
-private val profileComponentPurple = Color(0xFF8A38F5)
 
-@Composable
-fun ProfileComponents(modifier: Modifier = Modifier) {
-	Row(
-		modifier = modifier,
-		horizontalArrangement = Arrangement.spacedBy(20.dp),
-		verticalAlignment = Alignment.Top,
-	) {
-		Column(
-			modifier = Modifier.border(1.dp, profileComponentPurple).padding(5.dp),
-			horizontalAlignment = Alignment.CenterHorizontally,
-			verticalArrangement = Arrangement.spacedBy(5.dp),
-		) {
-			Text("Profile Pics", color = profileComponentPurple, fontSize = 14.sp, fontWeight = FontWeight.ExtraBold)
-			Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-				ProfileComponentPic(ProfilePicTheme.Light, unread = true)
-				ProfileComponentPic(ProfilePicTheme.Light)
-			}
-			ProfileComponentPic(ProfilePicTheme.Dark)
-		}
-		Column(
-			modifier = Modifier.width(150.dp).border(1.dp, profileComponentPurple).padding(5.dp),
-			horizontalAlignment = Alignment.CenterHorizontally,
-			verticalArrangement = Arrangement.spacedBy(5.dp),
-		) {
-			Text("Rating", color = profileComponentPurple, fontSize = 16.sp, fontWeight = FontWeight.ExtraBold)
-			NumberRating()
-			StarRating(filled = 4, dark = false)
-			StarRating(filled = 5, dark = true)
-		}
-	}
-}
 
 @Composable
 fun ProfilePic(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Modifier = Modifier, initials: String = "AB") {
