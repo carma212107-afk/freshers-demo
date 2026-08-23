@@ -95,9 +95,9 @@ private fun ProfileHeader(user: User) {
 			}
 			Column(modifier = Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
 				Text("${user.getFullName()}", color = Colours.DarkModeText, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight, textAlign = TextAlign.Center)
-				Text("University of Exeter", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
-				Text("Year 2", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
-				Text("<BSc>", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+				Text("${user.university}", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+				Text("${user.getFormattedUniYear()}", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+				Text("${user.uniCourse}", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 				Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(5.dp), verticalAlignment = Alignment.CenterVertically) {
 					Text("$(user.rating)", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 					StarRating(filled = user.rating, theme = Theme.Dark)
