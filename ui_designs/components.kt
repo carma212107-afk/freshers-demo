@@ -27,9 +27,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
+enum class Theme { Light, Dark }
+
 
 @Composable
-private fun StatusBar(modifier: Modifier = Modifier, theme: string = "light") {
+private fun StatusBar(modifier: Modifier = Modifier, theme: Theme = Theme.Light) {
     private const val timeAsset = 
       "https://www.figma.com/api/mcp/asset/a3121e18-4222-405c-9eca-d748c5f06502.svg"
     private const val rightSideAsset =

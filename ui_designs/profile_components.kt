@@ -64,11 +64,9 @@ fun ProfileComponents(modifier: Modifier = Modifier) {
 	}
 }
 
-enum class ProfilePicTheme { Light, Dark }
-
 @Composable
-fun ProfileComponentPic(theme: ProfilePicTheme = ProfilePicTheme.Light, unread: Boolean = false, modifier: Modifier = Modifier) {
-	val large = theme == ProfilePicTheme.Dark && !unread
+fun ProfileComponentPic(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Modifier = Modifier) {
+	val large = theme == Theme.Dark && !unread
 	val diameter = if (large) 75.dp else 30.dp
 	Box(modifier = modifier.size(diameter), contentAlignment = Alignment.Center) {
 		Canvas(Modifier.matchParentSize()) {
