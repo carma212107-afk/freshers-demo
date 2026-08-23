@@ -104,10 +104,13 @@ fun SocialProfileButton(profile: SocialProfile = SocialProfile.Instagram, modifi
 
 
 @Composable
-fun NumberRating(modifier: Modifier = Modifier) {
+fun NumberRating(modifier: Modifier = Modifier, rating: Float, theme: Theme = Theme.Light) {
+    if (theme == Theme.Light) { primaryColour = Colours.LightModePrimary }
+    else { primaryColour = Colours.DarkModeSecondary }
+
 	Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
-		StarGlyph(filled = true, color = profileComponentGreen, modifier = Modifier.size(20.dp))
-		Text("4.5", color = profileComponentGreen, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+		StarGlyph(filled = true, color = primaryColour, modifier = Modifier.size(20.dp))
+		Text(rating.toString(), color = primaryColour, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 	}
 }
 
