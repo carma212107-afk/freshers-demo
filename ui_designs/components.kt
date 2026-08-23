@@ -34,7 +34,7 @@ import coil.compose.AsyncImage
 
 enum class Theme { Light, Dark }
 
-private enum class MainScreen { Home, Profile }
+private enum class MainScreen { Home, Search, PostRide, MyRides, Profile }
 
 @Composable
 fun MainInterface(modifier: Modifier = Modifier) {
@@ -43,16 +43,17 @@ fun MainInterface(modifier: Modifier = Modifier) {
   Column(modifier = modifier.fillMaxSize()) {
     when (currentScreen) {
       MainScreen.Home -> HomePage(modifier = Modifier.weight(1f))
-      MainScreen.Profile -> MyProfileExamplePage(
-        modifier = Modifier.weight(1f),
-        onHome = { currentScreen = MainScreen.Home },
-      )
+      MainScreen.Search -> SearchPage(modifier = Modifier.weight(1f))
+      MainScreen.PostRide -> PostRidePage(modifier = Modifier.weight(1f))
+      MainScreen.MyRides -> MyRidesPage(modifier = Modifier.weight(1f))
+      MainScreen.Profile -> MyProfileExamplePage(modifier = Modifier.weight(1f))
     }
     BottomNavigationBar(
       onHome = { currentScreen = MainScreen.Home },
-      onSearch = {},
-      onAddRide = {},
-      onRides = {},
+      onSearch = { currentScreen = MainScreen.Search },
+      onAddRide = { currentScreen = MainScreen.PostRide },
+      onMyRides = { currentScreen = MainScreen.MyRides },
+      onProfile = { currentScreen = MainScreen.Profile },
     )
   }
 }
@@ -99,13 +100,13 @@ private fun StatusBar(modifier: Modifier = Modifier, theme: Theme = Theme.Light)
 // BottomNavigationBar component
 
 @Composable
-private fun BottomNavigationBar(onHome: () -> Unit, onSearch: () -> Unit, onAddRide: () -> Unit, onRides: () -> Unit) {
+private fun BottomNavigationBar(onHome: () -> Unit, onSearch: () -> Unit, onAddRide: () -> Unit, onMyRides: () -> Unit, onProfile: () -> Unit) {
 	Row(modifier = Modifier.fillMaxWidth().navigationBarsPadding().border(BorderStroke(1.dp, Colours.Accent)).background(Colours.LightModeBackground1).padding(top = 7.dp, bottom = 5.dp), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
 		BottomNavButton(homeIcon, "Home", onHome)
 		BottomNavButton(pinIcon, "Search", onSearch)
 		Text("+", modifier = Modifier.size(50.dp).clip(CircleShape).background(Colours.LightModePrimary).clickable(onClick = onAddRide).padding(bottom = 5.dp), color = Colours.LightModeBackground1, fontSize = 36.sp, textAlign = TextAlign.Center)
-		BottomNavButton(carIcon(), "My Rides", onRides)
-		BottomNavButton(profileIcon(), "Profile", {})
+		BottomNavButton(carIcon(), "My Rides", onMyRides)
+		BottomNavButton(profileIcon(), "Profile", onProfile)
 	}
 }
 
