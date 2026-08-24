@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx./'compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -57,8 +57,8 @@ fun SearchPage(
 		Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(15.dp)) {
 			BackButton(onClick = onBack)
 			Column {
-				Text("Search Preferences", color = Colours.LightModeText, fontSize = 30.sp, fontWeight = FontWeight.Black)
-				Text("Edit your default search filters below", color = Colours.LightModeText, fontSize = TextFormatting.Text1.size)
+				Text("Search Preferences", color = Colours.LightModeText, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
+				Text("Edit your default search filters below", color = Colours.LightModeText, fontSize = TextFormatting.Text1.size, fontWeight = TextFormatting.Text1.weight)
 			}
 		}
 		Spacer(Modifier.height(22.dp))
@@ -86,14 +86,14 @@ fun SearchPage(
 			onClick = onContinue,
 			modifier = Modifier.fillMaxWidth().height(42.dp),
 			shape = RoundedCornerShape(20.dp),
-			colors = ButtonDefaults.buttonColors(containerColor = Colours.LightModePrimary),
-		) { Text("Continue", color = Colours.LightModeBackground1, fontWeight = FontWeight.Bold) }
+			colors = ButtonDefaults.buttonColors(containerColor = Colours.DarkModeBackground),
+		) { Text("Save preferences", color = Colours.DarkModeText, fontSize = TextFormatting.Button1.size, fontWeight = TextFormatting.Button1.weight) }
 		Button(
 			onClick = onDiscard,
 			modifier = Modifier.fillMaxWidth().height(42.dp),
 			shape = RoundedCornerShape(20.dp),
-			colors = ButtonDefaults.buttonColors(containerColor = Colours.LightModeBackground1),
-		) { Text("Discard changes", color = Colours.LightModePrimary, fontWeight = FontWeight.Bold) }
+			colors = ButtonDefaults.buttonColors(containerColor = Colours.LightModeBackground2),
+		) { Text("Discard changes", color = Colours.LightModeText, fontSize = TextFormatting.Button2.size, fontWeight = TextFormatting.Button2.weight) }
 	}
 }
 
@@ -106,7 +106,7 @@ private fun PreferenceCard(title: String, description: String, control: @Composa
 	) {
 		Column(modifier = Modifier.weight(1f)) {
 			Text(title, color = Colours.LightModeText, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
-			Text(description, color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, lineHeight = 23.sp)
+			Text(description, color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight, lineHeight = 23.sp)
 		}
 		Spacer(Modifier.width(10.dp))
 		control()
@@ -126,11 +126,11 @@ private fun QuietCarSelector(selected: Int, onSelected: (Int) -> Unit) {
 
 
 @Composable
-fun LevelSwitches(pref: Int = -1, onSelected: (Int) -> Unit = {}, modifier: Modifier = Modifier) {
+fun LevelSwitches(pref: QuietCarPreference = QuietCarPreference.None, onSelected: (Int) -> Unit = {}, modifier: Modifier = Modifier) {
 	val background = when (pref) {
-		-1 -> Color(0xFFE49E99)
-		0 -> Colours.LightModeSecondary
-		else -> Colours.LightModePrimary
+		Quiet -> Colours.RedBackground
+		None -> Colours.LightModeSecondary
+		Loud -> Colours.LightModePrimary
 	}
 	Row(
 		modifier = modifier.background(background, RoundedCornerShape(20.dp)).padding(2.dp),
@@ -138,22 +138,22 @@ fun LevelSwitches(pref: Int = -1, onSelected: (Int) -> Unit = {}, modifier: Modi
 		verticalAlignment = Alignment.CenterVertically,
 	) {
 		LevelOption(
-			icon = if (pref == -1) Icons.Filled.Headphones else null,
+			icon = if (pref == Quiet) Icons.Filled.Headphones else null,
 			label = "N",
-			selected = pref == -1,
-			onClick = { onSelected(-1) },
+			selected = pref == Quiet,
+			onClick = { onSelected(Quiet) },
 		)
 		LevelOption(
-			icon = if (pref == 0) Icons.Filled.Remove else null,
+			icon = if (pref == None) Icons.Filled.Remove else null,
 			label = "/",
-			selected = pref == 0,
-			onClick = { onSelected(0) },
+			selected = pref == None,
+			onClick = { onSelected(None) },
 		)
 		LevelOption(
-			icon = if (pref == 1) Icons.Filled.MusicNote else null,
+			icon = if (pref == Loud) Icons.Filled.MusicNote else null,
 			label = "Y",
-			selected = pref == 1,
-			onClick = { onSelected(1) },
+			selected = pref == Loud,
+			onClick = { onSelected(Loud) },
 		)
 	}
 }
