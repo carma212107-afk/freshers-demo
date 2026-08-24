@@ -54,6 +54,9 @@ fun ReviewsPage(
 	}
 }
 
+
+// components used only in reviews page
+
 @Composable
 private fun ReviewsHeader(searchQuery: String, onSearchQueryChange: (String) -> Unit, onBack: () -> Unit) {
 	Column(
@@ -64,8 +67,8 @@ private fun ReviewsHeader(searchQuery: String, onSearchQueryChange: (String) -> 
 		Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(15.dp)) {
 			BackButton(onClick = onBack)
 			Column {
-				Text("Reviews", color = Colours.DarkModeText, fontSize = 30.sp, fontWeight = FontWeight.Black)
-				Text("See what people thought about your rides", color = Colours.DarkModeText, fontSize = 16.sp)
+				Text("Reviews", color = Colours.DarkModeText, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
+				Text("See what people thought about your rides", color = Colours.DarkModeText, fontSize = TextFormatting.Text1.size, fontWeight = TextFormatting.Text1.weight)
 			}
 		}
 		OutlinedTextField(
@@ -77,10 +80,12 @@ private fun ReviewsHeader(searchQuery: String, onSearchQueryChange: (String) -> 
 			shape = RoundedCornerShape(15.dp),
 			 singleLine = true,
 			colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
-				focusedTextColor = Colours.DarkModeText,
+				focusedTextColor = Colours.LightModeText,
 				unfocusedTextColor = Colours.DarkModeText,
-				focusedBorderColor = Colours.DarkModeText,
-				unfocusedBorderColor = Colours.DarkModeText,
+				focusedBorderColor = Colours.Accent,
+				unfocusedBorderColor = Colours.DarkModeBorder,
+				focusedBackgroundColor = Colours.LightModeBackground
+				unfocusedBackgroundColor = Colours.DarkModeBackground
 				cursorColor = Colours.DarkModeText,
 			),
 		)
@@ -96,22 +101,23 @@ private fun RatingSummary(reviews: List<Review>) {
 		horizontalArrangement = Arrangement.spacedBy(16.dp),
 	) {
 		Column(horizontalAlignment = Alignment.CenterHorizontally) {
-			Text(String.format("%.2f", rating), color = Colours.LightModeText, fontSize = 35.sp, fontWeight = FontWeight.Black)
-			Text("(${reviews.size} reviews)", color = Colours.LightModeText, fontSize = 14.sp)
+			Text(String.format("%.1f", rating), color = Colours.LightModeText, fontSize = TextFormatting.Heading1.size, fontWeight = TextFormatting.Heading1.weight)
+			Text("(${reviews.size} reviews)", color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 		}
-		StarRating(filled = rating.toInt(), modifier = Modifier.size(74.dp))
+		StarGlyph(filled = true, modifier = Modifier.size(80.dp))
 		Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(7.dp)) {
 			for (stars in 5 downTo 1) {
 				Row(verticalAlignment = Alignment.CenterVertically) {
-					Text("$stars", color = Colours.LightModeText, fontSize = 14.sp, modifier = Modifier.width(12.dp))
+					Text("${stars}", color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight, modifier = Modifier.width(12.dp))
 					Spacer(Modifier.width(7.dp))
+					
+					// progress bar component
 					Box(Modifier.weight(1f).height(2.dp).background(if (stars <= rating.toInt()) Colours.LightModePrimary else Colours.LightModeSecondary))
 				}
 			}
 		}
 	}
 }
-
 
 
 // components primarily used in the reviews page
