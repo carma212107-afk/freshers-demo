@@ -147,20 +147,6 @@ fun NoOfFreeSeatsIndicator(modifier: Modifier = Modifier, noOfFreeSeats: Int = 3
 }
 
 
-@Composable
-fun BackButton(onClick: () -> Unit = {}, modifier: Modifier = Modifier) {
-	Box(
-		modifier = modifier.size(40.dp).background(Colours.DarkModePrimary, CircleShape)
-			.border(1.dp, Colours.DarkModeBorder, CircleShape).clickable(onClick = onClick),
-		contentAlignment = Alignment.Center,
-	) {
-		Canvas(Modifier.size(22.dp)) {
-			drawLine(Colours.DarkModeSecondary, androidx.compose.ui.geometry.Offset(15f, 3f), androidx.compose.ui.geometry.Offset(7f, 11f), 2.5f, StrokeCap.Round)
-			drawLine(Colours.DarkModeSecondary, androidx.compose.ui.geometry.Offset(7f, 11f), androidx.compose.ui.geometry.Offset(15f, 19f), 2.5f, StrokeCap.Round)
-		}
-	}
-}
-
 
 @Composable
 fun ToggleSwitch(switchedOn: Boolean = false, onClick: () -> Unit = {}, modifier: Modifier = Modifier) {
@@ -177,6 +163,7 @@ fun ToggleSwitch(switchedOn: Boolean = false, onClick: () -> Unit = {}, modifier
 		),
 	)
 }
+
 
 
 // profile components

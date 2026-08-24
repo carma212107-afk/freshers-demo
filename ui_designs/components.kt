@@ -117,5 +117,51 @@ private fun BottomNavButton(asset: String?, label: String, onClick: () -> Unit) 
 }
 
 
+// TopMenuBar component
+
+@Composable
+private fun BackButton(onClick: () -> Unit = {}, modifier: Modifier = Modifier) {
+	Box(
+		modifier = modifier.size(40.dp).background(Colours.DarkModePrimary, CircleShape)
+			.border(1.dp, Colours.DarkModeBorder, CircleShape).clickable(onClick = onClick),
+		contentAlignment = Alignment.Center,
+	) {
+		Canvas(Modifier.size(22.dp)) {
+			drawLine(Colours.DarkModeSecondary, androidx.compose.ui.geometry.Offset(15f, 3f), androidx.compose.ui.geometry.Offset(7f, 11f), 2.5f, StrokeCap.Round)
+			drawLine(Colours.DarkModeSecondary, androidx.compose.ui.geometry.Offset(7f, 11f), androidx.compose.ui.geometry.Offset(15f, 19f), 2.5f, StrokeCap.Round)
+		}
+	}
+}
+enum class MenuBarButton(
+  val text: String
+  val modifier: Modifier
+  val colour: Color
+) {}
+fun TopMenuBar(title: String, description: String = null, rightButton: MenuBarButton = null, theme: Theme = Theme.Dark) {
+	val backgroundColour = when (theme) {
+		Light -> Colours.LightModeBackground1
+		Dark -> Colours.DarkModeBackground
+	}
+	val textColour = when (theme) {
+		Light -> Colours.LightModeText
+		Dark -> Colours.DarkModeText
+	}
+
+	Row(
+		modifier = Modifier.fillMaxWidth().background(backgroundColour).padding(start = 15.dp, end = 15.dp, top = 60.dp, bottom = 15.dp),
+		verticalAlignment = Alignment.CenterVertically,
+		horizontalArrangement = Arrangement.spacedBy(15.dp)
+	) {
+		BackButton(onClick = onBack, theme = theme)
+		Column {
+			Text(title, color = textColour, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
+			if (description != null) { Text(description, color = textColour, fontSize = TextFormatting.Text1.size, fontWeight = TextFormatting.Text1.weight) }
+		}
+		if (rightButton != null) {
+			Text(rightButton.text, modifier = rightButton.modifier, color = textColour, fontsize = TextFormatting.Button1.size, fontWeight = TextFormatting.Button1.weight, textAlign = TextAlign.Center)
+		}
+	}
+}
+
 
 Object Variables { }
