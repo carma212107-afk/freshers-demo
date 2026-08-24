@@ -162,6 +162,23 @@ fun BackButton(onClick: () -> Unit = {}, modifier: Modifier = Modifier) {
 }
 
 
+@Composable
+fun ToggleSwitch(switchedOn: Boolean = false, onClick: () -> Unit = {}, modifier: Modifier = Modifier) {
+	Switch(
+		checked = switchedOn,
+		onCheckedChange = { onClick() },
+		modifier = modifier.size(width = 44.dp, height = 24.dp),
+		colors = SwitchDefaults.colors(
+			checkedThumbColor = Colours.LightModeBackground2,
+			checkedTrackColor = Colours.LightModePrimary,
+			uncheckedThumbColor = Colours.LightModeBackground2,
+			uncheckedTrackColor = Colours.LightModeSecondary,
+			uncheckedBorderColor = Colours.LightModeSecondary,
+		),
+	)
+}
+
+
 // profile components
 
 @Composable
