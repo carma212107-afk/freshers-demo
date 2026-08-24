@@ -188,13 +188,13 @@ fun ProfilePic(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Mo
 
 
 @Composable
-fun NumberRating(modifier: Modifier = Modifier, rating: Float, theme: Theme = Theme.Light) {
+fun NumberRating(modifier: Modifier = Modifier, rating: String, theme: Theme = Theme.Light) {
     if (theme == Theme.Light) { primaryColour = Colours.LightModePrimary }
     else { primaryColour = Colours.DarkModeSecondary }
 
 	Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
 		StarGlyph(filled = true, color = primaryColour, modifier = Modifier.size(20.dp))
-		Text(rating.toString(), color = primaryColour, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+		Text(rating, color = primaryColour, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 	}
 }
 
