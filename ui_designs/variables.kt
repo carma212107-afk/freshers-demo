@@ -17,6 +17,9 @@ object Colours {
   val DarkModeBorder: Color = Color(0xFFF5FFF8)
   val DarkModeText: Color = Color(0xFFFFFFFF)
   val DarkModeInputText: Color = Color(0xFFFFFFFF)
+
+    // Misc colours
+  val RedBackground: Color = Color(0xFFE49E99)
 }
 
 
