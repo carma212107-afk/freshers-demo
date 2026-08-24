@@ -54,13 +54,7 @@ fun SearchPage(
 			.verticalScroll(rememberScrollState()).padding(horizontal = 30.dp, vertical = 60.dp),
 		verticalArrangement = Arrangement.spacedBy(10.dp),
 	) {
-		Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(15.dp)) {
-			BackButton(onClick = onBack)
-			Column {
-				Text("Search Preferences", color = Colours.LightModeText, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
-				Text("Edit your default search filters below", color = Colours.LightModeText, fontSize = TextFormatting.Text1.size, fontWeight = TextFormatting.Text1.weight)
-			}
-		}
+        TopMenuBar("Search Preferences", description = "Edit your default search filters below", theme = Theme.Light)
 		Spacer(Modifier.height(22.dp))
 		Text("Filter options", color = Colours.LightModeText, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
 		PreferenceCard("Female-only ride", "Only rides with all-female cars") {

@@ -73,9 +73,19 @@ private fun ProfileTopBar(onBack: () -> Unit, onEdit: () -> Unit) {
 		BackButton(onClick = onBack)
 		Text("Profile", modifier = Modifier.weight(1f), color = Colours.DarkModeText, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
 		if (user.isCurrentUser) { // only show edit button if viewing own profile
-			Text("Edit", modifier = Modifier.clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.DarkModeText, RoundedCornerShape(20.dp)).clickable(onClick = onEdit).padding(horizontal = 20.dp, vertical = 10.dp), color = Colours.DarkModeText, fontSize = TextFormatting.Button1.size, fontWeight = TextFormatting.Button1.weight, textAlign = TextAlign.Center)
+			val editButton = MenuBarButton()
+			editButton.text: String = "Edit"
+			editButton.modifier: Modifier = Modifier.clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(20.dp)).clickable(onClick = onEdit).padding(horizontal = 20.dp, vertical = 10.dp)
+			editButton.colour: Color = Colours.DarkModeText
 		}
 	}
+
+	if (user.isCurrentUser) { // only show edit button if viewing own profile
+		val editButton = MenuBarButton()
+		editButton.text: String = "Edit"
+		editButton.modifier: Modifier = Modifier.clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(20.dp)).clickable(onClick = onEdit).padding(horizontal = 20.dp, vertical = 10.dp)
+	}
+	TopMenuBar("Profile", rightButton = editButton)
 }
 
 @Composable
