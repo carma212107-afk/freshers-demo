@@ -125,6 +125,9 @@ data class RideCardData(
 	val onClick: () -> Unit = {},
 )
 
+
+// 'from A to B' route block components
+
 @Composable
 fun RideRoute(
 	edit: Boolean = true,
@@ -171,11 +174,14 @@ fun RideRoute(
 }
 
 @Composable
-private fun RouteMarker(modifier: Modifier = Modifier) {
+private fun RouteMarker(modifier: Modifier = Modifier) { // from/to marker
 	Canvas(modifier.size(15.dp)) {
 		drawCircle(Colours.LightModePrimary, radius = size.minDimension / 2f)
 	}
 }
+
+
+// purpose TBD ???
 
 @Composable
 fun PostRidePreview(
@@ -196,6 +202,9 @@ fun PostRidePreview(
     )
 }
 
+
+// cost breakdown components
+
 @Composable
 fun CostBreakdown(
     ride: Ride,
@@ -213,7 +222,6 @@ fun CostBreakdown(
 		}
 	}
 }
-
 @Composable
 private fun CostRow(label: String, value: String, total: Boolean = false) {
 	Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -248,8 +256,7 @@ private fun RideInfoBox(value: String, label: String, modifier: Modifier = Modif
 }
 
 
-// messages referencing ride block
-
+// individual chat page referencing ride block
 @Composable
 fun DiscussingRideBanner(ride: Ride, modifier: Modifier = Modifier) {
 	Column(modifier = modifier.fillMaxWidth().background(Colours.DarkModePrimary, RoundedCornerShape(10.dp)).padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
