@@ -61,8 +61,8 @@ fun MainInterface(modifier: Modifier = Modifier) {
 
 @Composable
 private fun StatusBar(modifier: Modifier = Modifier, theme: Theme = Theme.Light) {
-  private const val timeAsset = "https://www.figma.com/api/mcp/asset/a3121e18-4222-405c-9eca-d748c5f06502.svg"
-  private const val rightSideAsset = "https://www.figma.com/api/mcp/asset/3042e646-380b-478e-a3ec-48dbd73ad777.svg"
+  const val timeAsset = "https://www.figma.com/api/mcp/asset/a3121e18-4222-405c-9eca-d748c5f06502.svg"
+  const val rightSideAsset = "https://www.figma.com/api/mcp/asset/3042e646-380b-478e-a3ec-48dbd73ad777.svg"
 
   if (theme == Theme.Light) { colour = Color(0xFF0A5C2E) }
   else if (theme == Theme.Dark) { colour = Color(0xFFFFFFFF) }
@@ -98,7 +98,7 @@ private fun StatusBar(modifier: Modifier = Modifier, theme: Theme = Theme.Light)
 // BottomNavigationBar component
 
 @Composable
-private fun BottomNavigationBar(onHome: () -> Unit, onSearch: () -> Unit, onAddRide: () -> Unit, onMyRides: () -> Unit, onProfile: () -> Unit) {
+fun BottomNavigationBar(onHome: () -> Unit, onSearch: () -> Unit, onAddRide: () -> Unit, onMyRides: () -> Unit, onProfile: () -> Unit) {
 	Row(modifier = Modifier.fillMaxWidth().navigationBarsPadding().border(BorderStroke(1.dp, Colours.Accent)).background(Colours.LightModeBackground1).padding(top = 7.dp, bottom = 5.dp), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
 		BottomNavButton(homeIcon, "Home", onHome)
 		BottomNavButton(pinIcon, "Search", onSearch)
@@ -121,7 +121,7 @@ private fun BottomNavButton(asset: String?, label: String, onClick: () -> Unit) 
 // Stage indicator components
 
 @Composable
-private fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1, noStages: Int = 5, primaryColour: Color = Colours.LightModePrimary, secondaryColour: Color = Colours.LightModeSecondary) {
+fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1, noStages: Int = 5, primaryColour: Color = Colours.LightModePrimary, secondaryColour: Color = Colours.LightModeSecondary) {
   Column(
 
     // determine position of current stage indicator based on int parameter
