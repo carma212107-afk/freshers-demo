@@ -61,16 +61,13 @@ fun MainInterface(modifier: Modifier = Modifier) {
 
 @Composable
 private fun StatusBar(modifier: Modifier = Modifier, theme: Theme = Theme.Light) {
-    private const val timeAsset = 
-      "https://www.figma.com/api/mcp/asset/a3121e18-4222-405c-9eca-d748c5f06502.svg"
-    private const val rightSideAsset =
-      "https://www.figma.com/api/mcp/asset/3042e646-380b-478e-a3ec-48dbd73ad777.svg"
+  private const val timeAsset = "https://www.figma.com/api/mcp/asset/a3121e18-4222-405c-9eca-d748c5f06502.svg"
+  private const val rightSideAsset = "https://www.figma.com/api/mcp/asset/3042e646-380b-478e-a3ec-48dbd73ad777.svg"
 
-
-    if (theme == "light") { colour = Color(0xFF0A5C2E) }
-    else if (theme == "dark") { colour = Color(0xFF0A5C2E) }
-    
-    Box( // Status bar & Home indicator
+  if (theme == Theme.Light) { colour = Color(0xFF0A5C2E) }
+  else if (theme == Theme.Dark) { colour = Color(0xFFFFFFFF) }
+  
+  Box( // Status bar & Home indicator
     modifier = modifier
       .fillMaxSize()
       .background(colour),
@@ -94,6 +91,7 @@ private fun StatusBar(modifier: Modifier = Modifier, theme: Theme = Theme.Light)
         modifier = Modifier.size(width = 67.dp, height = 12.dp),
       )
     }
+  }
 }
 
 
