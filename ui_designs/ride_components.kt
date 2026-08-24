@@ -179,90 +179,89 @@ private fun RouteMarker(modifier: Modifier = Modifier) {
 
 @Composable
 fun PostRidePreview(
-	startCity: String,
-	endCity: String,
-	driverName: String,
-	driverUniversity: String,
-	driverCar: String,
+    ride: Ride
+    driver: User = ride.driver
 	modifier: Modifier = Modifier,
 ) {
-	Column(modifier = modifier.padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-		Text("Post Ride", color = Colours.LightModePrimary, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
-		RideCard(
-			startCity = startCity,
-			endCity = endCity,
-			date = "<date>",
-			time = "HH:mm",
-			price = "",
-			driverName = driverName,
-			driverUniversity = driverUniversity,
-			carDescription = driverCar,
-			filterLabel = "",
-		)
-	}
+	RideCard(
+        startCity = ride.startCity,
+        endCity = ride.endCity,
+        date = ride.getFormattedDate(),
+        time = ride.getFormattedTime(),
+        price = "",
+        driverName = driver.getFormattedFirstName(),
+        driverUniversity = driver.university,
+        carDescription = ride.car.getCarDescription(),
+        filterLabel = "",
+    )
 }
 
 @Composable
 fun CostBreakdown(
-	fuelCost: String,
-	splitCost: String,
-	carmaFee: String,
-	total: String,
+    ride: Ride,
 	modifier: Modifier = Modifier,
 ) {
+    breakdown = ride.getCostBreakdown()
 	Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-		Text("View Ride", color = Colours.LightModePrimary, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
-		Text("Cost breakdown", color = Colours.LightModePrimary, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
+		Text("Cost breakdown", color = Colours.LightModeText, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
 		Column(modifier = Modifier.fillMaxWidth().border(1.dp, Colours.LightModeBorder, RoundedCornerShape(17.dp)).padding(12.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-			CostRow("Fuel cost (125mi x 0mi/gal)", fuelCost)
-			CostRow("Split between 1 passengers", splitCost)
-			CostRow("Carma fee (10%)", carmaFee)
-			Box(Modifier.fillMaxWidth().height(1.dp).background(Colours.LightModeBorder))
-			CostRow("Your total", total, bold = true)
+			CostRow("Fuel cost", breakdown[0])
+			CostRow("Split between ${ride.getNoOfBookedSeats()} passengers", breakdown[1]) // how to shortly say "passengers and driver" ?
+			CostRow("Carma fee (10%)", breakdown[2])
+			Box(Modifier.fillMaxWidth().height(1.dp).background(Colours.Accent)) // separator line
+			CostRow("Your total", breakdown[3], total = true)
 		}
 	}
 }
 
 @Composable
-private fun CostRow(label: String, value: String, bold: Boolean = false) {
+private fun CostRow(label: String, value: String, total: Boolean = false) {
 	Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-		Text(label, color = Colours.LightModeText, fontSize = 14.sp, fontWeight = if (bold) FontWeight.Bold else FontWeight.Normal)
-		Text(value, color = Colours.LightModeText, fontSize = 14.sp, fontWeight = if (bold) FontWeight.Bold else FontWeight.Normal)
+		Text(label, color = Colours.LightModeText, fontSize = if (total) TextFormatting.Text2.size else TextFormatting.Text3.size, fontWeight = if (total) TextFormatting.Text2.weight else TextFormatting.Text3.weight)
+		Text(value, color = Colours.LightModeText, fontSize = if (total) TextFormatting.Text2.size else TextFormatting.Text3.size, fontWeight = if (total) TextFormatting.Text2.weight else TextFormatting.Text3.weight)
 	}
 }
+
+
+// ride info blocks (confirmation pages)
 
 @Composable
 fun ViewRideSummary(
-	startCity: String,
-	endCity: String,
-	date: String,
-	departure: String,
-	seatsAvailable: String,
+    ride: Ride
 	modifier: Modifier = Modifier,
 ) {
 	Column(modifier = modifier.fillMaxWidth().border(1.dp, Colours.LightModeBorder, RoundedCornerShape(17.dp)).padding(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-		Text("$startCity  ->  $endCity", color = Colours.LightModeText, fontSize = 20.sp, fontWeight = FontWeight.Bold, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
+		Text("${ride.startCity}  ->  ${ride.endCity}", color = Colours.LightModeText, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
 		Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-			RideInfoBox(date, "date", Modifier.weight(1f))
-			RideInfoBox(departure, "departure", Modifier.weight(1f))
-			RideInfoBox(seatsAvailable, "seats available", Modifier.weight(1f))
+			RideInfoBox(ride.getFormattedDate(), "date", Modifier.weight(1f))
+			RideInfoBox(ride.getFormattedTime(), "departure time", Modifier.weight(1f))
+			RideInfoBox(ride.noOfFreeSeats, "seats available", Modifier.weight(1f))
 		}
 	}
 }
-
 @Composable
 private fun RideInfoBox(value: String, label: String, modifier: Modifier = Modifier) {
 	Column(modifier = modifier.background(Colours.LightModeSecondary, RoundedCornerShape(4.dp)).padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-		Text(value, color = Colours.LightModeText, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-		Text(label, color = Colours.LightModeText, fontSize = 12.sp)
+		Text(value, color = Colours.LightModeText, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
+		Text(label, color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 	}
 }
 
+
+// messages referencing ride block
+
 @Composable
-fun DiscussingRideBanner(startCity: String, endCity: String, date: String, time: String, price: String, modifier: Modifier = Modifier) {
+fun DiscussingRideBanner(ride: Ride, modifier: Modifier = Modifier) {
 	Column(modifier = modifier.fillMaxWidth().background(Colours.DarkModePrimary, RoundedCornerShape(10.dp)).padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-		Text("DISCUSSING THIS RIDE", color = Colours.DarkModeText, fontSize = 13.sp, fontWeight = FontWeight.Bold)
-		Text("$startCity  ->  $endCity", color = Colours.DarkModeText, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-		Text("$date   $time   $price per seat", color = Colours.DarkModeText, fontSize = 12.sp)
+		Text("DISCUSSING THIS RIDE", color = Colours.DarkModeText, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
+		Text("${ride.startCity}  ->  ${ride.endCity}", color = Colours.DarkModeText, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
+		Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+            Text("${ride.getFormattedDate()}", color = Colours.DarkModeText, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.weight)
+            Text("${ride.getFormattedTime()}", color = Colours.DarkModeText, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.weight)
+            Row(horizontalArrangement = Arrangement.spacedBy(0.dp)) {
+                "${ride.getPricePerSeat()}", color = Colours.DarkModeText, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.weight)
+                " per seat", color = Colours.DarkModeText, fontSize = TextFormatting.SmallText2.size, fontWeight = TextFormatting.SmallText2.weight)
+            }
+        }
 	}
 }
