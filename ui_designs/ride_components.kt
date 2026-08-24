@@ -146,7 +146,7 @@ fun RideRoute(
 		Column(modifier = Modifier.width(30.dp), horizontalAlignment = Alignment.CenterHorizontally) {
 			RouteMarker()
 			Box(Modifier.width(1.dp).height(31.dp).background(Colours.LightModePrimary))
-			RouteMarker()
+			RouteMarker(arrival = true)
 		}
 		Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.SpaceBetween) {
 			Text("Departing from", color = Colours.LightModeText, fontSize = if (edit) 14.sp else 15.sp)
@@ -174,9 +174,10 @@ fun RideRoute(
 }
 
 @Composable
-private fun RouteMarker(modifier: Modifier = Modifier) { // from/to marker
+private fun RouteMarker(modifier: Modifier = Modifier, arrival: Boolean = false) { // from/to marker
+    colour = if (arrival) Colours.LightModePrimary else Colours.Accent
 	Canvas(modifier.size(15.dp)) {
-		drawCircle(Colours.LightModePrimary, radius = size.minDimension / 2f)
+		drawCircle(colour, radius = size.minDimension / 2f)
 	}
 }
 
