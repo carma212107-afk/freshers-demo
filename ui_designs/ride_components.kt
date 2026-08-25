@@ -31,59 +31,86 @@ fun RideCard(
 	endCity: String,
 	date: String,
 	time: String,
+	upcoming: Boolean,
 	price: String,
 	driverName: String,
 	driverUniversity: String = "",
-	driverYear: String = "",
+	driverYear: String
+	driverCourse: String = "",
 	driverInitials: String = "",
 	driverRating: String = "",
-	seatsLeft: Int? = null,
+	noOfSeats: Int = 3
+	seatsLeft: Int = 0,
 	carDescription: String = "",
 	filterLabel: String = "<filter>",
 	onClick: () -> Unit = {},
+	searchResult: Boolean = false,
 	modifier: Modifier = Modifier,
 ) {
 	Column(
-		modifier = modifier.fillMaxWidth().border(1.dp, Colours.LightModePrimary, RoundedCornerShape(17.dp))
+		modifier = modifier.fillMaxWidth().border(1.dp, Colours.LightModeBorder, RoundedCornerShape(17.dp))
 			.background(Colours.LightModeBackground2, RoundedCornerShape(17.dp)).clickable(onClick = onClick)
 			.padding(horizontal = 12.dp, vertical = 8.dp),
 		verticalArrangement = Arrangement.spacedBy(5.dp),
 	) {
 		Row(verticalAlignment = Alignment.CenterVertically) {
-			Text("$startCity  ", color = Colours.LightModeText, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-			Text("->", color = Colours.Accent, fontSize = 24.sp, fontWeight = FontWeight.Bold)
-			Text("  $endCity", color = Colours.LightModeText, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-			Spacer(Modifier.weight(1f))
-			Text(price, color = Colours.LightModeText, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+			Text(startCity, color = Colours.LightModeText, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
+			Text("  ->  ", color = Colours.Accent, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
+			Text(endCity, color = Colours.LightModeText, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
 		}
-		Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-			CalendarIcon(Modifier.size(14.dp))
-			Text(date, color = Colours.LightModeText, fontSize = 12.sp)
-			ClockIcon(Modifier.size(14.dp))
-			Text(time, color = Colours.LightModeText, fontSize = 12.sp)
+		if (searchResult) {
+			Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+				CalendarIcon(Modifier.size(14.dp))
+				Text(date, color = Colours.LightModeText, fontSize = TextFormatting.SmallText2.size, fontWeight = TextFormatting.SmallText2.size)
+				ClockIcon(Modifier.size(14.dp))
+				Text(time, color = Colours.LightModeText, fontSize = TextFormatting.SmallText2.size, fontWeight = TextFormatting.SmallText2.size)
+				Spacer(Modifier.weight(1f))
+				Text(price, color = Colours.LightModeText, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.size)
+				Text("pp", color = Colours.LightModeText, fontSize = TextFormatting.SmallText2.size, fontWeight = TextFormatting.SmallText2.size)
+			}
 		}
 		Row(verticalAlignment = Alignment.CenterVertically) {
-			ProfilePic(initials = driverInitials.ifBlank { driverName.take(2).uppercase() })
+			ProfilePic(initials = driverInitials.ifBlank { driverName.take(2).uppercase() }) // is the ifBlank() necessary?
 			Spacer(Modifier.width(6.dp))
 			Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-				Text(driverName, color = Colours.LightModeText, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-				if (driverUniversity.isNotBlank()) Text(driverUniversity, color = Colours.LightModeText, fontSize = 11.sp)
-				if (driverYear.isNotBlank()) Text(driverYear, color = Colours.LightModeText, fontSize = 11.sp)
+				if (searchResult) {
+					Text(driverName, color = Colours.LightModeText, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.size)
+					if (driverUniversity.isNotBlank()) Text(driverUniversity, color = Colours.LightModeText, fontSize = TextFormatting.SmallText2.size, fontWeight = TextFormatting.SmallText2.size)
+					if (driverCourse.isNotBlank()) Text("${driverYear} - ${driverCourse}", color = Colours.LightModeText, fontSize = TextFormatting.SmallText2.size, fontWeight = TextFormatting.SmallText2.size)
+				} else {
+					Row(verticalAlignment = Alignment.CenterLeft) {
+						Text(driverName, color = Colours.LightModeText, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.size)
+						if (upcoming) Text(" - ${driverUniversity}", color = Colours.LightModeText, fontSize = TextFormatting.SmallText2.size, fontWeight = TextFormatting.SmallText2.size)
+					}
+					if (upcoming) Text(carDescription, color = Colours.LightModeText, fontSize = TextFormatting.SmallText2.size, fontWeight = TextFormatting.SmallText2.size)
+					else Text(driverUniversity, color = Colours.LightModeText, fontSize = TextFormatting.SmallText2.size, fontWeight = TextFormatting.SmallText2.size)
+				}
 			}
-			if (driverRating.isNotBlank()) Text("* $driverRating", color = Colours.LightModeText, fontSize = 12.sp)
+			Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+				NumberRating(rating = driverRating) // needs Modifer argument
+				if (upcoming) NoOfFreeSeatsIndicator(noOfFreeSeats = seatsLeft, noOfSeats = noOfSeats) // needs Modifer argument
+			}
 		}
-		Row(verticalAlignment = Alignment.CenterVertically) {
-			if (carDescription.isNotBlank()) Text(carDescription, color = Colours.LightModeText, fontSize = 11.sp, modifier = Modifier.weight(1f))
-			else Spacer(Modifier.weight(1f))
-			if (seatsLeft != null) Text("$seatsLeft seats left", color = Colours.LightModeText, fontSize = 11.sp)
-			Text(filterLabel, modifier = Modifier.padding(start = 6.dp).background(Colours.LightModeSecondary, RoundedCornerShape(15.dp)).padding(horizontal = 10.dp, vertical = 4.dp), color = Colours.LightModeText, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+		Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+			if (searchResult) {
+				NoOfFreeSeatsIndicator(noOfFreeSeats = seatsLeft, noOfSeats = noOfSeats) // needs Modifer argument
+			} else {
+				Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+					CalendarIcon(Modifier.size(14.dp))
+					Text(date, color = Colours.LightModeText, fontSize = TextFormatting.SmallText2.size, fontWeight = TextFormatting.SmallText2.size)
+					ClockIcon(Modifier.size(14.dp))
+					Text(time, color = Colours.LightModeText, fontSize = TextFormatting.SmallText2.size, fontWeight = TextFormatting.SmallText2.size)
+				}
+			}
+			Text(filterLabel, modifier = Modifier.padding(start = 6.dp).background(Colours.LightModeSecondary, RoundedCornerShape(15.dp)).padding(horizontal = 10.dp, vertical = 4.dp), color = Colours.LightModeText, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.size)
 		}
 	}
 }
 
 @Composable
 fun RideList(
-	rides: List<RideCardData>,
+	rides: List<Ride>,
+	searchResults: Boolean = false,
 	modifier: Modifier = Modifier,
 ) {
 	Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -91,39 +118,27 @@ fun RideList(
 			RideCard(
 				startCity = ride.startCity,
 				endCity = ride.endCity,
-				date = ride.date,
-				time = ride.time,
-				price = ride.price,
-				driverName = ride.driverName,
-				driverUniversity = ride.driverUniversity,
-				driverYear = ride.driverYear,
-				driverInitials = ride.driverInitials,
-				driverRating = ride.driverRating,
-				seatsLeft = ride.seatsLeft,
-				carDescription = ride.carDescription,
-				filterLabel = ride.filterLabel,
+				date = ride.getFormattedDate(),
+				time = ride.getFormattedTime(),
+				upcoming = ride.isUpcoming(),
+				price = ride.getPricePerSeat(),
+				driver = ride.driver,
+				driverName = driver.getFormattedFirstName(),
+				driverUniversity = driver.university,
+				driverYear = driver.getFormattedUniYear(),
+				driverCourse = driver.course,
+				driverInitials = driver.getInitials(),
+				driverRating = driver.getRating(),
+				noOfSeats = ride.noOfSeats,
+				seatsLeft = ride.getNoOfFreeSeats(),
+				carDescription = ride.getCarDescription(),
+				filters = ride.filters,
 				onClick = ride.onClick,
+				searchResult = searchResults,
 			)
 		}
 	}
 }
-
-data class RideCardData(
-	val startCity: String,
-	val endCity: String,
-	val date: String,
-	val time: String,
-	val price: String,
-	val driverName: String,
-	val driverUniversity: String = "",
-	val driverYear: String = "",
-	val driverInitials: String = "",
-	val driverRating: String = "",
-	val seatsLeft: Int? = null,
-	val carDescription: String = "",
-	val filterLabel: String = "<filter>",
-	val onClick: () -> Unit = {},
-)
 
 
 // 'from A to B' route block components
@@ -131,11 +146,7 @@ data class RideCardData(
 @Composable
 fun RideRoute(
 	edit: Boolean = true,
-	startCity: String = "<startC>",
-	endCity: String = "<endC>",
-	startTime: String = "HH:mm",
-	endTime: String = "HH:mm",
-	duration: String = "Est. duration",
+	ride: Ride,
 	modifier: Modifier = Modifier,
 ) {
 	Row(
@@ -148,26 +159,26 @@ fun RideRoute(
 			Box(Modifier.width(1.dp).height(31.dp).background(Colours.LightModePrimary))
 			RouteMarker(arrival = true)
 		}
+		val textKeyInfo = if (edit) TextFormatting.Boxes1 else TextFormatting.Text2
+		val textLabels = if (edit) TextFormatting.Boxes2 else TextFormatting.Text3
 		Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.SpaceBetween) {
-			Text("Departing from", color = Colours.LightModeText, fontSize = if (edit) 14.sp else 15.sp)
-			Text(startCity, color = Colours.LightModeText, fontSize = if (edit) 15.sp else 20.sp, fontWeight = FontWeight.Bold)
+			Text("Departing from", color = Colours.LightModeText, fontSize = textLabels.size, fontWeight = textLabels.weight)
+			Text(ride.startCity, color = Colours.LightModeText, fontSize = textKeyInfo.size, fontWeight = textKeyInfo.size)
 			Spacer(Modifier.height(12.dp))
-			Text("Arriving at", color = Colours.LightModeText, fontSize = if (edit) 14.sp else 15.sp)
-			Text(endCity, color = Colours.LightModeText, fontSize = if (edit) 15.sp else 20.sp, fontWeight = FontWeight.Bold)
+			Text("Arriving at", color = Colours.LightModeText, fontSize = textLabels.size, fontWeight = textLabels.weight)
+			Text(ride.endCity, color = Colours.LightModeText, fontSize = textKeyInfo.size, fontWeight = textKeyInfo.size)
 		}
 		Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.SpaceBetween) {
 			if (edit) {
-				Text("Time", color = Colours.LightModeText, fontSize = 15.sp)
-				Text(startTime, color = Colours.LightModeText, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-				Spacer(Modifier.height(12.dp))
-				Text(duration, color = Colours.LightModeText, fontSize = 14.sp)
-				Text(endTime, color = Colours.LightModeText, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+				Spacer(Modifier.height(12.dp)) // probably need a bigger spacer ~ 36.dp?
+				Text("Est. duration", color = Colours.LightModeText, fontSize = textLabels.size, fontWeight = textLabels.weight)
+				Text(ride.calculateDuration(), color = Colours.LightModeText, fontSize = textKeyInfo.size, fontWeight = textKeyInfo.size)
 			} else {
-				Text(startTime, color = Colours.LightModeText, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-				Text("Time", color = Colours.LightModeText, fontSize = 15.sp)
+				Text("Departure time", color = Colours.LightModeText, fontSize = textLabels.size, fontWeight = textLabels.weight)
+				Text(ride.getFormattedTime(), color = Colours.LightModeText, fontSize = textKeyInfo.size, fontWeight = textKeyInfo.size)
 				Spacer(Modifier.height(12.dp))
-				Text(endTime, color = Colours.LightModeText, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-				Text("Time", color = Colours.LightModeText, fontSize = 15.sp)
+				Text("Est. arrival", color = Colours.LightModeText, fontSize = textLabels.size, fontWeight = textLabels.weight)
+				Text(ride.calculateArrivalTime(), color = Colours.LightModeText, fontSize = textKeyInfo.size, fontWeight = textKeyInfo.size)
 			}
 		}
 	}
