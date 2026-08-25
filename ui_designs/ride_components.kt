@@ -284,3 +284,21 @@ fun DiscussingRideBanner(ride: Ride, modifier: Modifier = Modifier) {
         }
 	}
 }
+
+
+// Seat icons and no_of_free_seats indicator
+@Composable
+fun NoOfFreeSeatsIndicator(modifier: Modifier = Modifier, noOfFreeSeats: Int = 3, noOfSeats: Int = 4) {
+	Row(modifier = modifier.padding(horizontal = 2.dp), horizontalArrangement = Arrangement.spacedBy(2.dp)) {
+		for (i in 1..noOfSeats) {
+            IndividualSeatIcon(available = i <= noOfFreeSeats)
+        }
+	}
+}
+@Composable
+fun IndividualSeatIcon(available: Boolean = false, modifier: Modifier = Modifier) {
+	Box(
+		modifier = modifier.size(10.dp).border(1.dp, Colours.LightModePrimary, RoundedCornerShape(3.dp))
+			.background(if (available) Colours.LightModeBackground1 else Colours.LightModePrimary, RoundedCornerShape(3.dp)),
+	)
+}
