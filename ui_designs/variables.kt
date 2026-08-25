@@ -29,23 +29,27 @@ object Dimensions {
 }
 
 
+data class Format(
+  val weight: FontWeight,
+  val size: TextUnit
+)
 object TextFormatting {
-  val MenuBarTitle(weight = FontWeight.Black, size = 30.sp)
-  val IntroTitle(weight = FontWeight.Black, size = 50.sp)
-  val Heading1(weight = FontWeight.Black, size = 35.sp) // Title
-  val Heading2(weight = FontWeight.ExtraBold, size = 25.sp) // Section title
-  val Text1(weight = FontWeight.Normal, size = 16.sp) // Title description
-  val Text2(weight = FontWeight.Bold, size = 20.sp) // Key info
-  val Text3(weight = FontWeight.Normal, size = 15.sp) // Text description
-  val SmallText1(weight = FontWeight.Bold, size = 12.sp) // Key info
-  val SmallText2(weight = FontWeight.Normal, size = 12.sp) // Text description
-  val Boxes1(weight = FontWeight.Bold, size = 15.sp) // Key info
-  val Boxes2(weight = FontWeight.Light, size = 14.sp) // Description
-  val Figures1(weight = FontWeight.ExtraBold, size = 30.sp) // Numbers
-  val Figures2(weight = FontWeight.Medium, size = 15.sp) // Description
-  val SearchBox1(weight = FontWeight.Normal, size = 16.sp)
-  val SearchBox2(weight = FontWeight.Normal, size = 14.sp)
-  val Button1(weight = FontWeight.Bold, size = 16.sp)
-  val Button2(weight = FontWeight.Normal, size = 16.sp)
-  val InputField(weight = FontWeight.Normal, size = 14.sp)
+  val MenuBarTitle = Format(FontWeight.Black, 30.sp)
+  val IntroTitle = Format(FontWeight.Black, 50.sp)
+  val Heading1 = Format(FontWeight.Black, 35.sp) // Title
+  val Heading2 = Format(FontWeight.ExtraBold, 25.sp) // Section title
+  val Text1 = Format(FontWeight.Normal, 16.sp) // Title description
+  val Text2 = Format(FontWeight.Bold, 20.sp) // Key info
+  val Text3 = Format(FontWeight.Normal, 15.sp) // Text description
+  val SmallText1 = Format(FontWeight.Bold, 12.sp) // Key info
+  val SmallText2 = Format(FontWeight.Normal, 12.sp) // Text description
+  val Boxes1 = Format(FontWeight.Bold, 15.sp) // Key info
+  val Boxes2 = Format(FontWeight.Light, 14.sp) // Description
+  val Figures1 = Format(FontWeight.ExtraBold, 30.sp) // Numbers
+  val Figures2 = Format(FontWeight.Medium, 15.sp) // Description
+  val SearchBox1 = Format(FontWeight.Normal, 16.sp)
+  val SearchBox2 = Format(FontWeight.Normal, 14.sp)
+  val Button1 = Format(FontWeight.Bold, 16.sp)
+  val Button2 = Format(FontWeight.Normal, 16.sp)
+  val InputField = Format(FontWeight.Normal, 14.sp)
 }
