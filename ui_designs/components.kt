@@ -103,10 +103,11 @@ private fun StatusBar(modifier: Modifier = Modifier, theme: Theme = Theme.Light)
 
 @Composable
 fun BottomNavigationBar(onHome: () -> Unit, onSearch: () -> Unit, onAddRide: () -> Unit, onMyRides: () -> Unit, onProfile: () -> Unit) {
-	Row(modifier = Modifier.fillMaxWidth().navigationBarsPadding().border(BorderStroke(1.dp, Colours.Accent)).background(Colours.LightModeBackground1).padding(top = 7.dp, bottom = 5.dp), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
+  driverStatus = getCurrentUser().verifiedDriver
+  Row(modifier = Modifier.fillMaxWidth().navigationBarsPadding().border(BorderStroke(1.dp, Colours.Accent)).background(Colours.LightModeBackground1).padding(top = 7.dp, bottom = 5.dp), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
 		BottomNavButton(homeIcon, "Home", onHome)
 		BottomNavButton(pinIcon, "Search", onSearch)
-		Text("+", modifier = Modifier.size(50.dp).clip(CircleShape).background(Colours.LightModePrimary).clickable(onClick = onAddRide).padding(bottom = 5.dp), color = Colours.LightModeBackground1, fontSize = 36.sp, textAlign = TextAlign.Center)
+    if (driverStatus) { Text("+", modifier = Modifier.size(50.dp).clip(CircleShape).background(Colours.LightModePrimary).clickable(onClick = onAddRide).padding(bottom = 5.dp), color = Colours.LightModeBackground1, fontSize = 36.sp, textAlign = TextAlign.Center) }
 		BottomNavButton(carIcon(), "My Rides", onMyRides)
 		BottomNavButton(profileIcon(), "Profile", onProfile)
 	}
