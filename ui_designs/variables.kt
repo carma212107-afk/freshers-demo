@@ -22,6 +22,12 @@ object Colours {
     // Misc colours
   val RedBackground: Color = Color(0xFFE49E99)
 }
+data class ColourScheme(
+  val background: Color,
+  val border: Color,
+  val text: Color,
+  val icon: Color,
+)
 
 
 object Dimensions {
