@@ -151,20 +151,23 @@ fun ToggleSwitch(switchedOn: Boolean = false, onClick: () -> Unit = {}, modifier
 // profile components
 
 @Composable
-fun ProfilePic(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Modifier = Modifier, initials: String = "AB") {
+fun ProfilePic(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Modifier = Modifier, user: User) {
 	val large = theme == Theme.Dark && !unread
 	val diameter = if (large) 75.dp else 30.dp
-	Box(modifier = modifier.size(diameter), contentAlignment = Alignment.Center) {
-		Canvas(Modifier.matchParentSize()) {
-			drawCircle(if (large) Colours.Accent else Colours.LightModeSecondary, radius = size.minDimension / 2f)
-			if (!large) drawCircle(Colours.LightModePrimary, radius = size.minDimension / 2f, style = Stroke(1f))
+	if user.profilePicUrl != null { // how to display image in specific shape
+	} else {
+		Box(modifier = modifier.size(diameter), contentAlignment = Alignment.Center) {
+			Canvas(Modifier.matchParentSize()) {
+				drawCircle(if (large) Colours.Accent else Colours.LightModeSecondary, radius = size.minDimension / 2f)
+				if (!large) drawCircle(Colours.LightModePrimary, radius = size.minDimension / 2f, style = Stroke(1f))
+			}
+			Text(
+				user.getInitials(),
+				color = if (large) Colours.LightModeSecondary else Colours.LightModePrimary,
+				fontSize = if (large) TextFormatting.Heading2.size else TextFormatting.Boxes1.size,
+				fontWeight = if (large) TextFormatting.Heading2.weight else TextFormatting.Boxes1.weight,
+			)
 		}
-		Text(
-			initials,
-			color = if (large) Colours.LightModeSecondary else Colours.LightModePrimary,
-			fontSize = if (large) TextFormatting.Heading2.size else TextFormatting.Boxes1.size,
-			fontWeight = if (large) TextFormatting.Heading2.weight else TextFormatting.Boxes1.weight,
-		)
 	}
 }
 
