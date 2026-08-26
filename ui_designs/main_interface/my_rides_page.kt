@@ -89,8 +89,9 @@ private fun MyRidesTabs(selectedTab: MyRidesTab, onTabSelected: (MyRidesTab) -> 
 
 @Composable
 private fun RideTab(label: String, selected: Boolean, onClick: () -> Unit) {
-	val background = if (selected) Colours.LightModeSecondary else Colours.LightModeBackground2
-	val textC = if (selected) Colours.LightModePrimary else Colours.Accent
+	val background = if (selected) Colours.Buttons.Selected.background else Colours.Buttons.Unselected.background
+	val border = if (selected) Colours.Buttons.Selected.border else Colours.Buttons.Unselected.border
+	val textC = if (selected) Colours.Buttons.Selected.text else Colours.Buttons.Unselected.text
 	val textS = if (selected) TextFormatting.Button1.size else TextFormatting.Button2.size
 	val textW = if (selected) TextFormatting.Button1.weight else TextFormatting.Button2.weight
 	Box(modifier = Modifier.weight(1f).height(46.dp).border(1.dp, Colours.Accent, RoundedCornerShape(15.dp)).background(background, RoundedCornerShape(15.dp)).clickable(onClick = onClick), contentAlignment = Alignment.Center) {

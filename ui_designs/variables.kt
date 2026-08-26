@@ -21,6 +21,22 @@ object Colours {
 
     // Misc colours
   val RedBackground: Color = Color(0xFFE49E99)
+
+    // Button colours
+  object Buttons {
+    object Unselected {
+      background: Color = Colours.LightModeBackground2,
+      border: Color = Colours.LightModeBorder,
+      text: Color = Colours.Accent,
+      icon: Color = Colours.Accent,
+    }
+    object Selected {
+      background: Color = Colours.LightModeSecondary,
+      border: Color = Colours.Accent,
+      text: Color = Colours.Text,
+      icon: Color = Colours.Primary,
+    }
+  }
 }
 data class ColourScheme(
   val background: Color,
