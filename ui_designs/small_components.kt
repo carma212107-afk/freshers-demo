@@ -169,9 +169,14 @@ fun NumberRating(modifier: Modifier = Modifier, rating: String, theme: Theme = T
 // Stage indicator components
 
 @Composable
-fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1, noStages: Int = 5, primaryColour: Color = Colours.LightModePrimary, secondaryColour: Color = Colours.LightModeSecondary) {
-  Column(
+fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1, noStages: Int = 5, theme: Theme = Theme.Light) {
+  light = theme == Theme.Light
+  scheme = ColourScheme(
+	primary = if (light) Colours.LightModePrimary else Colours.Accent,
+	secondary = if (light) Colours.LightModeSecondary else Colours.DarkModeSecondary
+  )
 
+  Column(
     // determine position of current stage indicator based on int parameter
     noStages = noStages
     currentStage = currentStage,
@@ -181,29 +186,10 @@ fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1, noStage
     modifier = modifier,
     horizontalAlignment = Alignment.CenterHorizontally,
   ) {
-    androidx.compose.foundation.layout.Row(
-      horizontalArrangement = Arrangement.spacedBy(5.dp),
-      verticalAlignment = Alignment.CenterVertically,
-    ) {
-      repeat(noStagesBefore) {
-        AsyncImage(
-          model = IndividualStageIndicator(isCurrentStage = false, color = secondaryColour),
-          contentDescription = null,
-          modifier = Modifier.size(10.dp),
-        )
-      }
-      AsyncImage(
-          model = IndividualStageIndicator(isCurrentStage = true, color = primaryColour),
-          contentDescription = null,
-          modifier = Modifier.size(10.dp),
-        )
-      repeat(noStagesAfter) {
-        AsyncImage(
-          model = IndividualStageIndicator(isCurrentStage = false, color = secondaryColour),
-          contentDescription = null,
-          modifier = Modifier.size(10.dp),
-        )
-      }
+    Row(horizontalArrangement = Arrangement.spacedBy(5.dp), verticalAlignment = Alignment.CenterVertically,) {
+      repeat(noStagesBefore) { IndividualStageIndicator(isCurrentStage = false, colour = scheme.secondary) }
+      IndividualStageIndicator(isCurrentStage = true, colour = scheme.primary)
+      repeat(noStagesAfter) { IndividualStageIndicator(isCurrentStage = false, colour = scheme.secondary) }
     }
   }
 }
