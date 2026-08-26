@@ -29,16 +29,24 @@ class User(
     fun getProfilePic(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Modifier = Modifier) {
         val large = theme == Theme.Dark && !unread
         val diameter = if (large) 75.dp else 30.dp
+        val light = theme == Theme.Light
+        val scheme = ColourScheme(
+            background = if (light) Colours.LightModeSecondary else Colours.Accent,
+            border = if (light) Colours.LightModeBorder else Colours.DarkModeSecondary,
+            text = if (light) Colours.LightModeText else Colours.DarkModeSecondary
+        )
+
         if profilePicUrl != null { // how to display image in specific shape ?
+
         } else {
             Box(modifier = modifier.size(diameter), contentAlignment = Alignment.Center) {
                 Canvas(Modifier.matchParentSize()) {
-                    drawCircle(if (large) Colours.Accent else Colours.LightModeSecondary, radius = size.minDimension / 2f)
-                    if (!large) drawCircle(Colours.LightModePrimary, radius = size.minDimension / 2f, style = Stroke(1f))
+                    drawCircle(scheme.background, radius = size.minDimension / 2f)
+                    if (!large) drawCircle(scheme.border, radius = size.minDimension / 2f, style = Stroke(1f))
                 }
                 Text(
                     getInitials(),
-                    color = if (large) Colours.LightModeSecondary else Colours.LightModePrimary,
+                    color = scheme.text,
                     fontSize = if (large) TextFormatting.Heading2.size else TextFormatting.Boxes1.size,
                     fontWeight = if (large) TextFormatting.Heading2.weight else TextFormatting.Boxes1.weight,
                 )
