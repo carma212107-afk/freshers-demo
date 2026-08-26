@@ -72,7 +72,7 @@ fun SearchPage(
 	}
 }
 
-private val searchResults = List<Rides>
+private val searchResults = List<Rides> // this will contain actual rides later
 
 @Composable
 private fun SearchHeader(onBack: () -> Unit, onPreferences: () -> Unit, selectedDay: String, onDaySelected: (String) -> Unit) {
