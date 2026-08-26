@@ -155,9 +155,9 @@ fun RideRoute(
 		verticalAlignment = Alignment.CenterVertically,
 	) {
 		Column(modifier = Modifier.width(30.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-			RouteMarker()
-			Box(Modifier.width(1.dp).height(31.dp).background(Colours.LightModePrimary))
-			RouteMarker(arrival = true)
+			RouteMarker(colour = Colours.Accent)
+			RouteMarker(colour = Colours.LightModePrimary, line = true)
+			RouteMarker(colour = Colours.LightModePrimary)
 		}
 		val textKeyInfo = if (edit) TextFormatting.Boxes1 else TextFormatting.Text2
 		val textLabels = if (edit) TextFormatting.Boxes2 else TextFormatting.Text3
@@ -185,10 +185,13 @@ fun RideRoute(
 }
 
 @Composable
-private fun RouteMarker(modifier: Modifier = Modifier, arrival: Boolean = false) { // from/to marker
-    colour = if (arrival) Colours.LightModePrimary else Colours.Accent
-	Canvas(modifier.size(15.dp)) {
-		drawCircle(colour, radius = size.minDimension / 2f)
+fun RouteMarker(modifier: Modifier = Modifier, colour: Color = Colours.Accent, line: Boolean = false) { // from/to marker
+	if (line) {
+		Box(Modifier.width(1.dp).fillMaxHeight().background(colour).padding(end = 1.dp))
+	} else {
+		Canvas(modifier.size(15.dp)) {
+			drawCircle(colour, radius = size.minDimension / 2f)
+		}
 	}
 }
 
