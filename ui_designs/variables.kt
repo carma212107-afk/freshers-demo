@@ -27,6 +27,8 @@ data class ColourScheme(
   val border: Color,
   val text: Color,
   val icon: Color,
+  val primary: Color,
+  val secondary: Color
 )
 
 
