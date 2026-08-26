@@ -170,44 +170,32 @@ fun NumberRating(modifier: Modifier = Modifier, rating: String, theme: Theme = T
 
 @Composable
 fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1, noStages: Int = 5, theme: Theme = Theme.Light) {
-  light = theme == Theme.Light
-  scheme = ColourScheme(
-	primary = if (light) Colours.LightModePrimary else Colours.Accent,
-	secondary = if (light) Colours.LightModeSecondary else Colours.DarkModeSecondary
-  )
+	light = theme == Theme.Light
+  	scheme = ColourScheme(
+		primary = if (light) Colours.LightModePrimary else Colours.Accent,
+		secondary = if (light) Colours.LightModeSecondary else Colours.DarkModeSecondary
+ 	)
 
-  Column(
-    // determine position of current stage indicator based on int parameter
-    noStages = noStages
-    currentStage = currentStage,
-    noStagesBefore = currentStage - 1,
-    noStagesAfter = noStages - currentStage,
+  	Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+		// determine position of current stage indicator based on int parameter
+		noStages = noStages
+		currentStage = currentStage,
+		noStagesBefore = currentStage - 1,
+		noStagesAfter = noStages - currentStage,
 
-    modifier = modifier,
-    horizontalAlignment = Alignment.CenterHorizontally,
-  ) {
-    Row(horizontalArrangement = Arrangement.spacedBy(5.dp), verticalAlignment = Alignment.CenterVertically,) {
-      repeat(noStagesBefore) { IndividualStageIndicator(isCurrentStage = false, colour = scheme.secondary) }
-      IndividualStageIndicator(isCurrentStage = true, colour = scheme.primary)
-      repeat(noStagesAfter) { IndividualStageIndicator(isCurrentStage = false, colour = scheme.secondary) }
-    }
-  }
+		Row(horizontalArrangement = Arrangement.spacedBy(5.dp), verticalAlignment = Alignment.CenterVertically,) {
+			repeat(noStagesBefore) { IndividualStageIndicator(isCurrentStage = false, colour = scheme.secondary) }
+			IndividualStageIndicator(isCurrentStage = true, colour = scheme.primary)
+			repeat(noStagesAfter) { IndividualStageIndicator(isCurrentStage = false, colour = scheme.secondary) }
+		}
+  	}
 }
 
 @Composable
 private fun IndividualStageIndicator(modifier: Modifier = Modifier, isCurrentStage: Boolean = false, colour: Color = Colours.LightModeSecondary) {
-  if (isCurrentStage) {
-    Box(
-      modifier = Modifier
-        .size(width = 25.dp, height = 10.dp)
-        .background(color = primaryColour, shape = RoundedCornerShape(size = 20.dp)),
-    )
-  } else {
-    Ellipse(
-      modifer = Modifier
-        .padding(1.dp)
-        .size(width=10.dp, height=10.dp)
-        .background(color = secondaryColour)
-    )
-  }
+  	if (isCurrentStage) {
+   		Box(modifier = Modifier.size(width = 25.dp, height = 10.dp).background(color = primaryColour, shape = RoundedCornerShape(size = 20.dp)))
+  	} else {
+    	Ellipse(modifer = Modifier.padding(1.dp).size(width=10.dp, height=10.dp).background(color = secondaryColour))
+  	}
 }
