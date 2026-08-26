@@ -40,7 +40,7 @@ fun MyProfileExamplePage(
 	onAddRide: () -> Unit = {},
 	onRides: () -> Unit = {},
 	modifier: Modifier = Modifier,
-	user: User, // defaults to current user, but can be set to any user for viewing other profiles
+	user: User = getCurrentUser(), // defaults to current user, but can be set to any user for viewing other profiles
 ) {
 	Box(modifier = modifier.fillMaxSize().background(Colours.LightModeBackground1)) {
 		Column(modifier = Modifier.fillMaxSize()) {
@@ -74,7 +74,7 @@ private fun ProfileTopBar(onBack: () -> Unit, onEdit: () -> Unit) {
 }
 
 @Composable
-private fun ProfileHeader(user: User = getCurrentUser()) {
+private fun ProfileHeader(user: User) {
 	Column(modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground1).padding(horizontal = 30.dp, vertical = 15.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(19.dp)) {
 		Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(15.dp)) {
 			Column (modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(10.dp)) {
