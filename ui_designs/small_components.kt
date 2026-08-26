@@ -61,7 +61,11 @@ fun homeIcon(modifier: Modifier = Modifier) {
 	}
 }
 @Composable
-fun pinIcon(modifier: Modifier = Modifier) {
+fun pinIcon(modifier: Modifier = Modifier, theme: Theme = Theme.Dark) {
+	val colour = when (theme) {
+		Light -> Colours.LightModePrimary
+		Dark -> Colours.DarkModeSecondary
+	}
 	Canvas(modifier.size(width = 15.734.dp, height = 19.74.dp)) {
 		val pinPath = androidx.compose.ui.graphics.Path().apply {
 			moveTo(7.87f, 19f)
@@ -70,8 +74,8 @@ fun pinIcon(modifier: Modifier = Modifier) {
 			cubicTo(11.6f, 1f, 14.73f, 3.8f, 14.73f, 7.4f)
 			cubicTo(14.73f, 12.2f, 8.9f, 17f, 7.87f, 19f)
 		}
-		drawPath(pinPath, Colours.LightModePrimary, style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f, join = StrokeJoin.Round))
-		drawCircle(Colours.LightModePrimary, radius = 3f, center = androidx.compose.ui.geometry.Offset(7.87f, 7.3f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1.5f))
+		drawPath(pinPath, colour, style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f, join = StrokeJoin.Round))
+		drawCircle(colour, radius = 3f, center = androidx.compose.ui.geometry.Offset(7.87f, 7.3f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 1.5f))
 	}
 }
 @Composable
@@ -114,8 +118,8 @@ fun MessageIcon(modifier: Modifier = Modifier) {
 @Composable
 fun SearchIcon(modifier: Modifier = Modifier) {
 	Canvas(modifier.size(width = 15.734.dp, height = 19.74.dp)) {
-		drawCircle(Colours.LightModePrimary, radius = 6.5f, center = androidx.compose.ui.geometry.Offset(6.5f, 6.5f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
-		drawLine(Colours.LightModePrimary, androidx.compose.ui.geometry.Offset(11f, 11f), androidx.compose.ui.geometry.Offset(15f, 15f), 2f, StrokeCap.Round)
+		drawCircle(Colours.DarkModeSecondary, radius = 6.5f, center = androidx.compose.ui.geometry.Offset(6.5f, 6.5f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
+		drawLine(Colours.DarkModeSecondary, androidx.compose.ui.geometry.Offset(11f, 11f), androidx.compose.ui.geometry.Offset(15f, 15f), 2f, StrokeCap.Round)
 	}
 }
 
