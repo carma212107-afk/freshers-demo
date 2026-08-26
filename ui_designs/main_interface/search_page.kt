@@ -105,7 +105,7 @@ private fun SearchLocationField(label: String, placeholder: String) {
 	Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp)) {
 		Text(label, color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 		Row(modifier = Modifier.fillMaxWidth().height(38.dp).border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(20.dp)).padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-			Icon(Icons.Filled.LocationOn, contentDescription = null, tint = Colours.DarkModeText, modifier = Modifier.size(18.dp))
+			pinIcon()
 			Spacer(Modifier.width(8.dp))
 			Text(placeholder, color = Colours.DarkModeText, fontSize = TextFormatting.SearchBox1.size, fontWeight = TextFormatting.SearchBox1.weight)
 		}
