@@ -194,8 +194,8 @@ fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1, noStage
 @Composable
 private fun IndividualStageIndicator(modifier: Modifier = Modifier, isCurrentStage: Boolean = false, colour: Color = Colours.LightModeSecondary) {
   	if (isCurrentStage) {
-   		Box(modifier = Modifier.size(width = 25.dp, height = 10.dp).background(color = primaryColour, shape = RoundedCornerShape(size = 20.dp)))
+   		Box(modifier = Modifier.size(width = 25.dp, height = 10.dp).background(color = colour, shape = RoundedCornerShape(size = 20.dp)))
   	} else {
-    	Ellipse(modifer = Modifier.padding(1.dp).size(width=10.dp, height=10.dp).background(color = secondaryColour))
+    	Ellipse(modifer = Modifier.padding(1.dp).size(width=10.dp, height=10.dp).background(color = colour))
   	}
 }
