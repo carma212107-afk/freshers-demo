@@ -106,7 +106,7 @@ private fun ProfileHeader(user: User) {
 				Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(5.dp), verticalAlignment = Alignment.CenterVertically) {
 					Text("${user.getFormattedRating()}", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 					StarRating(filled = user.rating, theme = Theme.Dark)
-					Text("(${user.noOfRides})", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+					Text("(${user.getNoOfRides()})", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 				}				
 			}
 		}
@@ -116,7 +116,7 @@ private fun ProfileHeader(user: User) {
 		}
 		Row(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(20.dp)).background(Colours.DarkModePrimary).padding(horizontal = 20.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
 			Stat("${user.getPositiveRatingPercentage()}%\npositive")
-			Stat("${user.noOfRides()}\nrides")
+			Stat("${user.getNoOfRides()}\nrides")
 			Stat("saved\n${user.carbonSaved}kg\nCO2")
 		}
 	}

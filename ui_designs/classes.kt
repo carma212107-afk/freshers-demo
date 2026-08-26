@@ -15,7 +15,6 @@ class User(
     val rating: Double, // to 1d.p.
     val rides: List<Ride>,
     val reviews: List<Review>,
-    val noOfRides: Int,
     val carbonSaved: Float,
     val defaultSearchPreferences: DefaultSearchPref,
 ) {
