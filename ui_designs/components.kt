@@ -133,9 +133,9 @@ private fun BackButton(onClick: () -> Unit = {}, modifier: Modifier = Modifier) 
 	}
 }
 enum class MenuBarButton(
-  val text: String
-  val modifier: Modifier
-  val colour: Color
+  val text: String,
+  val modifier: Modifier = Modifier,
+  val colour: Color = Colours.DarkModePrimary,
 ) {}
 fun TopMenuBar(title: String, description: String = null, rightButton: MenuBarButton = null, theme: Theme = Theme.Dark) {
 	val backgroundColour = when (theme) {
