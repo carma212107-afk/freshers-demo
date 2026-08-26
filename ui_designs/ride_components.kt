@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 private fun RideCard(
+	driver: User,
 	startCity: String,
 	endCity: String,
 	date: String,
@@ -70,7 +71,7 @@ private fun RideCard(
 			}
 		}
 		Row(verticalAlignment = Alignment.CenterVertically) {
-			ProfilePic(initials = driverInitials.ifBlank { driverName.take(2).uppercase() }) // is the ifBlank() necessary?
+			driver.getProfilePic()
 			Spacer(Modifier.width(6.dp))
 			Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
 				if (searchResult) {
@@ -116,6 +117,7 @@ fun RideList(
 	Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
 		rides.forEach { ride ->
 			RideCard(
+				driver = ride.driver,
 				startCity = ride.startCity,
 				endCity = ride.endCity,
 				date = ride.getFormattedDate(),

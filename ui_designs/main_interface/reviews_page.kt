@@ -124,16 +124,17 @@ private fun RatingSummary(reviews: List<Review>) {
 
 @Composable
 fun IndividualReview(review: Review) {
+	reviewer = review.reviewer
 	Column(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp).clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.LightModeBorder, RoundedCornerShape(20.dp)).background(Colours.LightModeBackground2).padding(horizontal = 15.dp,vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(5.dp),
         content = content
     ) {
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            ProfilePic(initials = review.reviewer.getInitials())
+            reviewer.getProfilePic()
             Spacer(Modifier.width(5.dp))
             Column(modifier = Modifier.weight(1f)) {
-                Text("${review.reviewer.getFormattedFirstName()}", color = Colours.LightModeText, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
+                Text("${reviewer.getFormattedFirstName()}", color = Colours.LightModeText, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
                 Text("${review.startCity} → ${review.endCity}", color = Colours.LightModeText, fontSize = TextFormatting.Boxes2.size, fontWeight = TextFormatting.Boxes2.weight)
             }
             StarRating(filled = review.rating)

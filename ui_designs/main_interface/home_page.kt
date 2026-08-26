@@ -94,7 +94,7 @@ private fun HomeHeader(onSearch: () -> Unit, currentUser) {
 				Text("Good morning!", color = Colours.DarkModeText, fontSize = TextFormatting.Text1.size, fontWeight = TextFormatting.Text1.weight)
 				Text("Hey, ${currentUser.getFormattedFirstName()}", color = Colours.DarkModeText, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
 			}
-			ProfilePic(theme = Theme.Dark, user = currentUser)
+			currentUser.getProfilePic(theme = Theme.Dark)
 		}
 		Row(
 			modifier = Modifier.fillMaxWidth().height(40.dp).border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(15.dp)).background(Colours.DarkModePrimary).clickable(onClick = onSearch).padding(horizontal = 12.dp),
