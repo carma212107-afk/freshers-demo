@@ -43,10 +43,11 @@ import androidx.compose.ui.Modifier
 fun HomePage(
 	modifier: Modifier = Modifier,
 	onSearch: () -> Unit = {},
-	onRideClick: (HomeRide) -> Unit = {},
+	onRideClick: (Ride) -> Unit = {},
+	currentUser: User, // how to default to current user??
 ) {
 	var selectedFilter by remember { mutableStateOf("All trips") }
-	val rides = remember { sampleHomeRides }
+	val searchedRides = remember { searchResults }
 
 	LazyColumn(
 		modifier = modifier.fillMaxSize().background(Colours.LightModeBackground1),
@@ -54,16 +55,16 @@ fun HomePage(
 		verticalArrangement = Arrangement.spacedBy(16.dp),
 	) {
 		item {
-			HomeHeader(onSearch = onSearch)
+			HomeHeader(onSearch = onSearch, currentUser = currentUser)
 		}
 		item {
 			HomeSection(title = "Your upcoming rides") {
-				HomeRideCard(rides.first(), onClick = { onRideClick(rides.first()) })
+				RideList(rides = currentUser.rides.filter {ride.isUpcoming() == true})
 			}
 		}
 		item {
 			Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-				Text("Available rides", modifier = Modifier.padding(horizontal = 30.dp), color = Colours.LightModeText, fontSize = TextFormatting.Heading1.size, fontWeight = TextFormatting.Heading1.weight)
+				Text("Available rides", modifier = Modifier.padding(horizontal = 30.dp), color = Colours.LightModeText, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
 				Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
 					listOf("All trips", "Planned", "Last-minute", "Female-only").forEach { filter ->
 						FilterChip(filter, selectedFilter == filter) { selectedFilter = filter }
@@ -71,8 +72,8 @@ fun HomePage(
 				}
 			}
 		}
-		items(rides.drop(1)) { ride ->
-				HomeRideCard(ride, onClick = { onRideClick(ride) }, modifier = Modifier.padding(horizontal = 49.dp))
+		item {
+			RideList(rides = searchedRides) // onClick -> ride
 		}
 		item {
 			CarbonImpactPanel()
@@ -80,46 +81,28 @@ fun HomePage(
 	}
 }
 
-data class HomeRide(
-	val startCity: String,
-	val endCity: String,
-	val date: String,
-	val time: String,
-	val driverName: String,
-	val university: String,
-	val seatsLeft: Int,
-	val rating: String,
-)
-
-private val sampleHomeRides = listOf(
-	HomeRide("<startC>", "<endC>", "<date>", "HH:mm", "<FirstN>", "University of Exeter", 3, "4.50"),
-	HomeRide("<startC>", "<endC>", "<date>", "HH:mm", "<FirstN>", "<uni>", 3, "4.50"),
-	HomeRide("<startC>", "<endC>", "<date>", "HH:mm", "<FirstN>", "<uni>", 2, "4.50"),
-	HomeRide("<startC>", "<endC>", "<date>", "HH:mm", "<FirstN>", "<uni>", 1, "4.50"),
-)
+private val searchResults = List<Rides> // this will contain actual rides later
 
 @Composable
-private fun HomeHeader(onSearch: () -> Unit) {
+private fun HomeHeader(onSearch: () -> Unit, currentUser) {
 	Column(
 		modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground).padding(horizontal = 24.dp, vertical = 18.dp),
 		verticalArrangement = Arrangement.spacedBy(10.dp),
 	) {
 		Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
 			Column(modifier = Modifier.weight(1f)) {
-				Text("Good morning", color = Colours.DarkModeText, fontSize = TextFormatting.Text1.size)
-				Text("Hey, <FirstN>", color = Colours.DarkModeText, fontSize = 30.sp, fontWeight = FontWeight.Black)
+				Text("Good morning!", color = Colours.DarkModeText, fontSize = TextFormatting.Text1.size, fontWeight = TextFormatting.Text1.weight)
+				Text("Hey, ${currentUser.getFormattedFirstName()}", color = Colours.DarkModeText, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
 			}
-			Box(modifier = Modifier.size(66.dp).background(Colours.Accent, CircleShape).border(1.dp, Colours.DarkModeSecondary, CircleShape), contentAlignment = Alignment.Center) {
-				Text("BE", color = Colours.DarkModeSecondary, fontSize = 23.sp, fontWeight = FontWeight.Bold)
-			}
+			ProfilePic(theme = Theme.Dark, user = currentUser)
 		}
 		Row(
-			modifier = Modifier.fillMaxWidth().height(40.dp).border(1.dp, Colours.DarkModeSecondary, RoundedCornerShape(15.dp)).clickable(onClick = onSearch).padding(horizontal = 12.dp),
+			modifier = Modifier.fillMaxWidth().height(40.dp).border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(15.dp)).background(Colours.DarkModePrimary).clickable(onClick = onSearch).padding(horizontal = 12.dp),
 			verticalAlignment = Alignment.CenterVertically,
 		) {
-			Icon(Icons.Filled.LocationOn, contentDescription = "Choose destination", tint = Colours.DarkModeSecondary, modifier = Modifier.size(20.dp))
+			pinIcon()
 			Spacer(Modifier.width(8.dp))
-			Text("Where are you heading?", color = Colours.DarkModeSecondary, fontSize = TextFormatting.Text1.size)
+			Text("Where are you heading?", color = Colours.DarkModeText, fontSize = TextFormatting.SearchBox1.size, fontWeight = TextFormatting.SearchBox1.weight)
 		}
 	}
 }
@@ -127,49 +110,27 @@ private fun HomeHeader(onSearch: () -> Unit) {
 @Composable
 private fun HomeSection(title: String, content: @Composable () -> Unit) {
 	Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-		Text(title, modifier = Modifier.padding(horizontal = 30.dp), color = Colours.LightModeText, fontSize = TextFormatting.Heading1.size, fontWeight = TextFormatting.Heading1.weight)
+		Text(title, modifier = Modifier.padding(horizontal = 30.dp), color = Colours.LightModeText, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
 		content()
 	}
 }
 
 @Composable
 private fun FilterChip(label: String, selected: Boolean, onClick: () -> Unit) {
-	Text(label, modifier = Modifier.clip(RoundedCornerShape(18.dp)).background(if (selected) Colours.LightModePrimary else Colours.LightModeBackground2).border(1.dp, Colours.LightModeSecondary, RoundedCornerShape(18.dp)).clickable(onClick = onClick).padding(horizontal = 10.dp, vertical = 7.dp), color = if (selected) Colours.LightModeBackground1 else Colours.LightModeText, fontSize = 14.sp)
+	Text(label, modifier = Modifier.clip(RoundedCornerShape(18.dp)).background(if (selected) Colours.LightModePrimary else Colours.LightModeBackground2).border(1.dp, if (selected) Colours.DarkModeBackground else Colours.LightModeSecondary, RoundedCornerShape(18.dp)).clickable(onClick = onClick).padding(horizontal = 10.dp, vertical = 7.dp), color = if (selected) Colours.DarkModeText else Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 }
 
 @Composable
-private fun HomeRideCard(ride: HomeRide, onClick: () -> Unit, modifier: Modifier = Modifier) {
-	Column(modifier = modifier.fillMaxWidth().border(1.dp, Colours.Accent, RoundedCornerShape(17.dp)).background(Colours.LightModeBackground2, RoundedCornerShape(17.dp)).clickable(onClick = onClick).padding(horizontal = 12.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-		Text("${ride.startCity}  ->  ${ride.endCity}", color = Colours.LightModeText, fontSize = 24.sp, fontWeight = FontWeight.Black)
-		Row(verticalAlignment = Alignment.CenterVertically) {
-			ProfilePic(initials = "BE")
-			Spacer(Modifier.width(6.dp))
-			Column(modifier = Modifier.weight(1f)) {
-				Text(ride.driverName, color = Colours.LightModeText, fontSize = 12.sp, fontWeight = FontWeight.Bold)
-				Text(ride.university, color = Colours.LightModeText, fontSize = 12.sp)
-			}
-			Text("* ${ride.rating}", color = Colours.LightModeText, fontSize = 14.sp)
-		}
-		Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-			CalendarIcon(Modifier.size(14.dp))
-			Text(ride.date, color = Colours.LightModeText, fontSize = 12.sp)
-			ClockIcon(Modifier.size(14.dp))
-			Text(ride.time, color = Colours.LightModeText, fontSize = 12.sp)
-			Spacer(Modifier.weight(1f))
-			Text("${ride.seatsLeft} seats", color = Colours.LightModeText, fontSize = 12.sp)
-		}
-	}
-}
-
-@Composable
-private fun CarbonImpactPanel() {
-	Column(modifier = Modifier.padding(horizontal = 30.dp).fillMaxWidth().background(Colours.DarkModeBackground, RoundedCornerShape(18.dp)).padding(15.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
+private fun CarbonImpactPanel(user) {
+	Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
 		Text("Your carbon impact", color = Colours.LightModeText, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
-		Text("LIVE CO2 TRACKER", color = Colours.DarkModeSecondary, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-		Text("Our green journey so far...", color = Colours.DarkModeText, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
-		Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-			ImpactStat("350", "kg CO2 saved", Modifier.weight(1f))
-			ImpactStat("10", "rides shared", Modifier.weight(1f))
+		Column(modifier = Modifier.padding(horizontal = 30.dp).fillMaxWidth().background(Colours.DarkModeBackground, RoundedCornerShape(18.dp)).padding(15.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
+			Text("LIVE CO2 TRACKER", color = Colours.LightModeSecondary, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
+			Text("Our green journey so far...", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+			Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+				ImpactStat("${currentUser.carbonSaved}kg", "CO2 saved", Modifier.weight(1f))
+				ImpactStat(currentUser.getNoOfRides(), "rides shared", Modifier.weight(1f))
+			}
 		}
 	}
 }
@@ -177,7 +138,7 @@ private fun CarbonImpactPanel() {
 @Composable
 private fun ImpactStat(value: String, label: String, modifier: Modifier = Modifier) {
 	Column(modifier = modifier.background(Colours.DarkModePrimary, RoundedCornerShape(15.dp)).padding(12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-		Text(value, color = Colours.DarkModeText, fontSize = 30.sp, fontWeight = FontWeight.Black)
-		Text(label, color = Colours.DarkModeText, fontSize = 12.sp)
+		Text(value, color = Colours.DarkModeText, fontSize = TextFormatting.Figures1.size, fontWeight = TextFormatting.Figures1.weight)
+		Text(label, color = Colours.DarkModeText, fontSize = TextFormatting.Figures2.size, fontWeight = TextFormatting.Figures2.weight)
 	}
 }
