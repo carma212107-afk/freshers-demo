@@ -27,6 +27,26 @@ class User(
         return "${firstName.first()}${lastName.first()}"
     }
 
+    fun ProfilePic(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Modifier = Modifier) {
+        val large = theme == Theme.Dark && !unread
+        val diameter = if (large) 75.dp else 30.dp
+        if profilePicUrl != null { // how to display image in specific shape ?
+        } else {
+            Box(modifier = modifier.size(diameter), contentAlignment = Alignment.Center) {
+                Canvas(Modifier.matchParentSize()) {
+                    drawCircle(if (large) Colours.Accent else Colours.LightModeSecondary, radius = size.minDimension / 2f)
+                    if (!large) drawCircle(Colours.LightModePrimary, radius = size.minDimension / 2f, style = Stroke(1f))
+                }
+                Text(
+                    getInitials(),
+                    color = if (large) Colours.LightModeSecondary else Colours.LightModePrimary,
+                    fontSize = if (large) TextFormatting.Heading2.size else TextFormatting.Boxes1.size,
+                    fontWeight = if (large) TextFormatting.Heading2.weight else TextFormatting.Boxes1.weight,
+                )
+            }
+        }
+    }
+
     fun getFormattedFirstName(): String {
         return "$firstName ${lastName.first()}."
     }
