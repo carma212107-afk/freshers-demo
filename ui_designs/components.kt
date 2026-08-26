@@ -120,15 +120,22 @@ private fun BottomNavButton(asset: String?, label: String, onClick: () -> Unit) 
 // TopMenuBar component
 
 @Composable
-private fun BackButton(onClick: () -> Unit = {}, modifier: Modifier = Modifier) {
+private fun BackButton(onClick: () -> Unit = {}, modifier: Modifier = Modifier, theme: Theme = Theme.Dark) {
+	val light = theme == Theme.Light
+  val scheme = ColourScheme(
+    background = if (light) Colours.LightModeSecondary else Colours.DarkModeBackground2
+    border = if (light) Colours.LightModePrimary else Colours.DarkModeBorder
+    icon = if (light) Colours.LightModePrimary else Colours.DarkModePrimary
+  )
+
 	Box(
-		modifier = modifier.size(40.dp).background(Colours.DarkModeBackground2, CircleShape)
-			.border(1.dp, Colours.DarkModeBorder, CircleShape).clickable(onClick = onClick),
+		modifier = modifier.size(40.dp).background(scheme.background, CircleShape)
+			.border(1.dp, scheme.border, CircleShape).clickable(onClick = onClick),
 		contentAlignment = Alignment.Center,
 	) {
 		Canvas(Modifier.size(22.dp)) {
-			drawLine(Colours.DarkModePrimary, androidx.compose.ui.geometry.Offset(15f, 3f), androidx.compose.ui.geometry.Offset(7f, 11f), 2.5f, StrokeCap.Round)
-			drawLine(Colours.DarkModePrimary, androidx.compose.ui.geometry.Offset(7f, 11f), androidx.compose.ui.geometry.Offset(15f, 19f), 2.5f, StrokeCap.Round)
+			drawLine(scheme.icon, androidx.compose.ui.geometry.Offset(15f, 3f), androidx.compose.ui.geometry.Offset(7f, 11f), 2.5f, StrokeCap.Round)
+			drawLine(scheme.icon, androidx.compose.ui.geometry.Offset(7f, 11f), androidx.compose.ui.geometry.Offset(15f, 19f), 2.5f, StrokeCap.Round)
 		}
 	}
 }
@@ -138,27 +145,24 @@ enum class MenuBarButton(
   val colour: Color = Colours.DarkModeBackground2,
 ) {}
 fun TopMenuBar(title: String, description: String = null, rightButton: MenuBarButton = null, theme: Theme = Theme.Dark) {
-	val backgroundColour = when (theme) {
-		Light -> Colours.LightModeBackground1
-		Dark -> Colours.DarkModeBackground1
-	}
-	val textColour = when (theme) {
-		Light -> Colours.LightModeText
-		Dark -> Colours.DarkModeText
-	}
+	val light = theme == Theme.Light
+  val scheme = ColourScheme(
+    background = if (light) Colours.LightModeBackground1 else Colours.DarkModeBackground1
+    text = if (light) Colours.LightModeText else Colours.DarkModeText
+  )
 
 	Row(
-		modifier = Modifier.fillMaxWidth().background(backgroundColour).padding(start = 15.dp, end = 15.dp, top = 60.dp, bottom = 15.dp),
+		modifier = Modifier.fillMaxWidth().background(scheme.background).padding(start = 15.dp, end = 15.dp, top = 60.dp, bottom = 15.dp),
 		verticalAlignment = Alignment.CenterVertically,
 		horizontalArrangement = Arrangement.spacedBy(15.dp)
 	) {
 		BackButton(onClick = onBack, theme = theme)
 		Column {
-			Text(title, color = textColour, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
-			if (description != null) { Text(description, color = textColour, fontSize = TextFormatting.Text1.size, fontWeight = TextFormatting.Text1.weight) }
+			Text(title, color = scheme.text, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
+			if (description != null) { Text(description, color = scheme.text, fontSize = TextFormatting.Text1.size, fontWeight = TextFormatting.Text1.weight) }
 		}
 		if (rightButton != null) {
-			Text(rightButton.text, modifier = rightButton.modifier, color = textColour, fontsize = TextFormatting.Button1.size, fontWeight = TextFormatting.Button1.weight, textAlign = TextAlign.Center)
+			Text(rightButton.text, modifier = rightButton.modifier, color = scheme.text, fontsize = TextFormatting.Button1.size, fontWeight = TextFormatting.Button1.weight, textAlign = TextAlign.Center)
 		}
 	}
 }
