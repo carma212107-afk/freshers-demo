@@ -65,21 +65,6 @@ fun MyProfileExamplePage(
 
 @Composable
 private fun ProfileTopBar(onBack: () -> Unit, onEdit: () -> Unit) {
-	Row(
-		modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground1).padding(start = 15.dp, end = 15.dp, top = 58.dp, bottom = 15.dp),
-		verticalAlignment = Alignment.CenterVertically,
-		horizontalArrangement = Arrangement.spacedBy(15.dp),
-	) {
-		BackButton(onClick = onBack)
-		Text("Profile", modifier = Modifier.weight(1f), color = Colours.DarkModeText, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
-		if (user.isCurrentUser) { // only show edit button if viewing own profile
-			val editButton = MenuBarButton()
-			editButton.text: String = "Edit"
-			editButton.modifier: Modifier = Modifier.clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(20.dp)).clickable(onClick = onEdit).padding(horizontal = 20.dp, vertical = 10.dp)
-			editButton.colour: Color = Colours.DarkModeText
-		}
-	}
-
 	if (user.isCurrentUser) { // only show edit button if viewing own profile
 		val editButton = MenuBarButton()
 		editButton.text: String = "Edit"
@@ -89,7 +74,7 @@ private fun ProfileTopBar(onBack: () -> Unit, onEdit: () -> Unit) {
 }
 
 @Composable
-private fun ProfileHeader(user: User) {
+private fun ProfileHeader(user: User = getCurrentUser()) {
 	Column(modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground1).padding(horizontal = 30.dp, vertical = 15.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(19.dp)) {
 		Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(15.dp)) {
 			Column (modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(10.dp)) {
