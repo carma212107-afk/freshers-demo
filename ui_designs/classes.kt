@@ -37,7 +37,14 @@ class User(
         )
 
         if profilePicUrl != null { // how to display image in specific shape ?
-
+            AsyncImage(
+                model = profilePicUrl,
+                contentDescription = "Profile",
+                modifier = Modifier
+                    .size(diameter)
+                    .clip(CircleShape),
+                contentScale = ContentScale.Crop
+            )
         } else {
             Box(modifier = modifier.size(diameter), contentAlignment = Alignment.Center) {
                 Canvas(Modifier.matchParentSize()) {
