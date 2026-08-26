@@ -93,7 +93,7 @@ private fun ProfileHeader(user: User) {
 	Column(modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground1).padding(horizontal = 30.dp, vertical = 15.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(19.dp)) {
 		Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(15.dp)) {
 			Column (modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-				user.ProfilePic(modifier = Modifier.size(140.dp), contentAlignment = Alignment.Center, size = 140.dp, theme = Theme.Dark)
+				user.getProfilePic(modifier = Modifier.size(140.dp), contentAlignment = Alignment.Center, size = 140.dp, theme = Theme.Dark)
 				for (profile in user.socialProfiles) {
 					SocialProfileButton(profile, modifier = Modifier.fillMaxWidth())
 				}

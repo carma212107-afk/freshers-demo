@@ -26,7 +26,7 @@ class User(
         return "${firstName.first()}${lastName.first()}"
     }
 
-    fun ProfilePic(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Modifier = Modifier) {
+    fun getProfilePic(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Modifier = Modifier) {
         val large = theme == Theme.Dark && !unread
         val diameter = if (large) 75.dp else 30.dp
         if profilePicUrl != null { // how to display image in specific shape ?
