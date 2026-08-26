@@ -36,6 +36,10 @@ enum class Theme { Light, Dark }
 
 private enum class MainScreen { Home, Search, PostRide, MyRides, Profile }
 
+fun getCurrentUser(): User {
+  // how to get current User?
+}
+
 @Composable
 fun MainInterface(modifier: Modifier = Modifier) {
   var currentScreen by remember { mutableStateOf(MainScreen.Profile) }

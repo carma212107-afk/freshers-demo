@@ -65,7 +65,7 @@ fun MyProfileExamplePage(
 
 @Composable
 private fun ProfileTopBar(onBack: () -> Unit, onEdit: () -> Unit) {
-	if (user.isCurrentUser) { // only show edit button if viewing own profile
+	if (user == getCurrentUser()) { // only show edit button if viewing own profile
 		val editButton = MenuBarButton()
 		editButton.text: String = "Edit"
 		editButton.modifier: Modifier = Modifier.clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(20.dp)).clickable(onClick = onEdit).padding(horizontal = 20.dp, vertical = 10.dp)
