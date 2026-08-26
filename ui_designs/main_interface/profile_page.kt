@@ -66,7 +66,7 @@ fun MyProfileExamplePage(
 @Composable
 private fun ProfileTopBar(onBack: () -> Unit, onEdit: () -> Unit) {
 	Row(
-		modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground).padding(start = 15.dp, end = 15.dp, top = 58.dp, bottom = 15.dp),
+		modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground1).padding(start = 15.dp, end = 15.dp, top = 58.dp, bottom = 15.dp),
 		verticalAlignment = Alignment.CenterVertically,
 		horizontalArrangement = Arrangement.spacedBy(15.dp),
 	) {
@@ -90,7 +90,7 @@ private fun ProfileTopBar(onBack: () -> Unit, onEdit: () -> Unit) {
 
 @Composable
 private fun ProfileHeader(user: User) {
-	Column(modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground).padding(horizontal = 30.dp, vertical = 15.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(19.dp)) {
+	Column(modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground1).padding(horizontal = 30.dp, vertical = 15.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(19.dp)) {
 		Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(15.dp)) {
 			Column (modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(10.dp)) {
 				user.ProfilePic(modifier = Modifier.size(140.dp), contentAlignment = Alignment.Center, size = 140.dp, theme = Theme.Dark)
@@ -114,7 +114,7 @@ private fun ProfileHeader(user: User) {
 			VerificationChip("✓ Verified student")
 			VerificationChip("✓ Verified driver")
 		}
-		Row(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(20.dp)).background(Colours.DarkModePrimary).padding(horizontal = 20.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+		Row(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(20.dp)).background(Colours.DarkModeBackground2).padding(horizontal = 20.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
 			Stat("${user.getPositiveRatingPercentage()}%\npositive")
 			Stat("${user.getNoOfRides()}\nrides")
 			Stat("saved\n${user.carbonSaved}kg\nCO2")
@@ -134,7 +134,7 @@ private fun AboutSection(bio: String = null) {
 
 @Composable
 private fun CarbonImpactSection(user: User) {
-	Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp).clip(RoundedCornerShape(20.dp)).background(Colours.DarkModeBackground).padding(15.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
+	Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp).clip(RoundedCornerShape(20.dp)).background(Colours.DarkModeBackground1).padding(15.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
 		Text("YOUR CARBON IMPACT", color = Colours.LightModeSecondary, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
 		Row(verticalAlignment = Alignment.Bottom) {
 			Text("${user.carbonSaved}", color = Colours.DarkModeText, fontSize = TextFormatting.Figures1.size, fontWeight = TextFormatting.Figures1.weight)
@@ -167,7 +167,7 @@ private const val snapchatLogo = "https://play-lh.googleusercontent.com/nOJWJoDA
 private fun SocialProfileButton(profile: SocialProfile = SocialProfile.Instagram, modifier: Modifier = Modifier) {
 	Row(
 		modifier = modifier
-			.border(1.dp, Colours.DarkModePrimary, RoundedCornerShape(20.dp))
+			.border(1.dp, Colours.DarkModeBackground2, RoundedCornerShape(20.dp))
 			.background(Colours.LightModeBackground2, RoundedCornerShape(20.dp))
 			.padding(horizontal = 15.dp, vertical = 6.dp),
 		horizontalArrangement = Arrangement.spacedBy(5.dp),

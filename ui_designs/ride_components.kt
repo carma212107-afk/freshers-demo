@@ -276,7 +276,7 @@ private fun RideInfoBox(value: String, label: String, modifier: Modifier = Modif
 // individual chat page referencing ride block
 @Composable
 fun DiscussingRideBanner(ride: Ride, modifier: Modifier = Modifier) {
-	Column(modifier = modifier.fillMaxWidth().background(Colours.DarkModePrimary, RoundedCornerShape(10.dp)).padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+	Column(modifier = modifier.fillMaxWidth().background(Colours.DarkModeBackground2, RoundedCornerShape(10.dp)).padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
 		Text("DISCUSSING THIS RIDE", color = Colours.DarkModeText, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
 		Text("${ride.startCity}  ->  ${ride.endCity}", color = Colours.DarkModeText, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
 		Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {

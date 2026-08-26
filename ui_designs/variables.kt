@@ -11,9 +11,10 @@ object Colours {
   val LightModeInputText: Color = Color(0xFF1A9E52)
 
     // Dark mode colors
-  val DarkModeBackground: Color = Color(0xFF0A5C2E)
-  val DarkModePrimary: Color = Color(0xFF2A7149)
-  val DarkModeSecondary: Color = Color(0xFFF5FFF8)
+  val DarkModeBackground1: Color = Color(0xFF0A5C2E)
+  val DarkModeBackground2: Color = Color(0xFF2A7149)
+  val DarkModePrimary: Color = Color(0xFFF5FFF8)
+  val DarkModeSecondary: Color = Color(0xFFB5DDC3)
   val DarkModeBorder: Color = Color(0xFFF5FFF8)
   val DarkModeText: Color = Color(0xFFFFFFFF)
   val DarkModeInputText: Color = Color(0xFFFFFFFF)

@@ -60,7 +60,7 @@ fun ReviewsPage(
 @Composable
 private fun ReviewsHeader(searchQuery: String, onSearchQueryChange: (String) -> Unit, onBack: () -> Unit) {
 	Column(
-		modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground)
+		modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground1)
 			.padding(start = 15.dp, end = 15.dp, top = 20.dp, bottom = 15.dp),
 		verticalArrangement = Arrangement.spacedBy(10.dp),
 	) {
@@ -85,7 +85,7 @@ private fun ReviewsHeader(searchQuery: String, onSearchQueryChange: (String) -> 
 				focusedBorderColor = Colours.Accent,
 				unfocusedBorderColor = Colours.DarkModeBorder,
 				focusedBackgroundColor = Colours.LightModeBackground
-				unfocusedBackgroundColor = Colours.DarkModeBackground
+				unfocusedBackgroundColor = Colours.DarkModeBackground1
 				cursorColor = Colours.DarkModeText,
 			),
 		)
@@ -154,7 +154,7 @@ fun StarRating(filled: Int = 5, theme: Theme = Theme.Light, modifier: Modifier =
 		horizontalArrangement = Arrangement.spacedBy(1.dp),
 	) {
 		repeat(5) { index ->
-			StarGlyph(filled = index < filled, color = if (lightMode) Colours.LightModePrimary else Colours.DarkModeSecondary, modifier = Modifier.size(20.dp))
+			StarGlyph(filled = index < filled, color = if (lightMode) Colours.LightModePrimary else Colours.DarkModePrimary, modifier = Modifier.size(20.dp))
 		}
 	}
 }

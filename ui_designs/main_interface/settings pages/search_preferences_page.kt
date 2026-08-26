@@ -80,7 +80,7 @@ fun SearchPage(
 			onClick = onContinue,
 			modifier = Modifier.fillMaxWidth().height(42.dp),
 			shape = RoundedCornerShape(20.dp),
-			colors = ButtonDefaults.buttonColors(containerColor = Colours.DarkModeBackground),
+			colors = ButtonDefaults.buttonColors(containerColor = Colours.DarkModeBackground1),
 		) { Text("Save preferences", color = Colours.DarkModeText, fontSize = TextFormatting.Button1.size, fontWeight = TextFormatting.Button1.weight) }
 		Button(
 			onClick = onDiscard,

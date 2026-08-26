@@ -64,7 +64,7 @@ fun homeIcon(modifier: Modifier = Modifier) {
 fun pinIcon(modifier: Modifier = Modifier, theme: Theme = Theme.Dark) {
 	val colour = when (theme) {
 		Light -> Colours.LightModePrimary
-		Dark -> Colours.DarkModeSecondary
+		Dark -> Colours.DarkModePrimary
 	}
 	Canvas(modifier.size(width = 15.734.dp, height = 19.74.dp)) {
 		val pinPath = androidx.compose.ui.graphics.Path().apply {
@@ -118,8 +118,8 @@ fun MessageIcon(modifier: Modifier = Modifier) {
 @Composable
 fun SearchIcon(modifier: Modifier = Modifier) {
 	Canvas(modifier.size(width = 15.734.dp, height = 19.74.dp)) {
-		drawCircle(Colours.DarkModeSecondary, radius = 6.5f, center = androidx.compose.ui.geometry.Offset(6.5f, 6.5f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
-		drawLine(Colours.DarkModeSecondary, androidx.compose.ui.geometry.Offset(11f, 11f), androidx.compose.ui.geometry.Offset(15f, 15f), 2f, StrokeCap.Round)
+		drawCircle(Colours.DarkModePrimary, radius = 6.5f, center = androidx.compose.ui.geometry.Offset(6.5f, 6.5f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
+		drawLine(Colours.DarkModePrimary, androidx.compose.ui.geometry.Offset(11f, 11f), androidx.compose.ui.geometry.Offset(15f, 15f), 2f, StrokeCap.Round)
 	}
 }
 
@@ -157,7 +157,7 @@ fun ToggleSwitch(switchedOn: Boolean = false, onClick: () -> Unit = {}, modifier
 @Composable
 fun NumberRating(modifier: Modifier = Modifier, rating: String, theme: Theme = Theme.Light) {
     if (theme == Theme.Light) { primaryColour = Colours.LightModePrimary }
-    else { primaryColour = Colours.DarkModeSecondary }
+    else { primaryColour = Colours.DarkModePrimary }
 
 	Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
 		StarGlyph(filled = true, color = primaryColour, modifier = Modifier.size(20.dp))

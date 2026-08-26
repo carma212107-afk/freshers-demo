@@ -122,25 +122,25 @@ private fun BottomNavButton(asset: String?, label: String, onClick: () -> Unit) 
 @Composable
 private fun BackButton(onClick: () -> Unit = {}, modifier: Modifier = Modifier) {
 	Box(
-		modifier = modifier.size(40.dp).background(Colours.DarkModePrimary, CircleShape)
+		modifier = modifier.size(40.dp).background(Colours.DarkModeBackground2, CircleShape)
 			.border(1.dp, Colours.DarkModeBorder, CircleShape).clickable(onClick = onClick),
 		contentAlignment = Alignment.Center,
 	) {
 		Canvas(Modifier.size(22.dp)) {
-			drawLine(Colours.DarkModeSecondary, androidx.compose.ui.geometry.Offset(15f, 3f), androidx.compose.ui.geometry.Offset(7f, 11f), 2.5f, StrokeCap.Round)
-			drawLine(Colours.DarkModeSecondary, androidx.compose.ui.geometry.Offset(7f, 11f), androidx.compose.ui.geometry.Offset(15f, 19f), 2.5f, StrokeCap.Round)
+			drawLine(Colours.DarkModePrimary, androidx.compose.ui.geometry.Offset(15f, 3f), androidx.compose.ui.geometry.Offset(7f, 11f), 2.5f, StrokeCap.Round)
+			drawLine(Colours.DarkModePrimary, androidx.compose.ui.geometry.Offset(7f, 11f), androidx.compose.ui.geometry.Offset(15f, 19f), 2.5f, StrokeCap.Round)
 		}
 	}
 }
 enum class MenuBarButton(
   val text: String,
   val modifier: Modifier = Modifier,
-  val colour: Color = Colours.DarkModePrimary,
+  val colour: Color = Colours.DarkModeBackground2,
 ) {}
 fun TopMenuBar(title: String, description: String = null, rightButton: MenuBarButton = null, theme: Theme = Theme.Dark) {
 	val backgroundColour = when (theme) {
 		Light -> Colours.LightModeBackground1
-		Dark -> Colours.DarkModeBackground
+		Dark -> Colours.DarkModeBackground1
 	}
 	val textColour = when (theme) {
 		Light -> Colours.LightModeText

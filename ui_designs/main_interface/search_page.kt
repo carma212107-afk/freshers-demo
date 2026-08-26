@@ -76,9 +76,9 @@ private val searchResults = List<Rides> // this will contain actual rides later
 
 @Composable
 private fun SearchHeader(onBack: () -> Unit, onPreferences: () -> Unit, selectedDay: String, onDaySelected: (String) -> Unit) {
-	Column(modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground).padding(horizontal = 15.dp, vertical = 18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+	Column(modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground1).padding(horizontal = 15.dp, vertical = 18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
 		TopMenuBar("Find a Ride", rightButton = MenuBarButton("Pref."))
-		Row(modifer = Modifer.fillMaxWidth().border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(15.dp)), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+		Row(modifer = Modifer.fillMaxWidth().border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(15.dp)).background(Colours.DarkModeBackground2), verticalArrangement = Arrangement.spacedBy(10.dp)) {
 			Column(modifer = Modifer.fillMaxHeight()) {
 				SearchLocationField("From", "City")
 				Spacer(Modifier.weight(1f))
@@ -87,8 +87,8 @@ private fun SearchHeader(onBack: () -> Unit, onPreferences: () -> Unit, selected
 			Column(modifer = Modifer.fillMaxHeight()) {
 				Spacer(Modifier.weight(1f))
 				RouteMarker(colour = Colour.Accent)
-				RouteMarker(colour = Colour.DarkModeSecondary, line = true)
-				RouteMarker(colour = Colour.DarkModeSecondary)
+				RouteMarker(colour = Colour.DarkModePrimary, line = true)
+				RouteMarker(colour = Colour.DarkModePrimary)
 			}
 		}
 		Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {

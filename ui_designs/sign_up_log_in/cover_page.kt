@@ -59,7 +59,7 @@ fun CoverPage(
           text = "Student intercity ridesharing",
           modifier = Modifier
             .padding(top = 4.dp)
-            // .containerColor = Variables.DarkModePrimary
+            // .containerColor = Variables.DarkModeBackground2
             .border(
               BorderStroke(1.dp, Variables.DarkModeBorder),
               RoundedCornerShape(20.dp),
@@ -127,7 +127,7 @@ fun CoverPage(
           shape = RoundedCornerShape(20.dp),
           border = BorderStroke(1.dp, Variables.DarkModeBorder),
           colors = ButtonDefaults.buttonColors(
-            containerColor = Variables.DarkModeBackground,
+            containerColor = Variables.DarkModeBackground1,
             contentColor = Variables.DarkModeText,
           ),
         ) {
@@ -140,8 +140,8 @@ fun CoverPage(
 
 
 object Variables {
-  val DarkModeBackground: Color = Colours.DarkModeBackground
-  val DarkModePrimary: Color = Colours.DarkModePrimary
+  val DarkModeBackground1: Color = Colours.DarkModeBackground1
+  val DarkModeBackground2: Color = Colours.DarkModeBackground2
   val DarkModeBorder: Color = Colours.DarkModeBorder
   val DarkModeText: Color = Colours.DarkModeText
   val LightModeBackground: Color = Colours.LightModeBackground
