@@ -33,7 +33,7 @@ class User(
         return "${firstName.first()}${lastName.first()}"
     }
 
-    fun getProfilePic(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Modifier = Modifier) {
+    fun profilePicComponent(theme: Theme = Theme.Light, unread: Boolean = false, modifier: Modifier = Modifier) {
         val large = theme == Theme.Dark && !unread
         val diameter = if (large) 75.dp else 30.dp
         val light = theme == Theme.Light
