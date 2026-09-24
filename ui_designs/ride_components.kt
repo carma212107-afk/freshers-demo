@@ -120,10 +120,10 @@ fun RideList(
 				driver = ride.driver,
 				startCity = ride.startCity,
 				endCity = ride.endCity,
-				date = ride.getFormattedDate(),
-				time = ride.getFormattedTime(),
+				date = ride.formatDate(),
+				time = ride.formatTime(),
 				upcoming = ride.isUpcoming(),
-				price = ride.getPricePerSeat(),
+				price = ride.calculatePricePerSeat(),
 				driver = ride.driver,
 				driverName = driver.formatFirstName(),
 				driverUniversity = driver.university,
@@ -177,7 +177,7 @@ fun RideRoute(
 				Text(ride.calculateDuration(), color = Colours.LightMode.Text, fontSize = textKeyInfo.size, fontWeight = textKeyInfo.size)
 			} else {
 				Text("Departure time", color = Colours.LightMode.Text, fontSize = textLabels.size, fontWeight = textLabels.weight)
-				Text(ride.getFormattedTime(), color = Colours.LightMode.Text, fontSize = textKeyInfo.size, fontWeight = textKeyInfo.size)
+				Text(ride.formatTime(), color = Colours.LightMode.Text, fontSize = textKeyInfo.size, fontWeight = textKeyInfo.size)
 				Spacer(Modifier.height(12.dp))
 				Text("Est. arrival", color = Colours.LightMode.Text, fontSize = textLabels.size, fontWeight = textLabels.weight)
 				Text(ride.calculateArrivalTime(), color = Colours.LightMode.Text, fontSize = textKeyInfo.size, fontWeight = textKeyInfo.size)
@@ -209,8 +209,8 @@ fun PostRidePreview(
 	RideCard(
         startCity = ride.startCity,
         endCity = ride.endCity,
-        date = ride.getFormattedDate(),
-        time = ride.getFormattedTime(),
+        date = ride.formatDate(),
+        time = ride.formatTime(),
         price = "",
         driverName = driver.formatFirstName(),
         driverUniversity = driver.university,
@@ -258,8 +258,8 @@ fun ViewRideSummary(
 	Column(modifier = modifier.fillMaxWidth().border(1.dp, Colours.LightMode.Border, RoundedCornerShape(17.dp)).padding(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
 		Text("${ride.startCity}  ->  ${ride.endCity}", color = Colours.LightMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
 		Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-			RideInfoBox(ride.getFormattedDate(), "date", Modifier.weight(1f))
-			RideInfoBox(ride.getFormattedTime(), "departure time", Modifier.weight(1f))
+			RideInfoBox(ride.formatDate(), "date", Modifier.weight(1f))
+			RideInfoBox(ride.formatTime(), "departure time", Modifier.weight(1f))
 			RideInfoBox(ride.noOfFreeSeats, "seats available", Modifier.weight(1f))
 		}
 	}
@@ -280,10 +280,10 @@ fun DiscussingRideBanner(ride: Ride, modifier: Modifier = Modifier) {
 		Text("DISCUSSING THIS RIDE", color = Colours.DarkMode.Text, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
 		Text("${ride.startCity}  ->  ${ride.endCity}", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
 		Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-            Text("${ride.getFormattedDate()}", color = Colours.DarkMode.Text, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.weight)
-            Text("${ride.getFormattedTime()}", color = Colours.DarkMode.Text, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.weight)
+            Text("${ride.formatDate()}", color = Colours.DarkMode.Text, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.weight)
+            Text("${ride.formatTime()}", color = Colours.DarkMode.Text, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.weight)
             Row(horizontalArrangement = Arrangement.spacedBy(0.dp)) {
-                "${ride.getPricePerSeat()}", color = Colours.DarkMode.Text, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.weight)
+                "${ride.calculatePricePerSeat()}", color = Colours.DarkMode.Text, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.weight)
                 " per seat", color = Colours.DarkMode.Text, fontSize = TextFormatting.SmallText2.size, fontWeight = TextFormatting.SmallText2.weight)
             }
         }

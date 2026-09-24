@@ -142,15 +142,15 @@ class Ride(
     fun isUpcoming(): Boolean {
         return departureDateTime < DateTime.now()
     }
-    fun getFormattedDate(departure: Boolean = true): String {
+    fun formatDate(departure: Boolean = true): String {
         return dateTime.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
     }
-    fun getFormattedTime(departure: Boolean = true): String {
+    fun formatTime(departure: Boolean = true): String {
         return dateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
     }
     fun calculateDuration(): String { return "" }
     fun calculateArrivalTime() : String {
-        return (getFormattedTime().toDateTime() + calculateDuration().toDateTime()).toString() // not functional as strings
+        return (formatTime().toDateTime() + calculateDuration().toDateTime()).toString() // not functional as strings
     }
 
     fun getNoOfBookedSeats(): Int {
@@ -183,7 +183,7 @@ class Ride(
     private fun calculateCarmaFee(subtotal: Double) {
         return roundDP(subtotal * 0.1)
     }
-    fun getPricePerSeat(approx: Boolean = true): String {
+    fun calculatePricePerSeat(approx: Boolean = true): String {
         val fuelCost = calculateFuelCost()
         val fuelShare = calculateIndividualFuelCost(fuelCost, passengers.size)
         val carmaFee = calculateCarmaFee(fuelShare)
