@@ -12,11 +12,18 @@ class User(
     val rides: List<Ride>,
     val reviews: List<Review>,
     val carbonSaved: Float,
-    val defaultSearchPreferences: DefaultSearchPref,
     private val firstName: String,
     private val lastName: String,
     private val profilePicURL: String = null,
     private val uniYear: Int = 1,
+    object DefaultSearchPreferences {
+        val female_only: Boolean = false,
+        val quiet_car: QuietCarPreference = QuietCarPreference.None,
+        val pets_welcome: Boolean = false,
+        val smokers: Boolean = false,
+        val front_seat: Boolean = false,
+        val extra_luggage: Boolean = false,
+    }
 ) {
     fun getFullName(): String {
         return "$firstName $lastName"
@@ -95,14 +102,6 @@ class Login() {}
 
 enum class QuietCarPreference { Quiet, None, Loud }
 enum class Filter { FemaleOnly, Quiet, PetsWelcome, Smokers, FrontSeat, ExtraLuggage }
-object DefaultSearchPref {
-    val female_only: Boolean = false,
-    val quiet_car: QuietCarPreference = QuietCarPreference.None,
-    val pets_welcome: Boolean = false,
-    val smokers: Boolean = false,
-    val front_seat: Boolean = false,
-    val extra_luggage: Boolean = false,
-}
 
 enum class FuelType = { Petrol, Diesel, Electric, Hybrid }
 class Car(
