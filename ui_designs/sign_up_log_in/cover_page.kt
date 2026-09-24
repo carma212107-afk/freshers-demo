@@ -49,12 +49,20 @@ fun CoverPage(
       verticalArrangement = Arrangement.SpaceBetween,
     ) {
       Column(horizontalAlignment = Alignment.CenterHorizontally) { // App name and tagline
-        Text(
-          text = "Carma",
-          color = Variables.DarkMode.Text,
-          fontSize = Variables.textIntroTitle.size,
-          fontWeight = Variables.textIntroTitle.weight,
-        )
+        Row {
+          Text(
+            text = "Ride",
+            color = Variables.Accent,
+            fontSize = Variables.textIntroTitle.size,
+            fontWeight = Variables.textIntroTitle.weight,
+          )
+          Text(
+            text = "Carma",
+            color = Variables.DarkMode.Text,
+            fontSize = Variables.textIntroTitle.size,
+            fontWeight = Variables.textIntroTitle.weight,
+          )
+        }
         Text(
           text = "Student intercity ridesharing",
           modifier = Modifier
