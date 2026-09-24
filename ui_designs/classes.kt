@@ -1,8 +1,5 @@
 class User(
     val userID: UUID,
-    private val firstName: String,
-    private val lastName: String,
-    val profilePicUrl: String = null,
     val pronouns: String,
     val aboutMe: String = "",
     val socialProfiles: Map<SocialProfile, String>,
@@ -10,13 +7,16 @@ class User(
     val verifiedDriver: Boolean = false,
     val hometown: String,
     val university: String,
-    private val uniYear: Int = 1,
     val uniCourse: String,
     val rating: Double, // to 1d.p.
     val rides: List<Ride>,
     val reviews: List<Review>,
     val carbonSaved: Float,
     val defaultSearchPreferences: DefaultSearchPref,
+    private val firstName: String,
+    private val lastName: String,
+    private val profilePicURL: String = null,
+    private val uniYear: Int = 1,
 ) {
     fun getFullName(): String {
         return "$firstName $lastName"
