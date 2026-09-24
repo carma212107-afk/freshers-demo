@@ -1,37 +1,42 @@
 object Colours {
   val Accent: Color = Color(0xFF1A9E52)
 
-    // Light mode colors
-  val LightModeBackground1: Color = Color(0xFFF5FFF8)
-  val LightModeBackground2: Color = Color(0xFFFFFFFF)
-  val LightModePrimary: Color = Color(0xFF0A5C2E)
-  val LightModeSecondary: Color = Color(0xFFB5DDC3)
-  val LightModeBorder: Color = Color(0xFFB5DDC3)
-  val LightModeText: Color = Color(0xFF0A5C2E)
-  val LightModeInputText: Color = Color(0xFF1A9E52)
+  // Light mode colors
+  object LightMode {
+    val Background1: Color = Color(0xFFF5FFF8)
+    val Background2: Color = Color(0xFFFFFFFF)
+    val Primary: Color = Color(0xFF0A5C2E)
+    val Secondary: Color = Color(0xFFB5DDC3)
+    val Border: Color = Color(0xFFB5DDC3)
+    val Text: Color = Color(0xFF0A5C2E)
+    val InputText: Color = Color(0xFF1A9E52)
+  }
 
-    // Dark mode colors
-  val DarkModeBackground1: Color = Color(0xFF0A5C2E)
-  val DarkModeBackground2: Color = Color(0xFF2A7149)
-  val DarkModePrimary: Color = Color(0xFFF5FFF8)
-  val DarkModeSecondary: Color = Color(0xFFB5DDC3)
-  val DarkModeBorder: Color = Color(0xFFF5FFF8)
-  val DarkModeText: Color = Color(0xFFFFFFFF)
-  val DarkModeInputText: Color = Color(0xFFFFFFFF)
-
-    // Misc colours
+  // Dark mode colors
+  object DarkMode {
+    val Background1: Color = Color(0xFF0A5C2E)
+    val Background2: Color = Color(0xFF2A7149)
+    val Primary: Color = Color(0xFFF5FFF8)
+    val Secondary: Color = Color(0xFFB5DDC3)
+    val Border: Color = Color(0xFFF5FFF8)
+    val Text: Color = Color(0xFFFFFFFF)
+    val InputText: Color = Color(0xFFFFFFFF)
+  }
+    
+  // Misc colours
   val RedBackground: Color = Color(0xFFE49E99)
 
-    // Button colours
+    
+  // Button colours
   object Buttons {
     object Unselected {
-      background: Color = Colours.LightModeBackground2,
-      border: Color = Colours.LightModeBorder,
+      background: Color = Colours.LightMode.Background2,
+      border: Color = Colours.LightMode.Border,
       text: Color = Colours.Accent,
       icon: Color = Colours.Accent,
     }
     object Selected {
-      background: Color = Colours.LightModeSecondary,
+      background: Color = Colours.LightMode.Secondary,
       border: Color = Colours.Accent,
       text: Color = Colours.Text,
       icon: Color = Colours.Primary,
