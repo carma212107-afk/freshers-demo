@@ -166,21 +166,21 @@ class Ride(
 
     fun getCarDescription(): String { car.getCarDescription() }
 
-    private fun roundDP(num: Double, decP: Int = 2) {
-        val formattedNum = String.Format("%." + decP.toString() + "f", num).toDouble
+    private fun roundDP(num: Double, decP: Int = 2): Double {
+        val formattedNum = String.format("%." + decP.toString() + "f", num).toDouble()
         return formattedNum
     }
 
-    private fun calculateFuelCost() {
+    private fun calculateFuelCost(): Double {
         val fuelCost = 0.0
         // fuelCost = mpg * distance(mi) * price_per_gallon
         return roundDP(fuelCost)
     }
-    private fun calculateIndividualFuelCost(sharedFuelCost: Double, shares: Int) {
+    private fun calculateIndividualFuelCost(sharedFuelCost: Double, shares: Int): Double {
         shares++ // driver still pays their own fuel share ?
         return roundDP(sharedFuelCost / shares)
     }
-    private fun calculateCarmaFee(subtotal: Double) {
+    private fun calculateCarmaFee(subtotal: Double): Double {
         return roundDP(subtotal * 0.1)
     }
     fun calculatePricePerSeat(approx: Boolean = true): String {
