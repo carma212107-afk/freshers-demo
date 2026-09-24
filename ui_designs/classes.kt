@@ -221,7 +221,7 @@ class Review(
     val quote: String,
     val rating: Double, // to 1d.p.
 ) {
-    fun getFormattedDate(): String {
+    fun formatDate(): String {
         return datePosted.toString() // TODO: format date
     }
 }
