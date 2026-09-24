@@ -92,7 +92,7 @@ private fun HomeHeader(onSearch: () -> Unit, currentUser) {
 		Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
 			Column(modifier = Modifier.weight(1f)) {
 				Text("Good morning!", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text1.size, fontWeight = TextFormatting.Text1.weight)
-				Text("Hey, ${currentUser.getFormattedFirstName()}", color = Colours.DarkMode.Text, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
+				Text("Hey, ${currentUser.formatFirstName()}", color = Colours.DarkMode.Text, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
 			}
 			currentUser.getProfilePic(theme = Theme.Dark)
 		}
@@ -129,7 +129,7 @@ private fun CarbonImpactPanel(user) {
 			Text("Our green journey so far...", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 			Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
 				ImpactStat("${currentUser.carbonSaved}kg", "CO2 saved", Modifier.weight(1f))
-				ImpactStat(currentUser.getNoOfRides(), "rides shared", Modifier.weight(1f))
+				ImpactStat(currentUser.calculateNoOfRides(), "rides shared", Modifier.weight(1f))
 			}
 		}
 	}

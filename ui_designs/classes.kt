@@ -61,11 +61,11 @@ class User(
         }
     }
 
-    fun getFormattedFirstName(): String {
+    fun formatFirstName(): String {
         return "$firstName ${lastName.first()}."
     }
 
-    fun getFormattedUniYear(): String {
+    fun formatUniYear(): String {
         return when (uniYear) {
             1 -> "1st Year"
             2 -> "2nd Year"
@@ -74,18 +74,18 @@ class User(
         }
     }
 
-    fun getNoOfRides(): Int { return rides.size }
+    fun calculateNoOfRides(): Int { return rides.size }
 
     fun getRating(): String {
         return String.format("%.1f", rating)
     }
-    fun getPositiveRatingPercentage(): String {
+    fun calculatePositiveRatingPercentage(): String {
         val positiveRating = (rating / 5f * 100).toInt() // currently converting 5star rating to percentage
         // should be changed to percentage of positive reviews once review system is implemented
         return "$positiveRating%"
     }
 
-    fun getNoTreesPlanted(): Int {
+    fun calculateNoTreesPlanted(): Int {
         val treesPlanted = (carbonSaved / 23.3f).toInt() // 1 tree absorbs 23.3kg CO2 per year
         return treesPlanted
     }

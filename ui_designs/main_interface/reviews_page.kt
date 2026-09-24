@@ -134,7 +134,7 @@ fun IndividualReview(review: Review) {
             reviewer.getProfilePic()
             Spacer(Modifier.width(5.dp))
             Column(modifier = Modifier.weight(1f)) {
-                Text("${reviewer.getFormattedFirstName()}", color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
+                Text("${reviewer.formatFirstName()}", color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
                 Text("${review.startCity} → ${review.endCity}", color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes2.size, fontWeight = TextFormatting.Boxes2.weight)
             }
             StarRating(filled = review.rating)

@@ -86,12 +86,12 @@ private fun ProfileHeader(user: User) {
 			Column(modifier = Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
 				Text("${user.getFullName()}", color = Colours.DarkMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight, textAlign = TextAlign.Center)
 				Text("${user.university}", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
-				Text("${user.getFormattedUniYear()}", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+				Text("${user.formatUniYear()}", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 				Text("${user.uniCourse}", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 				Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(5.dp), verticalAlignment = Alignment.CenterVertically) {
 					Text("${user.getFormattedRating()}", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 					StarRating(filled = user.rating, theme = Theme.Dark)
-					Text("(${user.getNoOfRides()})", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+					Text("(${user.calculateNoOfRides()})", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 				}				
 			}
 		}
@@ -100,8 +100,8 @@ private fun ProfileHeader(user: User) {
 			VerificationChip("✓ Verified driver")
 		}
 		Row(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.DarkMode.Border, RoundedCornerShape(20.dp)).background(Colours.DarkMode.Background2).padding(horizontal = 20.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
-			Stat("${user.getPositiveRatingPercentage()}%\npositive")
-			Stat("${user.getNoOfRides()}\nrides")
+			Stat("${user.calculatePositiveRatingPercentage()}%\npositive")
+			Stat("${user.calculateNoOfRides()}\nrides")
 			Stat("saved\n${user.carbonSaved}kg\nCO2")
 		}
 	}
@@ -125,7 +125,7 @@ private fun CarbonImpactSection(user: User) {
 			Text("${user.carbonSaved}", color = Colours.DarkMode.Text, fontSize = TextFormatting.Figures1.size, fontWeight = TextFormatting.Figures1.weight)
 			Text(" kg CO2 saved", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight, modifier = Modifier.padding(bottom = 4.dp))
 		}
-		Text("Equivalent to planting ${user.treesPlanted} trees", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+		Text("Equivalent to planting ${user.calculateNoTreesPlanted} trees", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 	}
 }
 
