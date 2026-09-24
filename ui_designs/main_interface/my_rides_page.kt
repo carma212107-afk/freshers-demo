@@ -45,7 +45,7 @@ fun MyRidesPage(
 	var query by remember { mutableStateOf("") }
 	val rides = remember { listOfRides }
 
-	Column(modifier = modifier.fillMaxSize().background(Colours.LightModeBackground1)) {
+	Column(modifier = modifier.fillMaxSize().background(Colours.LightMode.Background1)) {
 		MyRidesHeader(query = query, onQueryChange = { query = it }, onBack = onBack)
 		MyRidesTabs(selectedTab = selectedTab, onTabSelected = { selectedTab = it })
 		LazyColumn(
@@ -69,12 +69,12 @@ private val listOfRides = List<Rides> // this will contain actual rides later
 
 @Composable
 private fun MyRidesHeader(query: String, onQueryChange: (String) -> Unit, onBack: () -> Unit) {
-	Column(modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground1).padding(start = 15.dp, end = 15.dp, top = 58.dp, bottom = 15.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+	Column(modifier = Modifier.fillMaxWidth().background(Colours.DarkMode.Background1).padding(start = 15.dp, end = 15.dp, top = 58.dp, bottom = 15.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
 		TopMenuBar("My Rides", description = "See all rides, past and future")
-		Row(modifier = Modifier.fillMaxWidth().height(40.dp).border(1.dp, Colours.DarkModeText, RoundedCornerShape(15.dp)).padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+		Row(modifier = Modifier.fillMaxWidth().height(40.dp).border(1.dp, Colours.DarkMode.Text, RoundedCornerShape(15.dp)).padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
 			SearchIcon()
 			Spacer(Modifier.width(8.dp))
-			Text(query.ifBlank { "Search for a ride" }, color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size)
+			Text(query.ifBlank { "Search for a ride" }, color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size)
 		}
 	}
 }

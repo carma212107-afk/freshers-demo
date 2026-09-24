@@ -47,18 +47,18 @@ fun SearchPage(
 	val rides = remember { searchResults }
 
 	LazyColumn(
-		modifier = modifier.fillMaxSize().background(Colours.LightModeBackground1),
+		modifier = modifier.fillMaxSize().background(Colours.LightMode.Background1),
 		contentPadding = PaddingValues(bottom = 20.dp),
 		verticalArrangement = Arrangement.spacedBy(12.dp),
 	) {
 		item { SearchHeader(onBack, onPreferences, selectedDay, onDaySelected = { selectedDay = it }) }
 		item {
 			Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp), verticalAlignment = Alignment.CenterVertically) {
-				Text("${rides.size} rides", color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text2.weight)
-				Text(" found for ${selectedDay}", color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+				Text("${rides.size} rides", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text2.weight)
+				Text(" found for ${selectedDay}", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 				Spacer(Modifier.weight(1f))
-				Icon(Icons.Filled.Sort, contentDescription = "Sort rides", tint = Colours.LightModeText, modifier = Modifier.size(16.dp))
-				Text(" Sort", color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+				Icon(Icons.Filled.Sort, contentDescription = "Sort rides", tint = Colours.LightMode.Text, modifier = Modifier.size(16.dp))
+				Text(" Sort", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 			}
 		}
 		item {
@@ -76,9 +76,9 @@ private val searchResults = List<Rides> // this will contain actual rides later
 
 @Composable
 private fun SearchHeader(onBack: () -> Unit, onPreferences: () -> Unit, selectedDay: String, onDaySelected: (String) -> Unit) {
-	Column(modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground1).padding(horizontal = 15.dp, vertical = 18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+	Column(modifier = Modifier.fillMaxWidth().background(Colours.DarkMode.Background1).padding(horizontal = 15.dp, vertical = 18.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
 		TopMenuBar("Find a Ride", rightButton = MenuBarButton("Pref."))
-		Row(modifer = Modifer.fillMaxWidth().border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(15.dp)).background(Colours.DarkModeBackground2), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+		Row(modifer = Modifer.fillMaxWidth().border(1.dp, Colours.DarkMode.Border, RoundedCornerShape(15.dp)).background(Colours.DarkMode.Background2), verticalArrangement = Arrangement.spacedBy(10.dp)) {
 			Column(modifer = Modifer.fillMaxHeight()) {
 				SearchLocationField("From", "City")
 				Spacer(Modifier.weight(1f))
@@ -87,15 +87,15 @@ private fun SearchHeader(onBack: () -> Unit, onPreferences: () -> Unit, selected
 			Column(modifer = Modifer.fillMaxHeight()) {
 				Spacer(Modifier.weight(1f))
 				RouteMarker(colour = Colour.Accent)
-				RouteMarker(colour = Colour.DarkModePrimary, line = true)
-				RouteMarker(colour = Colour.DarkModePrimary)
+				RouteMarker(colour = Colour.DarkMode.Primary, line = true)
+				RouteMarker(colour = Colour.DarkMode.Primary)
 			}
 		}
 		Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
 			listOf("Today", "Tomorrow").forEach { day ->
-				Text(day, modifier = Modifier.border(1.dp, Colours.DarkModeText, RoundedCornerShape(20.dp)).clickable { onDaySelected(day) }.padding(horizontal = 18.dp, vertical = 9.dp), color = Colours.DarkModeText, fontSize = TextFormatting.SearchBox2.size, fontWeight = if (selectedDay == day) FontWeight.Bold else TextFormatting.SearchBox2.weight)
+				Text(day, modifier = Modifier.border(1.dp, Colours.DarkMode.Text, RoundedCornerShape(20.dp)).clickable { onDaySelected(day) }.padding(horizontal = 18.dp, vertical = 9.dp), color = Colours.DarkMode.Text, fontSize = TextFormatting.SearchBox2.size, fontWeight = if (selectedDay == day) FontWeight.Bold else TextFormatting.SearchBox2.weight)
 			}
-			Box(modifier = Modifier.size(44.dp).border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(15.dp)).padding(10.dp)) { Icon(Icons.Filled.CalendarMonth, contentDescription = "Choose date", tint = Colours.DarkModeText) }
+			Box(modifier = Modifier.size(44.dp).border(1.dp, Colours.DarkMode.Border, RoundedCornerShape(15.dp)).padding(10.dp)) { Icon(Icons.Filled.CalendarMonth, contentDescription = "Choose date", tint = Colours.DarkMode.Text) }
 		}
 	}
 }
@@ -103,16 +103,16 @@ private fun SearchHeader(onBack: () -> Unit, onPreferences: () -> Unit, selected
 @Composable
 private fun SearchLocationField(label: String, placeholder: String) {
 	Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp)) {
-		Text(label, color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
-		Row(modifier = Modifier.fillMaxWidth().height(38.dp).border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(20.dp)).padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
+		Text(label, color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+		Row(modifier = Modifier.fillMaxWidth().height(38.dp).border(1.dp, Colours.DarkMode.Border, RoundedCornerShape(20.dp)).padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
 			pinIcon()
 			Spacer(Modifier.width(8.dp))
-			Text(placeholder, color = Colours.DarkModeText, fontSize = TextFormatting.SearchBox1.size, fontWeight = TextFormatting.SearchBox1.weight)
+			Text(placeholder, color = Colours.DarkMode.Text, fontSize = TextFormatting.SearchBox1.size, fontWeight = TextFormatting.SearchBox1.weight)
 		}
 	}
 }
 
 @Composable
 private fun SearchFilterChip(label: String, selected: Boolean, onClick: () -> Unit) {
-	Text(label, modifier = Modifier.border(1.dp, Colours.LightModeSecondary, RoundedCornerShape(18.dp)).background(if (selected) Colours.LightModePrimary else Colours.LightModeBackground2, RoundedCornerShape(18.dp)).clickable(onClick = onClick).padding(horizontal = 10.dp, vertical = 7.dp), color = if (selected) Colours.LightModeBackground1 else Colours.LightModeText, fontSize = 14.sp)
+	Text(label, modifier = Modifier.border(1.dp, Colours.LightMode.Secondary, RoundedCornerShape(18.dp)).background(if (selected) Colours.LightMode.Primary else Colours.LightMode.Background2, RoundedCornerShape(18.dp)).clickable(onClick = onClick).padding(horizontal = 10.dp, vertical = 7.dp), color = if (selected) Colours.LightMode.Background1 else Colours.LightMode.Text, fontSize = 14.sp)
 }

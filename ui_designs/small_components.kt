@@ -56,15 +56,15 @@ fun homeIcon(modifier: Modifier = Modifier) {
 			lineTo(3f, 10f)
 			close()
 		}
-		drawPath(homePath, Colours.LightModePrimary, style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f, join = StrokeJoin.Round))
-		drawRect(Colours.LightModePrimary, topLeft = androidx.compose.ui.geometry.Offset(8f, 14f), size = androidx.compose.ui.geometry.Size(7f, 9f))
+		drawPath(homePath, Colours.LightMode.Primary, style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f, join = StrokeJoin.Round))
+		drawRect(Colours.LightMode.Primary, topLeft = androidx.compose.ui.geometry.Offset(8f, 14f), size = androidx.compose.ui.geometry.Size(7f, 9f))
 	}
 }
 @Composable
 fun pinIcon(modifier: Modifier = Modifier, theme: Theme = Theme.Dark) {
 	val colour = when (theme) {
-		Light -> Colours.LightModePrimary
-		Dark -> Colours.DarkModePrimary
+		Light -> Colours.LightMode.Primary
+		Dark -> Colours.DarkMode.Primary
 	}
 	Canvas(modifier.size(width = 15.734.dp, height = 19.74.dp)) {
 		val pinPath = androidx.compose.ui.graphics.Path().apply {
@@ -81,55 +81,55 @@ fun pinIcon(modifier: Modifier = Modifier, theme: Theme = Theme.Dark) {
 @Composable
 fun carIcon(modifier: Modifier = Modifier) {
 	Canvas(modifier.size(width = 42.dp, height = 20.699.dp)) {
-		drawRoundRect(Colours.LightModePrimary, topLeft = androidx.compose.ui.geometry.Offset(1f, 5f), size = androidx.compose.ui.geometry.Size(40f, 11f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f, 4f))
-		drawCircle(Colours.LightModePrimary, radius = 1.4f, center = androidx.compose.ui.geometry.Offset(9f, 16.5f))
-		drawCircle(Colours.LightModePrimary, radius = 1.4f, center = androidx.compose.ui.geometry.Offset(33f, 16.5f))
-		drawLine(Colours.LightModePrimary, androidx.compose.ui.geometry.Offset(12f, 5f), androidx.compose.ui.geometry.Offset(17f, 1.5f), 2f, StrokeCap.Round)
-		drawLine(Colours.LightModePrimary, androidx.compose.ui.geometry.Offset(17f, 1.5f), androidx.compose.ui.geometry.Offset(30f, 1.5f), 2f, StrokeCap.Round)
+		drawRoundRect(Colours.LightMode.Primary, topLeft = androidx.compose.ui.geometry.Offset(1f, 5f), size = androidx.compose.ui.geometry.Size(40f, 11f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f, 4f))
+		drawCircle(Colours.LightMode.Primary, radius = 1.4f, center = androidx.compose.ui.geometry.Offset(9f, 16.5f))
+		drawCircle(Colours.LightMode.Primary, radius = 1.4f, center = androidx.compose.ui.geometry.Offset(33f, 16.5f))
+		drawLine(Colours.LightMode.Primary, androidx.compose.ui.geometry.Offset(12f, 5f), androidx.compose.ui.geometry.Offset(17f, 1.5f), 2f, StrokeCap.Round)
+		drawLine(Colours.LightMode.Primary, androidx.compose.ui.geometry.Offset(17f, 1.5f), androidx.compose.ui.geometry.Offset(30f, 1.5f), 2f, StrokeCap.Round)
 	}
 }
 @Composable
 fun profileIcon(modifier: Modifier = Modifier) {
 	Canvas(modifier.size(width = 20.dp, height = 22.533.dp)) {
-		drawCircle(Colours.LightModePrimary, radius = 4.75f, center = androidx.compose.ui.geometry.Offset(10f, 5f))
-		drawRoundRect(Colours.LightModePrimary, topLeft = androidx.compose.ui.geometry.Offset(1f, 13f), size = androidx.compose.ui.geometry.Size(18f, 9.5f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(6f, 6f))
+		drawCircle(Colours.LightMode.Primary, radius = 4.75f, center = androidx.compose.ui.geometry.Offset(10f, 5f))
+		drawRoundRect(Colours.LightMode.Primary, topLeft = androidx.compose.ui.geometry.Offset(1f, 13f), size = androidx.compose.ui.geometry.Size(18f, 9.5f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(6f, 6f))
 	}
 }
 
 @Composable
 fun BagsIcon(modifier: Modifier = Modifier) {
 	Canvas(modifier.size(width = 21.dp, height = 26.dp)) {
-		drawRoundRect(Colours.LightModePrimary, topLeft = androidx.compose.ui.geometry.Offset(1f, 5f), size = androidx.compose.ui.geometry.Size(12f, 20f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(2f, 2f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
-		drawLine(Colours.LightModePrimary, androidx.compose.ui.geometry.Offset(5f, 5f), androidx.compose.ui.geometry.Offset(5f, 1f), 2f, StrokeCap.Round)
-		drawLine(Colours.LightModePrimary, androidx.compose.ui.geometry.Offset(5f, 1f), androidx.compose.ui.geometry.Offset(9f, 1f), 2f, StrokeCap.Round)
-		drawRoundRect(Colours.LightModePrimary, topLeft = androidx.compose.ui.geometry.Offset(8f, 18f), size = androidx.compose.ui.geometry.Size(12f, 7f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(1f, 1f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
-		drawLine(Colours.LightModePrimary, androidx.compose.ui.geometry.Offset(11f, 18f), androidx.compose.ui.geometry.Offset(17f, 15f), 2f, StrokeCap.Round)
+		drawRoundRect(Colours.LightMode.Primary, topLeft = androidx.compose.ui.geometry.Offset(1f, 5f), size = androidx.compose.ui.geometry.Size(12f, 20f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(2f, 2f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
+		drawLine(Colours.LightMode.Primary, androidx.compose.ui.geometry.Offset(5f, 5f), androidx.compose.ui.geometry.Offset(5f, 1f), 2f, StrokeCap.Round)
+		drawLine(Colours.LightMode.Primary, androidx.compose.ui.geometry.Offset(5f, 1f), androidx.compose.ui.geometry.Offset(9f, 1f), 2f, StrokeCap.Round)
+		drawRoundRect(Colours.LightMode.Primary, topLeft = androidx.compose.ui.geometry.Offset(8f, 18f), size = androidx.compose.ui.geometry.Size(12f, 7f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(1f, 1f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
+		drawLine(Colours.LightMode.Primary, androidx.compose.ui.geometry.Offset(11f, 18f), androidx.compose.ui.geometry.Offset(17f, 15f), 2f, StrokeCap.Round)
 	}
 }
 
 @Composable
 fun MessageIcon(modifier: Modifier = Modifier) {
 	Canvas(modifier.size(width = 23.dp, height = 20.dp)) {
-		drawRoundRect(Colours.LightModePrimary, topLeft = androidx.compose.ui.geometry.Offset(1f, 1f), size = androidx.compose.ui.geometry.Size(21f, 17f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(3f, 3f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
-		drawLine(Colours.LightModePrimary, androidx.compose.ui.geometry.Offset(5f, 18f), androidx.compose.ui.geometry.Offset(4f, 14f), 2f, StrokeCap.Round)
+		drawRoundRect(Colours.LightMode.Primary, topLeft = androidx.compose.ui.geometry.Offset(1f, 1f), size = androidx.compose.ui.geometry.Size(21f, 17f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(3f, 3f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
+		drawLine(Colours.LightMode.Primary, androidx.compose.ui.geometry.Offset(5f, 18f), androidx.compose.ui.geometry.Offset(4f, 14f), 2f, StrokeCap.Round)
 	}
 }
 
 @Composable
 fun SearchIcon(modifier: Modifier = Modifier) {
 	Canvas(modifier.size(width = 15.734.dp, height = 19.74.dp)) {
-		drawCircle(Colours.DarkModePrimary, radius = 6.5f, center = androidx.compose.ui.geometry.Offset(6.5f, 6.5f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
-		drawLine(Colours.DarkModePrimary, androidx.compose.ui.geometry.Offset(11f, 11f), androidx.compose.ui.geometry.Offset(15f, 15f), 2f, StrokeCap.Round)
+		drawCircle(Colours.DarkMode.Primary, radius = 6.5f, center = androidx.compose.ui.geometry.Offset(6.5f, 6.5f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
+		drawLine(Colours.DarkMode.Primary, androidx.compose.ui.geometry.Offset(11f, 11f), androidx.compose.ui.geometry.Offset(15f, 15f), 2f, StrokeCap.Round)
 	}
 }
 
 @Composable
 fun CalendarIcon(modifier: Modifier = Modifier) {
-	Icon(Icons.Outlined.DateRange, contentDescription = "Calendar", modifier = modifier.size(20.dp), tint = Colours.LightModePrimary)
+	Icon(Icons.Outlined.DateRange, contentDescription = "Calendar", modifier = modifier.size(20.dp), tint = Colours.LightMode.Primary)
 }
 @Composable
 fun ClockIcon(modifier: Modifier = Modifier) {
-	Icon(Icons.Outlined.AccessTime, contentDescription = "Clock", modifier = modifier.size(20.dp), tint = Colours.LightModePrimary)
+	Icon(Icons.Outlined.AccessTime, contentDescription = "Clock", modifier = modifier.size(20.dp), tint = Colours.LightMode.Primary)
 }
 
 
@@ -141,11 +141,11 @@ fun ToggleSwitch(switchedOn: Boolean = false, onClick: () -> Unit = {}, modifier
 		onCheckedChange = { onClick() },
 		modifier = modifier.size(width = 44.dp, height = 24.dp),
 		colors = SwitchDefaults.colors(
-			checkedThumbColor = Colours.LightModeBackground2,
-			checkedTrackColor = Colours.LightModePrimary,
-			uncheckedThumbColor = Colours.LightModeBackground2,
-			uncheckedTrackColor = Colours.LightModeSecondary,
-			uncheckedBorderColor = Colours.LightModeSecondary,
+			checkedThumbColor = Colours.LightMode.Background2,
+			checkedTrackColor = Colours.LightMode.Primary,
+			uncheckedThumbColor = Colours.LightMode.Background2,
+			uncheckedTrackColor = Colours.LightMode.Secondary,
+			uncheckedBorderColor = Colours.LightMode.Secondary,
 		),
 	)
 }
@@ -156,8 +156,8 @@ fun ToggleSwitch(switchedOn: Boolean = false, onClick: () -> Unit = {}, modifier
 
 @Composable
 fun NumberRating(modifier: Modifier = Modifier, rating: String, theme: Theme = Theme.Light) {
-    if (theme == Theme.Light) { primaryColour = Colours.LightModePrimary }
-    else { primaryColour = Colours.DarkModePrimary }
+    if (theme == Theme.Light) { primaryColour = Colours.LightMode.Primary }
+    else { primaryColour = Colours.DarkMode.Primary }
 
 	Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
 		StarGlyph(filled = true, color = primaryColour, modifier = Modifier.size(20.dp))
@@ -172,8 +172,8 @@ fun NumberRating(modifier: Modifier = Modifier, rating: String, theme: Theme = T
 fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1, noStages: Int = 5, theme: Theme = Theme.Light) {
 	light = theme == Theme.Light
   	scheme = ColourScheme(
-		primary = if (light) Colours.LightModePrimary else Colours.Accent,
-		secondary = if (light) Colours.LightModeSecondary else Colours.DarkModeSecondary
+		primary = if (light) Colours.LightMode.Primary else Colours.Accent,
+		secondary = if (light) Colours.LightMode.Secondary else Colours.DarkMode.Secondary
  	)
 
   	Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
@@ -192,7 +192,7 @@ fun StageIndicator(modifier: Modifier = Modifier, currentStage: Int = 1, noStage
 }
 
 @Composable
-private fun IndividualStageIndicator(modifier: Modifier = Modifier, isCurrentStage: Boolean = false, colour: Color = Colours.LightModeSecondary) {
+private fun IndividualStageIndicator(modifier: Modifier = Modifier, isCurrentStage: Boolean = false, colour: Color = Colours.LightMode.Secondary) {
   	if (isCurrentStage) {
    		Box(modifier = Modifier.size(width = 25.dp, height = 10.dp).background(color = colour, shape = RoundedCornerShape(size = 20.dp)))
   	} else {

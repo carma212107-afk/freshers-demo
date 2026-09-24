@@ -51,7 +51,7 @@ fun CoverPage(
       Column(horizontalAlignment = Alignment.CenterHorizontally) { // App name and tagline
         Text(
           text = "Carma",
-          color = Variables.DarkModeText,
+          color = Variables.DarkMode.Text,
           fontSize = Variables.textIntroTitle.size,
           fontWeight = Variables.textIntroTitle.weight,
         )
@@ -59,13 +59,13 @@ fun CoverPage(
           text = "Student intercity ridesharing",
           modifier = Modifier
             .padding(top = 4.dp)
-            // .containerColor = Variables.DarkModeBackground2
+            // .containerColor = Variables.DarkMode.Background2
             .border(
-              BorderStroke(1.dp, Variables.DarkModeBorder),
+              BorderStroke(1.dp, Variables.DarkMode.Border),
               RoundedCornerShape(20.dp),
             )
             .padding(horizontal = 25.dp, vertical = 6.dp),
-          color = Variables.DarkModeText,
+          color = Variables.DarkMode.Text,
           fontSize = Variables.textText1.size,
           fontWeight = Variables.textText1.weight,
         )
@@ -85,7 +85,7 @@ fun CoverPage(
       ) {
         Text(
           text = "The smarter way\nto travel between\nuni cities.",
-          color = Variables.DarkModeText,
+          color = Variables.DarkMode.Text,
           fontSize = Variables.textHeading1.size,
           fontWeight = Variables.textHeading1.weight,
           lineHeight = 52.5.sp,
@@ -94,7 +94,7 @@ fun CoverPage(
         Spacer(modifier = Modifier.height(5.dp))
         Text(
           text = "Share rides with verified students.\nSave money.\nCut emissions.",
-          color = Variables.DarkModeText,
+          color = Variables.DarkMode.Text,
           fontSize = Variables.textText1.size,
           fontWeight = Variables.textText1.weight,
           lineHeight = 22.4.sp,
@@ -113,8 +113,8 @@ fun CoverPage(
             .height(43.dp),
           shape = RoundedCornerShape(20.dp),
           colors = ButtonDefaults.buttonColors(
-            containerColor = Variables.LightModeBackground,
-            contentColor = Variables.LightModeText,
+            containerColor = Variables.LightMode.Background,
+            contentColor = Variables.LightMode.Text,
           ),
         ) {
           Text("Get started", fontWeight = Variables.textButton1.weight, fontSize = Variables.textButton1.size)
@@ -125,10 +125,10 @@ fun CoverPage(
             .fillMaxWidth()
             .height(43.dp),
           shape = RoundedCornerShape(20.dp),
-          border = BorderStroke(1.dp, Variables.DarkModeBorder),
+          border = BorderStroke(1.dp, Variables.DarkMode.Border),
           colors = ButtonDefaults.buttonColors(
-            containerColor = Variables.DarkModeBackground1,
-            contentColor = Variables.DarkModeText,
+            containerColor = Variables.DarkMode.Background1,
+            contentColor = Variables.DarkMode.Text,
           ),
         ) {
           Text("I already have an account", fontWeight = Variables.textButton2.weight, fontSize = Variables.textButton2.size)
@@ -140,12 +140,12 @@ fun CoverPage(
 
 
 object Variables {
-  val DarkModeBackground1: Color = Colours.DarkModeBackground1
-  val DarkModeBackground2: Color = Colours.DarkModeBackground2
-  val DarkModeBorder: Color = Colours.DarkModeBorder
-  val DarkModeText: Color = Colours.DarkModeText
-  val LightModeBackground: Color = Colours.LightModeBackground
-  val LightModeText: Color = Colours.LightModeText
+  val DarkMode.Background1: Color = Colours.DarkMode.Background1
+  val DarkMode.Background2: Color = Colours.DarkMode.Background2
+  val DarkMode.Border: Color = Colours.DarkMode.Border
+  val DarkMode.Text: Color = Colours.DarkMode.Text
+  val LightMode.Background: Color = Colours.LightMode.Background
+  val LightMode.Text: Color = Colours.LightMode.Text
   val Accent: Color = Colours.Accent
 
   val xUI = Dimensions.currentUIx

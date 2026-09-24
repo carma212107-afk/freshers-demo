@@ -31,9 +31,9 @@ class User(
         val diameter = if (large) 75.dp else 30.dp
         val light = theme == Theme.Light
         val scheme = ColourScheme(
-            background = if (light) Colours.LightModeSecondary else Colours.Accent,
-            border = if (light) Colours.LightModeBorder else Colours.DarkModeSecondary,
-            text = if (light) Colours.LightModeText else Colours.DarkModeSecondary
+            background = if (light) Colours.LightMode.Secondary else Colours.Accent,
+            border = if (light) Colours.LightMode.Border else Colours.DarkMode.Secondary,
+            text = if (light) Colours.LightMode.Text else Colours.DarkMode.Secondary
         )
 
         if profilePicUrl != null { // how to display image in specific shape ?

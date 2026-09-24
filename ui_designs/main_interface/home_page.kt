@@ -50,7 +50,7 @@ fun HomePage(
 	val searchedRides = remember { searchResults }
 
 	LazyColumn(
-		modifier = modifier.fillMaxSize().background(Colours.LightModeBackground1),
+		modifier = modifier.fillMaxSize().background(Colours.LightMode.Background1),
 		contentPadding = PaddingValues(bottom = 24.dp),
 		verticalArrangement = Arrangement.spacedBy(16.dp),
 	) {
@@ -64,7 +64,7 @@ fun HomePage(
 		}
 		item {
 			Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-				Text("Available rides", modifier = Modifier.padding(horizontal = 30.dp), color = Colours.LightModeText, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
+				Text("Available rides", modifier = Modifier.padding(horizontal = 30.dp), color = Colours.LightMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
 				Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
 					listOf("All trips", "Planned", "Last-minute", "Female-only").forEach { filter ->
 						FilterChip(filter, selectedFilter == filter) { selectedFilter = filter }
@@ -86,23 +86,23 @@ private val searchResults = List<Rides> // this will contain actual rides later
 @Composable
 private fun HomeHeader(onSearch: () -> Unit, currentUser) {
 	Column(
-		modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground1).padding(horizontal = 24.dp, vertical = 18.dp),
+		modifier = Modifier.fillMaxWidth().background(Colours.DarkMode.Background1).padding(horizontal = 24.dp, vertical = 18.dp),
 		verticalArrangement = Arrangement.spacedBy(10.dp),
 	) {
 		Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
 			Column(modifier = Modifier.weight(1f)) {
-				Text("Good morning!", color = Colours.DarkModeText, fontSize = TextFormatting.Text1.size, fontWeight = TextFormatting.Text1.weight)
-				Text("Hey, ${currentUser.getFormattedFirstName()}", color = Colours.DarkModeText, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
+				Text("Good morning!", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text1.size, fontWeight = TextFormatting.Text1.weight)
+				Text("Hey, ${currentUser.getFormattedFirstName()}", color = Colours.DarkMode.Text, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
 			}
 			currentUser.getProfilePic(theme = Theme.Dark)
 		}
 		Row(
-			modifier = Modifier.fillMaxWidth().height(40.dp).border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(15.dp)).background(Colours.DarkModeBackground2).clickable(onClick = onSearch).padding(horizontal = 12.dp),
+			modifier = Modifier.fillMaxWidth().height(40.dp).border(1.dp, Colours.DarkMode.Border, RoundedCornerShape(15.dp)).background(Colours.DarkMode.Background2).clickable(onClick = onSearch).padding(horizontal = 12.dp),
 			verticalAlignment = Alignment.CenterVertically,
 		) {
 			pinIcon()
 			Spacer(Modifier.width(8.dp))
-			Text("Where are you heading?", color = Colours.DarkModeText, fontSize = TextFormatting.SearchBox1.size, fontWeight = TextFormatting.SearchBox1.weight)
+			Text("Where are you heading?", color = Colours.DarkMode.Text, fontSize = TextFormatting.SearchBox1.size, fontWeight = TextFormatting.SearchBox1.weight)
 		}
 	}
 }
@@ -110,23 +110,23 @@ private fun HomeHeader(onSearch: () -> Unit, currentUser) {
 @Composable
 private fun HomeSection(title: String, content: @Composable () -> Unit) {
 	Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-		Text(title, modifier = Modifier.padding(horizontal = 30.dp), color = Colours.LightModeText, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
+		Text(title, modifier = Modifier.padding(horizontal = 30.dp), color = Colours.LightMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
 		content()
 	}
 }
 
 @Composable
 private fun FilterChip(label: String, selected: Boolean, onClick: () -> Unit) {
-	Text(label, modifier = Modifier.clip(RoundedCornerShape(18.dp)).background(if (selected) Colours.LightModePrimary else Colours.LightModeBackground2).border(1.dp, if (selected) Colours.DarkModeBackground1 else Colours.LightModeSecondary, RoundedCornerShape(18.dp)).clickable(onClick = onClick).padding(horizontal = 10.dp, vertical = 7.dp), color = if (selected) Colours.DarkModeText else Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+	Text(label, modifier = Modifier.clip(RoundedCornerShape(18.dp)).background(if (selected) Colours.LightMode.Primary else Colours.LightMode.Background2).border(1.dp, if (selected) Colours.DarkMode.Background1 else Colours.LightMode.Secondary, RoundedCornerShape(18.dp)).clickable(onClick = onClick).padding(horizontal = 10.dp, vertical = 7.dp), color = if (selected) Colours.DarkMode.Text else Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 }
 
 @Composable
 private fun CarbonImpactPanel(user) {
 	Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-		Text("Your carbon impact", color = Colours.LightModeText, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
-		Column(modifier = Modifier.padding(horizontal = 30.dp).fillMaxWidth().background(Colours.DarkModeBackground1, RoundedCornerShape(18.dp)).padding(15.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-			Text("LIVE CO2 TRACKER", color = Colours.LightModeSecondary, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
-			Text("Our green journey so far...", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+		Text("Your carbon impact", color = Colours.LightMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
+		Column(modifier = Modifier.padding(horizontal = 30.dp).fillMaxWidth().background(Colours.DarkMode.Background1, RoundedCornerShape(18.dp)).padding(15.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
+			Text("LIVE CO2 TRACKER", color = Colours.LightMode.Secondary, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
+			Text("Our green journey so far...", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 			Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
 				ImpactStat("${currentUser.carbonSaved}kg", "CO2 saved", Modifier.weight(1f))
 				ImpactStat(currentUser.getNoOfRides(), "rides shared", Modifier.weight(1f))
@@ -137,8 +137,8 @@ private fun CarbonImpactPanel(user) {
 
 @Composable
 private fun ImpactStat(value: String, label: String, modifier: Modifier = Modifier) {
-	Column(modifier = modifier.background(Colours.DarkModeBackground2, RoundedCornerShape(15.dp)).padding(12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-		Text(value, color = Colours.DarkModeText, fontSize = TextFormatting.Figures1.size, fontWeight = TextFormatting.Figures1.weight)
-		Text(label, color = Colours.DarkModeText, fontSize = TextFormatting.Figures2.size, fontWeight = TextFormatting.Figures2.weight)
+	Column(modifier = modifier.background(Colours.DarkMode.Background2, RoundedCornerShape(15.dp)).padding(12.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+		Text(value, color = Colours.DarkMode.Text, fontSize = TextFormatting.Figures1.size, fontWeight = TextFormatting.Figures1.weight)
+		Text(label, color = Colours.DarkMode.Text, fontSize = TextFormatting.Figures2.size, fontWeight = TextFormatting.Figures2.weight)
 	}
 }

@@ -42,7 +42,7 @@ fun MyProfileExamplePage(
 	modifier: Modifier = Modifier,
 	user: User = getCurrentUser(), // defaults to current user, but can be set to any user for viewing other profiles
 ) {
-	Box(modifier = modifier.fillMaxSize().background(Colours.LightModeBackground1)) {
+	Box(modifier = modifier.fillMaxSize().background(Colours.LightMode.Background1)) {
 		Column(modifier = Modifier.fillMaxSize()) {
 			ProfileTopBar(onBack = onBack, onEdit = onEdit)
 			LazyColumn(
@@ -68,14 +68,14 @@ private fun ProfileTopBar(onBack: () -> Unit, onEdit: () -> Unit) {
 	if (user == getCurrentUser()) { // only show edit button if viewing own profile
 		val editButton = MenuBarButton()
 		editButton.text: String = "Edit"
-		editButton.modifier: Modifier = Modifier.clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(20.dp)).clickable(onClick = onEdit).padding(horizontal = 20.dp, vertical = 10.dp)
+		editButton.modifier: Modifier = Modifier.clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.DarkMode.Border, RoundedCornerShape(20.dp)).clickable(onClick = onEdit).padding(horizontal = 20.dp, vertical = 10.dp)
 	}
 	TopMenuBar("Profile", rightButton = editButton)
 }
 
 @Composable
 private fun ProfileHeader(user: User) {
-	Column(modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground1).padding(horizontal = 30.dp, vertical = 15.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(19.dp)) {
+	Column(modifier = Modifier.fillMaxWidth().background(Colours.DarkMode.Background1).padding(horizontal = 30.dp, vertical = 15.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(19.dp)) {
 		Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(15.dp)) {
 			Column (modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(10.dp)) {
 				user.getProfilePic(modifier = Modifier.size(140.dp), contentAlignment = Alignment.Center, size = 140.dp, theme = Theme.Dark)
@@ -84,14 +84,14 @@ private fun ProfileHeader(user: User) {
 				}
 			}
 			Column(modifier = Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-				Text("${user.getFullName()}", color = Colours.DarkModeText, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight, textAlign = TextAlign.Center)
-				Text("${user.university}", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
-				Text("${user.getFormattedUniYear()}", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
-				Text("${user.uniCourse}", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+				Text("${user.getFullName()}", color = Colours.DarkMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight, textAlign = TextAlign.Center)
+				Text("${user.university}", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+				Text("${user.getFormattedUniYear()}", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+				Text("${user.uniCourse}", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 				Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(5.dp), verticalAlignment = Alignment.CenterVertically) {
-					Text("${user.getFormattedRating()}", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+					Text("${user.getFormattedRating()}", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 					StarRating(filled = user.rating, theme = Theme.Dark)
-					Text("(${user.getNoOfRides()})", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+					Text("(${user.getNoOfRides()})", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 				}				
 			}
 		}
@@ -99,7 +99,7 @@ private fun ProfileHeader(user: User) {
 			VerificationChip("✓ Verified student")
 			VerificationChip("✓ Verified driver")
 		}
-		Row(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(20.dp)).background(Colours.DarkModeBackground2).padding(horizontal = 20.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
+		Row(modifier = Modifier.fillMaxWidth().clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.DarkMode.Border, RoundedCornerShape(20.dp)).background(Colours.DarkMode.Background2).padding(horizontal = 20.dp, vertical = 6.dp), horizontalArrangement = Arrangement.SpaceBetween) {
 			Stat("${user.getPositiveRatingPercentage()}%\npositive")
 			Stat("${user.getNoOfRides()}\nrides")
 			Stat("saved\n${user.carbonSaved}kg\nCO2")
@@ -111,28 +111,28 @@ private fun ProfileHeader(user: User) {
 private fun AboutSection(bio: String = null) {
 	if (bio != null) {
 		ProfileSection {
-			Text("ABOUT ME", color = Colours.LightModeText, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
-			Text(bio, color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight, lineHeight = 21.sp)
+			Text("ABOUT ME", color = Colours.LightMode.Text, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
+			Text(bio, color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight, lineHeight = 21.sp)
 		}
 	}
 }
 
 @Composable
 private fun CarbonImpactSection(user: User) {
-	Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp).clip(RoundedCornerShape(20.dp)).background(Colours.DarkModeBackground1).padding(15.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-		Text("YOUR CARBON IMPACT", color = Colours.LightModeSecondary, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
+	Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp).clip(RoundedCornerShape(20.dp)).background(Colours.DarkMode.Background1).padding(15.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
+		Text("YOUR CARBON IMPACT", color = Colours.LightMode.Secondary, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
 		Row(verticalAlignment = Alignment.Bottom) {
-			Text("${user.carbonSaved}", color = Colours.DarkModeText, fontSize = TextFormatting.Figures1.size, fontWeight = TextFormatting.Figures1.weight)
-			Text(" kg CO2 saved", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight, modifier = Modifier.padding(bottom = 4.dp))
+			Text("${user.carbonSaved}", color = Colours.DarkMode.Text, fontSize = TextFormatting.Figures1.size, fontWeight = TextFormatting.Figures1.weight)
+			Text(" kg CO2 saved", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight, modifier = Modifier.padding(bottom = 4.dp))
 		}
-		Text("Equivalent to planting ${user.treesPlanted} trees", color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+		Text("Equivalent to planting ${user.treesPlanted} trees", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 	}
 }
 
 @Composable
 private fun ReviewSection(reviews: List<Review>) {
 	Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-		Text("Recent reviews", color = Colours.LightModeText, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
+		Text("Recent reviews", color = Colours.LightMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
 		for (r in reviews) { IndividualReview(r) }
 	}
 }
@@ -142,7 +142,7 @@ private fun ReviewSection(reviews: List<Review>) {
 
 @Composable
 private fun ProfileSection(content: @Composable () -> Unit) {
-	Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp).clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.LightModeBorder, RoundedCornerShape(20.dp)).background(Colours.LightModeBackground2).padding(horizontal = 15.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(5.dp), content = content)
+	Column(modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp).clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.LightMode.Border, RoundedCornerShape(20.dp)).background(Colours.LightMode.Background2).padding(horizontal = 15.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(5.dp), content = content)
 }
 
 enum class SocialProfile { Instagram, Snapchat }
@@ -152,27 +152,27 @@ private const val snapchatLogo = "https://play-lh.googleusercontent.com/nOJWJoDA
 private fun SocialProfileButton(profile: SocialProfile = SocialProfile.Instagram, modifier: Modifier = Modifier) {
 	Row(
 		modifier = modifier
-			.border(1.dp, Colours.DarkModeBackground2, RoundedCornerShape(20.dp))
-			.background(Colours.LightModeBackground2, RoundedCornerShape(20.dp))
+			.border(1.dp, Colours.DarkMode.Background2, RoundedCornerShape(20.dp))
+			.background(Colours.LightMode.Background2, RoundedCornerShape(20.dp))
 			.padding(horizontal = 15.dp, vertical = 6.dp),
 		horizontalArrangement = Arrangement.spacedBy(5.dp),
 		verticalAlignment = Alignment.CenterVertically,
 	) {
 		if (profile == SocialProfile.Instagram) AsyncImage(model = instagramLogo, contentDescription = "Instagram Logo", modifier = Modifier.size(25.dp)) else AsyncImage(model = snapchatLogo, contentDescription = "Snapchat Logo", modifier = Modifier.size(25.dp))
-		Text(if (profile == SocialProfile.Instagram) "${user.socialProfiles[SocialProfile.Instagram]}" else "${user.socialProfiles[SocialProfile.Snapchat]}", color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+		Text(if (profile == SocialProfile.Instagram) "${user.socialProfiles[SocialProfile.Instagram]}" else "${user.socialProfiles[SocialProfile.Snapchat]}", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 		// Add click functionality to open the respective social media profile in a web browser or app
 	}
 }
 
 @Composable
 private fun VerificationChip(label: String) {
-	Text(label, modifier = Modifier.border(1.dp, Colours.DarkModeBorder, RoundedCornerShape(20.dp)).padding(horizontal = 15.dp, vertical = 6.dp), color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight, textAlign = TextAlign.Center)
+	Text(label, modifier = Modifier.border(1.dp, Colours.DarkMode.Border, RoundedCornerShape(20.dp)).padding(horizontal = 15.dp, vertical = 6.dp), color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight, textAlign = TextAlign.Center)
 }
 
 @Composable
 private fun Stat(value: String, label: String = "") {
 	Column(horizontalAlignment = Alignment.CenterHorizontally) {
-		Text(value, color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight, textAlign = TextAlign.Center)
-		if (label.isNotEmpty()) Text(label, color = Colours.DarkModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight, textAlign = TextAlign.Center)
+		Text(value, color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight, textAlign = TextAlign.Center)
+		if (label.isNotEmpty()) Text(label, color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight, textAlign = TextAlign.Center)
 	}
 }

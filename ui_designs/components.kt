@@ -104,10 +104,10 @@ private fun StatusBar(modifier: Modifier = Modifier, theme: Theme = Theme.Light)
 @Composable
 fun BottomNavigationBar(onHome: () -> Unit, onSearch: () -> Unit, onAddRide: () -> Unit, onMyRides: () -> Unit, onProfile: () -> Unit) {
   driverStatus = getCurrentUser().verifiedDriver
-  Row(modifier = Modifier.fillMaxWidth().navigationBarsPadding().border(BorderStroke(1.dp, Colours.Accent)).background(Colours.LightModeBackground1).padding(top = 7.dp, bottom = 5.dp), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
+  Row(modifier = Modifier.fillMaxWidth().navigationBarsPadding().border(BorderStroke(1.dp, Colours.Accent)).background(Colours.LightMode.Background1).padding(top = 7.dp, bottom = 5.dp), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
 		BottomNavButton(homeIcon, "Home", onHome)
 		BottomNavButton(pinIcon, "Search", onSearch)
-    if (driverStatus) { Text("+", modifier = Modifier.size(50.dp).clip(CircleShape).background(Colours.LightModePrimary).clickable(onClick = onAddRide).padding(bottom = 5.dp), color = Colours.LightModeBackground1, fontSize = 36.sp, textAlign = TextAlign.Center) }
+    if (driverStatus) { Text("+", modifier = Modifier.size(50.dp).clip(CircleShape).background(Colours.LightMode.Primary).clickable(onClick = onAddRide).padding(bottom = 5.dp), color = Colours.LightMode.Background1, fontSize = 36.sp, textAlign = TextAlign.Center) }
 		BottomNavButton(carIcon(), "My Rides", onMyRides)
 		BottomNavButton(profileIcon(), "Profile", onProfile)
 	}
@@ -117,7 +117,7 @@ fun BottomNavigationBar(onHome: () -> Unit, onSearch: () -> Unit, onAddRide: () 
 private fun BottomNavButton(asset: String?, label: String, onClick: () -> Unit) {
 	Column(modifier = Modifier.clickable(onClick = onClick), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(2.dp)) {
 		if (asset != null) AsyncImage(asset, label, Modifier.size(24.dp), contentScale = ContentScale.Fit)
-		Text(label, color = Colours.LightModePrimary, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.weight)
+		Text(label, color = Colours.LightMode.Primary, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.weight)
 	}
 }
 
@@ -128,9 +128,9 @@ private fun BottomNavButton(asset: String?, label: String, onClick: () -> Unit) 
 private fun BackButton(onClick: () -> Unit = {}, modifier: Modifier = Modifier, theme: Theme = Theme.Dark) {
 	val light = theme == Theme.Light
   val scheme = ColourScheme(
-    background = if (light) Colours.LightModeSecondary else Colours.DarkModeBackground2
-    border = if (light) Colours.LightModePrimary else Colours.DarkModeBorder
-    icon = if (light) Colours.LightModePrimary else Colours.DarkModePrimary
+    background = if (light) Colours.LightMode.Secondary else Colours.DarkMode.Background2
+    border = if (light) Colours.LightMode.Primary else Colours.DarkMode.Border
+    icon = if (light) Colours.LightMode.Primary else Colours.DarkMode.Primary
   )
 
 	Box(
@@ -147,13 +147,13 @@ private fun BackButton(onClick: () -> Unit = {}, modifier: Modifier = Modifier, 
 enum class MenuBarButton(
   val text: String,
   val modifier: Modifier = Modifier,
-  val colour: Color = Colours.DarkModeBackground2,
+  val colour: Color = Colours.DarkMode.Background2,
 ) {}
 fun TopMenuBar(title: String, description: String = null, rightButton: MenuBarButton = null, theme: Theme = Theme.Dark) {
 	val light = theme == Theme.Light
   val scheme = ColourScheme(
-    background = if (light) Colours.LightModeBackground1 else Colours.DarkModeBackground1
-    text = if (light) Colours.LightModeText else Colours.DarkModeText
+    background = if (light) Colours.LightMode.Background1 else Colours.DarkMode.Background1
+    text = if (light) Colours.LightMode.Text else Colours.DarkMode.Text
   )
 
 	Row(

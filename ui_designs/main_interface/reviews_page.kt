@@ -41,7 +41,7 @@ fun ReviewsPage(
 		searchQuery.isBlank() || review.reviewer.getFullName().contains(searchQuery, ignoreCase = true)
 	}
 
-	Column(modifier = modifier.fillMaxSize().background(Colours.LightModeBackground1)) {
+	Column(modifier = modifier.fillMaxSize().background(Colours.LightMode.Background1)) {
 		ReviewsHeader(searchQuery = searchQuery, onSearchQueryChange = { searchQuery = it }, onBack = onBack)
 		LazyColumn(
 			modifier = Modifier.weight(1f),
@@ -60,33 +60,33 @@ fun ReviewsPage(
 @Composable
 private fun ReviewsHeader(searchQuery: String, onSearchQueryChange: (String) -> Unit, onBack: () -> Unit) {
 	Column(
-		modifier = Modifier.fillMaxWidth().background(Colours.DarkModeBackground1)
+		modifier = Modifier.fillMaxWidth().background(Colours.DarkMode.Background1)
 			.padding(start = 15.dp, end = 15.dp, top = 20.dp, bottom = 15.dp),
 		verticalArrangement = Arrangement.spacedBy(10.dp),
 	) {
 		Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(15.dp)) {
 			BackButton(onClick = onBack)
 			Column {
-				Text("Reviews", color = Colours.DarkModeText, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
-				Text("See what people thought about your rides", color = Colours.DarkModeText, fontSize = TextFormatting.Text1.size, fontWeight = TextFormatting.Text1.weight)
+				Text("Reviews", color = Colours.DarkMode.Text, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
+				Text("See what people thought about your rides", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text1.size, fontWeight = TextFormatting.Text1.weight)
 			}
 		}
 		OutlinedTextField(
 			value = searchQuery,
 			onValueChange = onSearchQueryChange,
 			modifier = Modifier.fillMaxWidth().height(40.dp),
-			placeholder = { Text("Search for a person", color = Colours.DarkModeText) },
+			placeholder = { Text("Search for a person", color = Colours.DarkMode.Text) },
 			leadingIcon = { SearchIcon() },
 			shape = RoundedCornerShape(15.dp),
 			 singleLine = true,
 			colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
-				focusedTextColor = Colours.LightModeText,
-				unfocusedTextColor = Colours.DarkModeText,
+				focusedTextColor = Colours.LightMode.Text,
+				unfocusedTextColor = Colours.DarkMode.Text,
 				focusedBorderColor = Colours.Accent,
-				unfocusedBorderColor = Colours.DarkModeBorder,
-				focusedBackgroundColor = Colours.LightModeBackground
-				unfocusedBackgroundColor = Colours.DarkModeBackground1
-				cursorColor = Colours.DarkModeText,
+				unfocusedBorderColor = Colours.DarkMode.Border,
+				focusedBackgroundColor = Colours.LightMode.Background
+				unfocusedBackgroundColor = Colours.DarkMode.Background1
+				cursorColor = Colours.DarkMode.Text,
 			),
 		)
 	}
@@ -101,18 +101,18 @@ private fun RatingSummary(reviews: List<Review>) {
 		horizontalArrangement = Arrangement.spacedBy(16.dp),
 	) {
 		Column(horizontalAlignment = Alignment.CenterHorizontally) {
-			Text(String.format("%.1f", rating), color = Colours.LightModeText, fontSize = TextFormatting.Heading1.size, fontWeight = TextFormatting.Heading1.weight)
-			Text("(${reviews.size} reviews)", color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+			Text(String.format("%.1f", rating), color = Colours.LightMode.Text, fontSize = TextFormatting.Heading1.size, fontWeight = TextFormatting.Heading1.weight)
+			Text("(${reviews.size} reviews)", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 		}
 		StarGlyph(filled = true, modifier = Modifier.size(80.dp))
 		Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(7.dp)) {
 			for (stars in 5 downTo 1) {
 				Row(verticalAlignment = Alignment.CenterVertically) {
-					Text("${stars}", color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight, modifier = Modifier.width(12.dp))
+					Text("${stars}", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight, modifier = Modifier.width(12.dp))
 					Spacer(Modifier.width(7.dp))
 					
 					// progress bar component
-					Box(Modifier.weight(1f).height(2.dp).background(if (stars <= rating.toInt()) Colours.LightModePrimary else Colours.LightModeSecondary))
+					Box(Modifier.weight(1f).height(2.dp).background(if (stars <= rating.toInt()) Colours.LightMode.Primary else Colours.LightMode.Secondary))
 				}
 			}
 		}
@@ -126,7 +126,7 @@ private fun RatingSummary(reviews: List<Review>) {
 fun IndividualReview(review: Review) {
 	reviewer = review.reviewer
 	Column(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp).clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.LightModeBorder, RoundedCornerShape(20.dp)).background(Colours.LightModeBackground2).padding(horizontal = 15.dp,vertical = 10.dp),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp).clip(RoundedCornerShape(20.dp)).border(1.dp, Colours.LightMode.Border, RoundedCornerShape(20.dp)).background(Colours.LightMode.Background2).padding(horizontal = 15.dp,vertical = 10.dp),
         verticalArrangement = Arrangement.spacedBy(5.dp),
         content = content
     ) {
@@ -134,27 +134,27 @@ fun IndividualReview(review: Review) {
             reviewer.getProfilePic()
             Spacer(Modifier.width(5.dp))
             Column(modifier = Modifier.weight(1f)) {
-                Text("${reviewer.getFormattedFirstName()}", color = Colours.LightModeText, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
-                Text("${review.startCity} → ${review.endCity}", color = Colours.LightModeText, fontSize = TextFormatting.Boxes2.size, fontWeight = TextFormatting.Boxes2.weight)
+                Text("${reviewer.getFormattedFirstName()}", color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
+                Text("${review.startCity} → ${review.endCity}", color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes2.size, fontWeight = TextFormatting.Boxes2.weight)
             }
             StarRating(filled = review.rating)
         }
-        Text("“${review.quote}”", color = Colours.LightModeText, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+        Text("“${review.quote}”", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
     }
 }
 
 @Composable
 fun StarRating(filled: Int = 5, theme: Theme = Theme.Light, modifier: Modifier = Modifier) {
-    lightMode = theme == Theme.Light
+    LightMode. = theme == Theme.Light
 
 	Row(
 		modifier = modifier
 			.background(Color.Transparent, RoundedCornerShape(20.dp))
-			.padding(horizontal = if (lightMode) 0.dp else 5.dp, vertical = if (lightMode) 0.dp else 2.dp),
+			.padding(horizontal = if (LightMode.) 0.dp else 5.dp, vertical = if (LightMode.) 0.dp else 2.dp),
 		horizontalArrangement = Arrangement.spacedBy(1.dp),
 	) {
 		repeat(5) { index ->
-			StarGlyph(filled = index < filled, color = if (lightMode) Colours.LightModePrimary else Colours.DarkModePrimary, modifier = Modifier.size(20.dp))
+			StarGlyph(filled = index < filled, color = if (LightMode.) Colours.LightMode.Primary else Colours.DarkMode.Primary, modifier = Modifier.size(20.dp))
 		}
 	}
 }
