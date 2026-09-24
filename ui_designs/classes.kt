@@ -121,8 +121,8 @@ class Car(
     }
 }
 
-data class Passenger(
-    val passenger: User,
+data class PassengerInfo(
+    val passengerID: User,
     val extraSeats: Map<Filter, Int>, // may need more than one seat for extra luggage, pet
     val frontSeat: Boolean = false,
 )
@@ -136,7 +136,7 @@ class Ride(
     val departureDateTime: LocalDateTime,
     val noOfSeats: Int = car.noOfSeats, // get from Car info
     val noOfFreeSeats: Int = noOfSeats, // defaults to noOfSeats
-    val passengers: Map<User, Int>,
+    val passengers: List<PassengerInfo>,
     val filters: List<Filter>,
     val carbonSaved: Int, // in kg
 ) {
