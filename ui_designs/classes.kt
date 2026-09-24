@@ -135,7 +135,6 @@ class Ride(
     val endCity: String,
     val departureDateTime: LocalDateTime,
     val noOfSeats: Int = car.noOfSeats, // get from Car info
-    val noOfFreeSeats: Int = noOfSeats, // defaults to noOfSeats
     val passengers: List<PassengerInfo>,
     val filters: List<Filter>,
     val carbonSaved: Int, // in kg
