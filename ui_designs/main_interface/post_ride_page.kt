@@ -51,7 +51,7 @@ fun PostRidePage(
     var selectedSeats by remember { mutableStateOf(3) }
 
     pageTitle = if (editMode) "Edit Ride" else "Post Ride"
-    continueButtonText = if (editMode) "Save changes" else "Post Ride"
+    continueLabel = if (editMode) "Save changes" else "Post Ride"
 
     Column(
         modifier = modifier.fillMaxSize().background(Colours.LightMode.Background1),
@@ -113,10 +113,7 @@ fun PostRidePage(
                 InputField("Notes") // INPUT FIELD
             }
 
-            Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                ActionButton(continueButtonText, filled = true, onClick = onPostRide)
-                ActionButton("Discard", filled = false, onClick = onDiscard)
-            }
+            ContinueButtons(continueLabel = continueLabel, backLabel = "Discard", onContinue = onPostRide, onBack = onDiscard)
         }
 
         BottomNavigationBar()
@@ -187,17 +184,5 @@ private fun PreferenceChip(label: String) {
 private fun InputField(value: String) {
     Row(modifier = Modifier.fillMaxWidth().height(40.dp).border(1.dp, Colours.LightMode.Border, RoundedCornerShape(8.dp)).background(Colours.LightMode.Background2, RoundedCornerShape(8.dp)).padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
         Text(value, color = Colours.LightMode.InputText, fontSize = TextFormatting.InputField.size, fontWeight = TextFormatting.InputField.weight)
-    }
-}
-
-@Composable
-private fun ActionButton(label: String, filled: Boolean, onClick: () -> Unit) {
-    val scheme = ColourScheme(
-        background = if (filled) Colours.DarkMode.Background1 else Colours.LightMode.Background2
-        border = Colours.DarkMode.Background1
-        text = if (selected) Colours.DarkMode.Text else Colours.LightMode.Text
-    )
-    Box(modifier = Modifier.fillMaxWidth().height(40.dp).background(scheme.background, RoundedCornerShape(20.dp)).border(1.dp, scheme.border, RoundedCornerShape(20.dp)).clickable(onClick = onClick), contentAlignment = Alignment.Center) {
-        Text(label, color = scheme.text, fontSize = TextFormatting.Button1.size, fontWeight = if (filled) TextFormatting.Button1.weight else TextFormatting.Button2.weight)
     }
 }
