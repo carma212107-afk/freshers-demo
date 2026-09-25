@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 fun PostRidePage(
     modifier: Modifier = Modifier,
     ride: Ride? = null,
+    editMode: Boolean = false,
     onBack: () -> Unit = {},
     onPostRide: () -> Unit = {},
     onDiscard: () -> Unit = {},
@@ -49,36 +50,25 @@ fun PostRidePage(
     var femaleOnly by remember { mutableStateOf(true) }
     var selectedSeats by remember { mutableStateOf(3) }
 
+    pageTitle = if (editMode) "Edit Ride" else "Post Ride"
+    continueButtonText = if (editMode) "Save changes" else "Post Ride"
+
     Column(
         modifier = modifier.fillMaxSize().background(Colours.LightMode.Background1),
-    ) {
-        Column(
-            modifier = Modifier.fillMaxWidth().background(Colours.DarkMode.Background1).padding(horizontal = 15.dp, vertical = 15.dp),
-        ) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(15.dp)) {
-                BackButton(onClick = onBack)
-                Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                    Text("Post Ride", color = Color.White, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
-                    Text("Fill in your journey details below", color = Color.White, fontSize = TextFormatting.Text1.size, fontWeight = TextFormatting.Text1.weight)
-                }
-            }
-        }
+    ) {        
+        TopMenuBar(title = pageTitle, description = "Fill in your journey details below")
 
         Column(
             modifier = Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 30.dp, vertical = 15.dp),
             verticalArrangement = Arrangement.spacedBy(25.dp),
         ) {
             FormSection("Your route") {
-                RoutePreview(
-                    startCity = ride?.startCity ?: "<startC>",
-                    endCity = ride?.endCity ?: "<endC>",
-                    duration = ride?.calculateDuration() ?: "HH:mm",
-                )
+                RideRoute(edit = true, ride = ride)
             }
 
             Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                DateTimeField("Date", "<dd D Mon>", Modifier.weight(1f), date = true)
-                DateTimeField("Time", "<12hr time>", Modifier.weight(1f), date = false)
+                DateTimeField("Date", "<dd D Mon>", Modifier.weight(1f), date = true) // INPUT FIELD
+                DateTimeField("Time", "<12hr time>", Modifier.weight(1f), date = false) // INPUT FIELD
             }
 
             FormSection("Trip type") {
@@ -95,12 +85,12 @@ fun PostRidePage(
             }
 
             FormSection("Car type") {
-                SelectorField("Select car")
+                selectedCar = SelectorField("Select car") // INPUT FIELD (dropdown) returns car
             }
 
             FormSection("Available seats") {
                 Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                    (1..4).forEach { seat ->
+                    (1..selectedCar.noOfSeats).forEach { seat ->
                         SeatButton(seat, selected = seat == selectedSeats) { selectedSeats = seat }
                     }
                 }
@@ -109,7 +99,7 @@ fun PostRidePage(
             FormSection("Your preferences") {
                 Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
                     Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                        PreferenceChip("<filter>")
+                        PreferenceChip("<filter>") // selectable filter buttons
                         PreferenceChip("<filter>")
                     }
                     Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
@@ -120,22 +110,16 @@ fun PostRidePage(
             }
 
             FormSection("Notes for passengers") {
-                InputField("Notes")
+                InputField("Notes") // INPUT FIELD
             }
 
             Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                ActionButton("Post Ride", filled = true, onClick = onPostRide)
+                ActionButton(continueButtonText, filled = true, onClick = onPostRide)
                 ActionButton("Discard", filled = false, onClick = onDiscard)
             }
         }
 
-        PostRideBottomBar(
-            onHome = onHome,
-            onSearch = onSearch,
-            onAddRide = onAddRide,
-            onMyRides = onMyRides,
-            onProfile = onProfile,
-        )
+        BottomNavigationBar()
     }
 }
 
@@ -144,32 +128,6 @@ private fun FormSection(title: String, content: @Composable () -> Unit) {
     Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(5.dp)) {
         Text(title, color = Colours.LightMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
         content()
-    }
-}
-
-@Composable
-private fun RoutePreview(startCity: String, endCity: String, duration: String) {
-    Row(
-        modifier = Modifier.fillMaxWidth().border(1.dp, Colours.LightMode.Border, RoundedCornerShape(15.dp)).background(Colours.LightMode.Background2, RoundedCornerShape(15.dp)).padding(horizontal = 15.dp, vertical = 10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(0.dp)) {
-            RouteMarker(colour = Colours.Accent)
-            Box(Modifier.width(1.dp).height(25.dp).background(Colours.LightMode.Primary))
-            RouteMarker(colour = Colours.LightMode.Primary)
-        }
-        Column(modifier = Modifier.weight(1f).padding(start = 10.dp), verticalArrangement = Arrangement.spacedBy(1.dp)) {
-            Text("Departing from", color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes2.size, fontWeight = TextFormatting.Boxes2.weight)
-            Text(startCity, color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
-            Spacer(Modifier.height(8.dp))
-            Text("Arriving at", color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes2.size, fontWeight = TextFormatting.Boxes2.weight)
-            Text(endCity, color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
-        }
-        Column(horizontalAlignment = Alignment.End, verticalArrangement = Arrangement.spacedBy(1.dp)) {
-            Spacer(Modifier.height(20.dp))
-            Text("Est. duration", color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes2.size, fontWeight = TextFormatting.Boxes2.weight)
-            Text(duration, color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
-        }
     }
 }
 
@@ -188,7 +146,7 @@ private fun DateTimeField(label: String, value: String, modifier: Modifier = Mod
 }
 
 @Composable
-private fun SelectorField(value: String) {
+private fun SelectorField(value: String) { // car dropdown menu
     Row(
         modifier = Modifier.fillMaxWidth().height(40.dp).border(1.dp, Colours.LightMode.Border, RoundedCornerShape(8.dp)).background(Colours.LightMode.Background2, RoundedCornerShape(8.dp)).padding(start = 12.dp, end = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -200,16 +158,28 @@ private fun SelectorField(value: String) {
 
 @Composable
 private fun SeatButton(seat: Int, selected: Boolean, onClick: () -> Unit) {
+    val scheme = ColourScheme(
+        background = if (selected) Colours.DarkMode.Background1 else Colours.LightMode.Background2
+        border = if (selected) Colours.DarkMode.Background1 else Colours.LightMode.Border
+        text = if (selected) Colours.DarkMode.Text else Colours.LightMode.Text
+    )
+
     Box(
-        modifier = Modifier.size(width = 30.dp, height = 25.dp).background(if (selected) Colours.LightMode.Primary else Colours.LightMode.Background2, RoundedCornerShape(10.dp)).border(1.dp, Colours.LightMode.Border, RoundedCornerShape(10.dp)).clickable(onClick = onClick),
+        modifier = Modifier.size(width = 30.dp, height = 25.dp).background(scheme.background, RoundedCornerShape(10.dp)).border(1.dp, scheme.border, RoundedCornerShape(10.dp)).clickable(onClick = onClick),
         contentAlignment = Alignment.Center,
     ) {
-        Text("$seat", color = if (selected) Color.White else Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+        Text("$seat", color = scheme.text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
     }
 }
 
 @Composable
 private fun PreferenceChip(label: String) {
+    val scheme = ColourScheme(
+        background = if (selected) Colours.DarkMode.Background1 else Colours.LightMode.Background2
+        border = if (selected) Colours.DarkMode.Background1 else Colours.LightMode.Border
+        text = if (selected) Colours.DarkMode.Text else Colours.LightMode.Text
+    )
+
     Text(label, modifier = Modifier.border(1.dp, Colours.LightMode.Border, RoundedCornerShape(20.dp)).background(Colours.LightMode.Background2, RoundedCornerShape(20.dp)).padding(horizontal = 15.dp, vertical = 3.dp), color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 }
 
@@ -222,35 +192,12 @@ private fun InputField(value: String) {
 
 @Composable
 private fun ActionButton(label: String, filled: Boolean, onClick: () -> Unit) {
-    Box(modifier = Modifier.fillMaxWidth().height(40.dp).background(if (filled) Colours.LightMode.Primary else Colours.LightMode.Background2, RoundedCornerShape(20.dp)).border(1.dp, Colours.LightMode.Primary, RoundedCornerShape(20.dp)).clickable(onClick = onClick), contentAlignment = Alignment.Center) {
-        Text(label, color = if (filled) Color.White else Colours.LightMode.Text, fontSize = TextFormatting.Button1.size, fontWeight = if (filled) TextFormatting.Button1.weight else TextFormatting.Button2.weight)
-    }
-}
-
-@Composable
-private fun BackButton(onClick: () -> Unit) {
-    Box(modifier = Modifier.size(40.dp).border(1.dp, Color.White, CircleShape).clickable(onClick = onClick), contentAlignment = Alignment.Center) {
-        Text("‹", color = Color.White, fontSize = 34.sp, textAlign = TextAlign.Center)
-    }
-}
-
-@Composable
-private fun PostRideBottomBar(onHome: () -> Unit, onSearch: () -> Unit, onAddRide: () -> Unit, onMyRides: () -> Unit, onProfile: () -> Unit) {
-    Row(modifier = Modifier.fillMaxWidth().navigationBarsPadding().border(1.dp, Colours.Accent).background(Colours.LightMode.Background1).padding(top = 7.dp, bottom = 5.dp), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
-        BottomNavItem({ homeIcon() }, "Home", onHome)
-        BottomNavItem({ pinIcon(theme = Theme.Light) }, "Search", onSearch)
-        Box(modifier = Modifier.size(50.dp).background(Colours.LightMode.Primary, CircleShape).clickable(onClick = onAddRide), contentAlignment = Alignment.Center) {
-            Text("+", color = Colours.LightMode.Background1, fontSize = 36.sp)
-        }
-        BottomNavItem({ carIcon() }, "My Rides", onMyRides)
-        BottomNavItem({ profileIcon() }, "Profile", onProfile)
-    }
-}
-
-@Composable
-private fun BottomNavItem(icon: @Composable () -> Unit, label: String, onClick: () -> Unit) {
-    Column(modifier = Modifier.width(50.dp).clickable(onClick = onClick), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        Box(Modifier.height(24.dp), contentAlignment = Alignment.Center) { icon() }
-        Text(label, color = Colours.LightMode.Text, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.weight, textAlign = TextAlign.Center)
+    val scheme = ColourScheme(
+        background = if (filled) Colours.DarkMode.Background1 else Colours.LightMode.Background2
+        border = Colours.DarkMode.Background1
+        text = if (selected) Colours.DarkMode.Text else Colours.LightMode.Text
+    )
+    Box(modifier = Modifier.fillMaxWidth().height(40.dp).background(scheme.background, RoundedCornerShape(20.dp)).border(1.dp, scheme.border, RoundedCornerShape(20.dp)).clickable(onClick = onClick), contentAlignment = Alignment.Center) {
+        Text(label, color = scheme.text, fontSize = TextFormatting.Button1.size, fontWeight = if (filled) TextFormatting.Button1.weight else TextFormatting.Button2.weight)
     }
 }
