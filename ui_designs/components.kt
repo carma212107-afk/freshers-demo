@@ -173,4 +173,19 @@ fun TopMenuBar(title: String, description: String = null, rightButton: MenuBarBu
 }
 
 
+// Continue buttons
+
+@Composable
+private fun ContinueButtons(continueLabel: String, backLabel: String, onContinue: () -> Unit, onBack: () -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+      Box(modifier = Modifier.fillMaxWidth().height(40.dp).background(Colours.DarkMode.Background1, RoundedCornerShape(20.dp)).border(1.dp, Colours.DarkMode.Background1, RoundedCornerShape(20.dp)).clickable(onClick = onContinue), contentAlignment = Alignment.Center) {
+        Text(continueLabel, color = Colours.DarkMode.Text, fontSize = TextFormatting.Button1.size, fontWeight = TextFormatting.Button1.weight)
+      }
+      Box(modifier = Modifier.fillMaxWidth().height(40.dp).background(Colours.LightMode.Background2, RoundedCornerShape(20.dp)).border(1.dp, Colours.LightMode.Primary, RoundedCornerShape(20.dp)).clickable(onClick = onBack), contentAlignment = Alignment.Center) {
+        Text(backLabel, color = Colours.LightMode.Text, fontSize = TextFormatting.Button2.size, fontWeight = TextFormatting.Button2.weight)
+      }
+    }
+}
+
+
 Object Variables { }
