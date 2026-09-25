@@ -25,17 +25,17 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun JoinRidePage(
-	ride: Ride? = null,
+	ride: Ride,
 	modifier: Modifier = Modifier,
 	onPay: () -> Unit = {},
 	onCancel: () -> Unit = {},
 ) {
-	val routeStart = ride?.startCity ?: "<startC>"
-	val routeEnd = ride?.endCity ?: "<endC>"
-	val date = ride?.formatDate() ?: "<date>"
-	val departure = ride?.formatTime() ?: "HH:mm"
-	val seatsLeft = ride?.getNoOfFreeSeats()?.toString() ?: "2"
-	val breakdown = ride?.getCostBreakdown() ?: listOf("£36", "£12", "+ £1.20", "≈£13.20")
+	val routeStart = ride.startCity
+	val routeEnd = ride.endCity
+	val date = ride.formatDate()
+	val departure = ride.formatTime()
+	val seatsLeft = ride.getNoOfFreeSeats().toString()
+	val costBreakdown = ride.getCostBreakdown()
 
 	Box(
 		modifier = modifier
@@ -52,14 +52,8 @@ fun JoinRidePage(
 		) {
 			JoinRideTitle()
 			JoinRideInfoBlock(routeStart, routeEnd, date, departure, seatsLeft)
-			JoinRideCostBreakdown(breakdown)
-			Column(
-				modifier = Modifier.fillMaxWidth(),
-				verticalArrangement = Arrangement.spacedBy(5.dp),
-			) {
-				JoinRideActionButton("Pay with Stripe", filled = true, onClick = onPay)
-				JoinRideActionButton("Cancel", filled = false, onClick = onCancel)
-			}
+			CostBreakdown(ride)
+            ContinueButtons(continueLabel = "Pay with Stripe", backLabel = "Cancel", onContinue = onPay, onBack = onCancel)
 		}
 
 		Box(
@@ -123,9 +117,9 @@ private fun JoinRideInfoBlock(
 		verticalArrangement = Arrangement.spacedBy(15.dp),
 	) {
 		Row(horizontalArrangement = Arrangement.spacedBy(10.dp), verticalAlignment = Alignment.CenterVertically) {
-			JoinRideRouteText(startCity)
+			Text(startCity, color = Colours.LightMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
 			Text("-->", color = Colours.Accent, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
-			JoinRideRouteText(endCity)
+			Text(endCity, color = Colours.LightMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
 		}
 		Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
 			JoinRideInfoBox(date, "date", Modifier.weight(1f))
@@ -141,17 +135,12 @@ private fun JoinRideInfoBlock(
 }
 
 @Composable
-private fun JoinRideRouteText(value: String) {
-	Text(value, color = Colours.LightMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
-}
-
-@Composable
 private fun JoinRideInfoBox(value: String, label: String, modifier: Modifier = Modifier) {
 	Column(
 		modifier = modifier.background(Colours.LightMode.Secondary, RoundedCornerShape(5.dp)).padding(horizontal = 10.dp, vertical = 5.dp),
 		horizontalAlignment = Alignment.CenterHorizontally,
 	) {
-		Text(value, color = Colours.LightMode.Text, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
+		Text(value, color = Colours.LightMode.Text, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight, textAlign = TextAlign.Center)
 		Text(label, color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight, textAlign = TextAlign.Center)
 	}
 }
@@ -165,43 +154,4 @@ private fun JoinRideFilter(label: String) {
 		fontSize = TextFormatting.SmallText1.size,
 		fontWeight = TextFormatting.SmallText1.weight,
 	)
-}
-
-@Composable
-private fun JoinRideCostBreakdown(breakdown: List<String>) {
-	Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-		Text("Cost breakdown", color = Colours.LightMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
-		Column(
-			modifier = Modifier.fillMaxWidth().border(1.dp, Colours.LightMode.Border, RoundedCornerShape(20.dp)).padding(horizontal = 15.dp, vertical = 10.dp),
-			verticalArrangement = Arrangement.spacedBy(5.dp),
-		) {
-			JoinRideCostRow("Fuel cost (125 mi × 0 mi/gal)", breakdown.getOrElse(0) { "£36" })
-			JoinRideCostRow("Split between 1 passengers", breakdown.getOrElse(1) { "£12" })
-			JoinRideCostRow("Carma fee (10%)", breakdown.getOrElse(2) { "+ £1.20" })
-			Box(Modifier.fillMaxWidth().height(1.dp).background(Colours.Accent))
-			JoinRideCostRow("Your total", breakdown.getOrElse(3) { "≈£13.20" }, total = true)
-		}
-	}
-}
-
-@Composable
-private fun JoinRideCostRow(label: String, value: String, total: Boolean = false) {
-	Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-		Text(label, color = Colours.LightMode.Text, fontSize = if (total) TextFormatting.Text2.size else TextFormatting.Text3.size, fontWeight = if (total) TextFormatting.Text2.weight else TextFormatting.Text3.weight)
-		Text(value, color = Colours.LightMode.Text, fontSize = if (total) TextFormatting.Text2.size else TextFormatting.Text3.size, fontWeight = if (total) TextFormatting.Text2.weight else TextFormatting.Text3.weight)
-	}
-}
-
-@Composable
-private fun JoinRideActionButton(label: String, filled: Boolean, onClick: () -> Unit) {
-	val background = if (filled) Colours.DarkMode.Background1 else Colours.LightMode.Background2
-	val border = if (filled) background else Colours.LightMode.Primary
-	val text = if (filled) Colours.DarkMode.Text else Colours.LightMode.Text
-
-	Box(
-		modifier = Modifier.fillMaxWidth().border(1.dp, border, RoundedCornerShape(20.dp)).background(background, RoundedCornerShape(20.dp)).clickable(onClick = onClick).padding(horizontal = 15.dp, vertical = 10.dp),
-		contentAlignment = Alignment.Center,
-	) {
-		Text(label, color = text, fontSize = TextFormatting.Button1.size, fontWeight = FontWeight.Bold)
-	}
 }
