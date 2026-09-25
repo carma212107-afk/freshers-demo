@@ -265,7 +265,7 @@ fun ViewRideSummary(
 	}
 }
 @Composable
-private fun RideInfoBox(value: String, label: String, modifier: Modifier = Modifier) {
+fun RideInfoBox(value: String, label: String, modifier: Modifier = Modifier) {
 	Column(modifier = modifier.background(Colours.LightMode.Secondary, RoundedCornerShape(4.dp)).padding(vertical = 7.dp), horizontalAlignment = Alignment.CenterHorizontally) {
 		Text(value, color = Colours.LightMode.Text, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
 		Text(label, color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
