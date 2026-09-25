@@ -51,7 +51,7 @@ fun JoinRidePage(
 			horizontalAlignment = Alignment.CenterHorizontally,
 		) {
 			JoinRideTitle()
-			JoinRideInfoBlock(routeStart, routeEnd, date, departure, seatsLeft)
+            ViewRideSummary(ride)
 			CostBreakdown(ride)
             ContinueButtons(continueLabel = "Pay with Stripe", backLabel = "Cancel", onContinue = onPay, onBack = onCancel)
 		}
