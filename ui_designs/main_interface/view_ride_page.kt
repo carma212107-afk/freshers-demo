@@ -31,38 +31,86 @@ import androidx.compose.ui.unit.dp
 fun ViewRidePage(
 	ride: Ride? = null,
 	modifier: Modifier = Modifier,
-	onBack: () -> Unit = {},
+	onDriverClick: () -> Unit = {},
+	onPassengerClick: () -> Unit = {},
 	onJoinRide: () -> Unit = {},
 	onLeaveRide: () -> Unit = {},
+	onEditRide: () -> Unit = {},
+	onCancelRide: () -> Unit = {},
 	onHome: () -> Unit = {},
 	onSearch: () -> Unit = {},
 	onAddRide: () -> Unit = {},
 	onMyRides: () -> Unit = {},
 	onProfile: () -> Unit = {},
 ) {
-	val driver = ride?.driver
-	val seatsLeft = ride?.getNoOfFreeSeats()?.toString() ?: "2"
-	val breakdown = ride?.getCostBreakdown() ?: listOf("£36", "£12", "+ £1.20", "≈£13.20")
+	val driver = ride.driver
+    val driverMode = driver == getCurrentUser() // if currentUser is the driver, show driver-relevant sections
+	val seatsLeft = ride.getNoOfFreeSeats().toString()
+    val seatsTotal = ride.noOfSeats
+	val breakdown = ride.getCostBreakdown()
+	val sectionTitle: String
 
 	Column(modifier = modifier.fillMaxSize().background(Colours.LightMode.Background1)) {
-		ViewRideTopBar(onBack = onBack)
+		TopMenuBar(title = "Ride details")
+        if (!driverMode) {
+            // show dark mode driver profile overview
+        }
 		Column(
 			modifier = Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 30.dp, vertical = 15.dp),
 			verticalArrangement = Arrangement.spacedBy(24.dp),
 		) {
+			if (!driverMode) {
+				Column(
+					modifier = Modifier.fillMaxWidth().background(Colours.DarkMode.Background1).padding(horizontal = 15.dp).padding(bottom = 15.dp),
+					verticalArrangement = Arrangement.spacedBy(5.dp),
+				) {
+					Text(
+						"Your driver",
+						color = Colours.DarkMode.Text,
+						fontSize = TextFormatting.Heading2.size,
+						fontWeight = TextFormatting.Heading2.weight,
+					)
+					DriverProfileCard(driver = driver, modifier = Modifier.fillMaxWidth(), onClick = onDriverClick)
+				}
+			}
 			ViewRideSection("Journey") {
-				ViewRideRoute(ride)
+				RideRoute(edit = false, ride = ride)
 			}
 			ViewRideSection("Trip info") {
 				Row(modifier = Modifier.fillMaxWidth().padding(horizontal = 5.dp), horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-					ViewRideInfoBox("125 mi", "distance", Modifier.weight(1f))
-					ViewRideInfoBox("$seatsLeft left", "seats available", Modifier.weight(1f))
+					RideInfoBox("125 mi", "distance", Modifier.weight(1f))
+					RideInfoBox("$seatsLeft left", "seats available", Modifier.weight(1f))
 				}
 			}
-			ViewRideSection("Driver's car") {
-				ViewRideCarCard(ride)
+			if (driverMode) {
+				ViewRideSection("Your car") {
+					Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedEvenly) {
+						Text("${ride.car.carReg} - ${ride.car.makeModel[0]} ${ride.car.makeModel[1]}", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+						Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(2.dp)) {
+							NoOfFreeSeatsIndicator(ride.getNoOfFreeSeats(), ride.noOfSeats)
+							Text("${ride.noOfBookedSeats()} / ${ride.noOfSeats} ${ride.car.makeModel[1]}", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+						}
+					}
+					val displayedSeats = 0
+					for p in ride.passengers {
+						PassengerProfileCard(passenger = p.passengerID, frontSeat = p.frontSeat, onClick = onPassengerClick)
+						if (p.extraSeats.size > 0) {
+							for extraSeat in p.extraSeats {
+								PassengerExtraSlot(name = p.passengerID.formatFirstName(), reason = extraSeat.reason, onClick = onPassengerClick)
+							}
+						}
+						displayedSeats += 1
+
+					}
+				}
+			} else {
+				ViewRideSection("Driver car") {
+					CarDescription(ride.car, departure = ride.departureDateTime)
+				}
 			}
-			ViewRideSection("Driver preferences") {
+			if (driverMode) {sectiontitle = "Your preferences"}
+			else {sectiontitle = "Driver preferences"}
+			ViewRideSection(title) {
 				ViewRideFilterGrid()
 			}
 			ViewRideSection("Notes for passengers") {
@@ -74,39 +122,158 @@ fun ViewRidePage(
 					fontWeight = TextFormatting.InputField.weight,
 				)
 			}
-			ViewRideCostBreakdown(breakdown)
-			Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-				ViewRideActionButton("Join ride", filled = true, onClick = onJoinRide)
-				ViewRideActionButton("Leave ride", filled = false, onClick = onLeaveRide)
+			CostBreakdown(ride = ride)
+			if (driverMode) {
+				ContinueButtons("Edit ride", "Cancel ride", onEditRide, onCancelRide)
+			} else {
+				ContinueButtons("Join ride", "Leave ride", onJoinRide, onLeaveRide)
 			}
 		}
-		ViewRideBottomBar(onHome, onSearch, onAddRide, onMyRides, onProfile)
+        BottomNavigationBar(onHome, onSearch, onAddRide, onMyRides, onProfile)
 	}
 }
 
-@Composable
-private fun ViewRideTopBar(onBack: () -> Unit) {
-	Row(
-		modifier = Modifier.fillMaxWidth().background(Colours.DarkMode.Background1).padding(start = 15.dp, top = 60.dp, end = 15.dp, bottom = 15.dp),
-		verticalAlignment = Alignment.CenterVertically,
-		horizontalArrangement = Arrangement.spacedBy(15.dp),
-	) {
-		ViewRideBackButton(onClick = onBack)
-		Text("Ride details", color = Colours.DarkMode.Text, fontSize = TextFormatting.MenuBarTitle.size, fontWeight = TextFormatting.MenuBarTitle.weight)
-	}
-}
 
 @Composable
-private fun ViewRideBackButton(onClick: () -> Unit) {
-	Box(
-		modifier = Modifier.size(40.dp).background(Colours.DarkMode.Background2, CircleShape).clickable(onClick = onClick),
-		contentAlignment = Alignment.Center,
+private fun DriverProfileCard(driver: User, modifier: Modifier = Modifier, onClick: () -> Unit) {
+	Column(
+		modifier = modifier.border(1.dp, Colours.DarkMode.Border, RoundedCornerShape(20.dp))
+			.background(Colours.DarkMode.Background2, RoundedCornerShape(20.dp))
+			.clickable(onClick = onClick)
+			.padding(15.dp),
+		verticalArrangement = Arrangement.spacedBy(8.dp),
 	) {
-		Canvas(Modifier.size(22.dp)) {
-			drawLine(Colours.DarkMode.Primary, Offset(15f, 3f), Offset(7f, 11f), 2.5f, StrokeCap.Round)
-			drawLine(Colours.DarkMode.Primary, Offset(7f, 11f), Offset(15f, 19f), 2.5f, StrokeCap.Round)
+		Row(horizontalArrangement = Arrangement.spacedBy(5.dp), verticalAlignment = Alignment.CenterVertically) {
+			driver.getProfilePic(theme = Theme.Dark, modifier = Modifier.size(75.dp))
+			Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+				Text(driver.formatFirstName(), color = Colours.DarkMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
+				Text(
+					driver.university,
+					color = Colours.DarkMode.Text,
+					fontSize = TextFormatting.Text3.size,
+					fontWeight = TextFormatting.Text3.weight,
+				)
+				Text(
+					"${driver.formatUniYear()} · ${driver.uniCourse}",
+					color = Colours.DarkMode.Text,
+					fontSize = TextFormatting.Text3.size,
+					fontWeight = TextFormatting.Text3.weight,
+				)
+				Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+					if (driver.verifiedStudent) { VerificationTag("Verified student") }
+					if (driver.verifiedDriver) { VerificationTag("Verified driver") }
+				}
+			}
 		}
+		DriverStats(driver)
 	}
+}
+
+@Composable
+private fun PassengerProfileCard(passenger: User, frontSeat: Boolean = false, onClick: () -> Unit) {
+	Column(
+		modifier = Modifier.fillMaxWidth().border(1.dp, Colours.LightMode.Border, RoundedCornerShape(20.dp))
+			.background(Colours.LightMode.Background2, RoundedCornerShape(20.dp))
+			.clickable(onClick = onClick)
+			.padding(10.dp),
+		verticalArrangement = Arrangement.spacedBy(5.dp),
+	) {
+		Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+			passenger.getProfilePic(theme = Theme.Light, modifier = Modifier.size(50.dp))
+			Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+				if (frontSeat) { nameText = "${passenger.formatFirstName()} (front seat)" }
+				else { nameText = passenger.formatFirstName() }
+				Text(
+					nameText,
+					color = Colours.LightMode.Text,
+					fontSize = TextFormatting.Boxes1.size,
+					fontWeight = TextFormatting.Boxes1.weight,
+				)
+				Text(
+					"${passenger.university} · ${passenger.formatUniYear()}",
+					color = Colours.LightMode.Text,
+					fontSize = TextFormatting.Boxes2.size,
+					fontWeight = TextFormatting.Boxes2.weight,
+				)
+			}
+			NumberRating(passenger.getRating())
+		}
+		if (passenger.verifiedStudent) { VerificationTag("Verified student") }
+	}
+}
+@Composable
+private fun PassengerExtraSlot(name: String, reason: String, onClick: () -> Unit) {
+	Column(
+		modifier = Modifier.fillMaxWidth().border(1.dp, Colours.LightMode.Border, RoundedCornerShape(20.dp))
+			.background(Colours.LightMode.Background2, RoundedCornerShape(20.dp))
+			.clickable(onClick = onClick)
+			.padding(10.dp),
+		verticalArrangement = Arrangement.spacedBy(5.dp),
+	) {
+		Text(
+			name,
+			color = Colours.LightMode.Text,
+			fontSize = TextFormatting.Boxes1.size,
+			fontWeight = TextFormatting.Boxes1.weight,
+		)
+		Text(
+			"Extra seat for $reason",
+			color = Colours.LightMode.Text,
+			fontSize = TextFormatting.Boxes2.size,
+			fontWeight = TextFormatting.Boxes2.weight,
+		)
+	}
+}
+@Composable
+private fun EmptyPassengerSlot() {
+	Box(
+		modifier = Modifier.fillMaxWidth().height(25.dp).border(1.dp, Colours.LightMode.Border, RoundedCornerShape(20.dp))
+			.background(Colours.LightMode.Background2, RoundedCornerShape(20.dp)),
+	)
+}
+
+@Composable
+private fun DriverStats(driver: User) {
+	Row(
+		modifier = Modifier.fillMaxWidth().padding(horizontal = 5.dp),
+		verticalAlignment = Alignment.CenterVertically,
+		horizontalArrangement = Arrangement.SpaceBetween,
+	) {
+		Column(horizontalAlignment = Alignment.CenterHorizontally) {
+			NumberRating(driver.getRating(), theme = Theme.Dark, format = TextFormatting.Text2)
+			Text("rating", color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size)
+		}
+		StatsDivider()
+		StatValue(driver.calculateNoOfRides(), "rides")
+		StatsDivider()
+		StatValue("${driver.carbonSaved}kg", "saved CO2")
+	}
+}
+@Composable
+private fun StatsDivider() {
+	Box(
+		modifier = Modifier.padding(horizontal = 8.dp).width(1.dp).height(40.dp)
+			.background(Colours.DarkMode.Border),
+	)
+}
+@Composable
+private fun StatValue(value: String, label: String) {
+	Column(horizontalAlignment = Alignment.CenterHorizontally) {
+		Text(value, color = Colours.DarkMode.Text, fontSize = TextFormatting.Text2.size, fontWeight = FontWeight.Bold)
+		Text(label, color = Colours.DarkMode.Text, fontSize = TextFormatting.Text3.size, textAlign = TextAlign.Center)
+	}
+}
+
+@Composable
+private fun VerificationTag(label: String) {
+	Text(
+		"✓ $label",
+		modifier = Modifier.background(color = Colours.LightMode.Background2, RoundedCornerShape(20.dp)).padding(horizontal = 10.dp, vertical = 2.dp),
+		color = Colours.LightMode.Text,
+		fontSize = TextFormatting.SmallText2.size,
+		fontWeight = TextFormatting.SmallText2.weight,
+		maxLines = 1,
+	)
 }
 
 @Composable
@@ -118,63 +285,27 @@ private fun ViewRideSection(title: String, content: @Composable () -> Unit) {
 }
 
 @Composable
-private fun ViewRideRoute(ride: Ride?) {
-	val start = ride?.startCity ?: "<startC>"
-	val end = ride?.endCity ?: "<endC>"
-	val departure = ride?.formatTime() ?: "HH:mm"
-	val duration = ride?.calculateDuration()?.ifBlank { "HH:mm" } ?: "HH:mm"
+private fun CarDescription(car: Car?, departure: DateTime) {
+	val make = car?.makeModel[0]
+	val model = car?.makeModel[1]
 
-	Row(
-		modifier = Modifier.fillMaxWidth().border(1.dp, Colours.LightMode.Border, RoundedCornerShape(15.dp)).background(Colours.LightMode.Background2, RoundedCornerShape(15.dp)).padding(horizontal = 15.dp, vertical = 10.dp),
-		verticalAlignment = Alignment.CenterVertically,
-	) {
-		Column(modifier = Modifier.width(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-			ViewRideRouteMarker(Colours.Accent)
-			Box(Modifier.width(1.dp).height(20.dp).background(Colours.LightMode.Primary))
-			ViewRideRouteMarker(Colours.LightMode.Primary)
-		}
-		Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(0.dp)) {
-			Text("Departing from", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
-			Text(start, color = Colours.LightMode.Text, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
-			Spacer(Modifier.height(20.dp))
-			Text("Arriving at", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
-			Text(end, color = Colours.LightMode.Text, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
-		}
-		Column(horizontalAlignment = Alignment.End) {
-			Text("Time", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
-			Text(departure, color = Colours.LightMode.Text, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
-			Spacer(Modifier.height(20.dp))
-			Text("Est. duration", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
-			Text(duration, color = Colours.LightMode.Text, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
-		}
-	}
-}
+    // car reg hidden until 24hrs before departure
+    // should the hidden be determined here, or in the car.getCarDescription() class method?
+    val hidden = departure - now() = 24 // car reg hidden until 24hrs before departure
 
-@Composable
-private fun ViewRideRouteMarker(color: Color) {
-	Canvas(Modifier.size(15.dp)) { drawCircle(color, radius = size.minDimension / 2f) }
-}
 
-@Composable
-private fun ViewRideInfoBox(value: String, label: String, modifier: Modifier = Modifier) {
-	Column(modifier = modifier.background(Colours.LightMode.Secondary, RoundedCornerShape(5.dp)).padding(horizontal = 10.dp, vertical = 5.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-		Text(value, color = Colours.LightMode.Text, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
-		Text(label, color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes2.size, fontWeight = TextFormatting.Boxes2.weight, textAlign = TextAlign.Center)
-	}
-}
-
-@Composable
-private fun ViewRideCarCard(ride: Ride?) {
-	val car = ride?.car
-	val make = car?.makeModel?.getOrNull(0) ?: "<make>"
-	val model = car?.makeModel?.getOrNull(1) ?: "<model>"
 	Column(
 		modifier = Modifier.fillMaxWidth().border(1.dp, Colours.LightMode.Border, RoundedCornerShape(15.dp)).background(Colours.LightMode.Background2, RoundedCornerShape(15.dp)).padding(horizontal = 10.dp, vertical = 5.dp),
 		horizontalAlignment = Alignment.CenterHorizontally,
 	) {
-		Text("$make $model", color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
-		Text("Car Reg. hidden until 24hrs before departure", color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes2.size, fontWeight = TextFormatting.Boxes2.weight, textAlign = TextAlign.Center)
-	}
+        if (hidden) {
+            Text("$make $model", color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
+            Text("Car Reg. hidden until 24hrs before departure", color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes2.size, fontWeight = TextFormatting.Boxes2.weight, textAlign = TextAlign.Center)
+	    } else {
+            Text("${car.getCarDescription()}", color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes1.size, fontWeight = TextFormatting.Boxes1.weight)
+            Text("$make $model", color = Colours.LightMode.Text, fontSize = TextFormatting.Boxes2.size, fontWeight = TextFormatting.Boxes2.weight, textAlign = TextAlign.Center)
+        }
+    }
 }
 
 @Composable
@@ -190,61 +321,7 @@ private fun ViewRideFilterGrid() {
 		}
 	}
 }
-
 @Composable
 private fun ViewRideFilter(label: String) {
 	Text(label, modifier = Modifier.background(Colours.LightMode.Secondary, RoundedCornerShape(20.dp)).padding(horizontal = 12.dp, vertical = 3.dp), color = Colours.LightMode.Text, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.weight)
-}
-
-@Composable
-private fun ViewRideCostBreakdown(breakdown: List<String>) {
-	Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-		Text("Cost breakdown", color = Colours.LightMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
-		Column(modifier = Modifier.fillMaxWidth().border(1.dp, Colours.LightMode.Border, RoundedCornerShape(20.dp)).padding(horizontal = 15.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-			ViewRideCostRow("Fuel cost (125 mi x 0 mi/gal)", breakdown.getOrElse(0) { "£36" })
-			ViewRideCostRow("Split between 1 passengers", breakdown.getOrElse(1) { "£12" })
-			ViewRideCostRow("Carma fee (10%)", breakdown.getOrElse(2) { "+ £1.20" })
-			Box(Modifier.fillMaxWidth().height(1.dp).background(Colours.Accent))
-			ViewRideCostRow("Your total", breakdown.getOrElse(3) { "≈£13.20" }, total = true)
-		}
-	}
-}
-
-@Composable
-private fun ViewRideCostRow(label: String, value: String, total: Boolean = false) {
-	Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-		Text(label, color = Colours.LightMode.Text, fontSize = if (total) TextFormatting.Text2.size else TextFormatting.Text3.size, fontWeight = if (total) TextFormatting.Text2.weight else TextFormatting.Text3.weight)
-		Text(value, color = Colours.LightMode.Text, fontSize = if (total) TextFormatting.Text2.size else TextFormatting.Text3.size, fontWeight = if (total) TextFormatting.Text2.weight else TextFormatting.Text3.weight)
-	}
-}
-
-@Composable
-private fun ViewRideActionButton(label: String, filled: Boolean, onClick: () -> Unit) {
-	val background = if (filled) Colours.DarkMode.Background1 else Colours.LightMode.Background2
-	val border = if (filled) background else Colours.LightMode.Primary
-	val text = if (filled) Colours.DarkMode.Text else Colours.LightMode.Text
-	Box(modifier = Modifier.fillMaxWidth().border(1.dp, border, RoundedCornerShape(20.dp)).background(background, RoundedCornerShape(20.dp)).clickable(onClick = onClick).padding(horizontal = 15.dp, vertical = 10.dp), contentAlignment = Alignment.Center) {
-		Text(label, color = text, fontSize = TextFormatting.Button1.size, fontWeight = if (filled) TextFormatting.Button1.weight else TextFormatting.Button2.weight)
-	}
-}
-
-@Composable
-private fun ViewRideBottomBar(onHome: () -> Unit, onSearch: () -> Unit, onAddRide: () -> Unit, onMyRides: () -> Unit, onProfile: () -> Unit) {
-	Row(modifier = Modifier.fillMaxWidth().border(1.dp, Colours.Accent).background(Colours.LightMode.Background1).padding(vertical = 6.dp), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
-		ViewRideNavItem("⌂", "Home", onHome)
-		ViewRideNavItem("⌖", "Search", onSearch)
-		Box(modifier = Modifier.size(50.dp).background(Colours.LightMode.Primary, CircleShape).clickable(onClick = onAddRide), contentAlignment = Alignment.Center) {
-			Text("+", color = Colours.LightMode.Background1, fontSize = TextFormatting.IntroTitle.size, textAlign = TextAlign.Center)
-		}
-		ViewRideNavItem("▱", "My Rides", onMyRides)
-		ViewRideNavItem("○", "Profile", onProfile)
-	}
-}
-
-@Composable
-private fun ViewRideNavItem(icon: String, label: String, onClick: () -> Unit) {
-	Column(modifier = Modifier.size(width = 50.dp, height = 50.dp).clickable(onClick = onClick), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-		Text(icon, color = Colours.LightMode.Primary, fontSize = TextFormatting.Heading2.size)
-		Text(label, color = Colours.LightMode.Primary, fontSize = TextFormatting.SmallText1.size, fontWeight = TextFormatting.SmallText1.weight, textAlign = TextAlign.Center)
-	}
 }
