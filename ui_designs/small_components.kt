@@ -155,13 +155,13 @@ fun ToggleSwitch(switchedOn: Boolean = false, onClick: () -> Unit = {}, modifier
 // profile components
 
 @Composable
-fun NumberRating(modifier: Modifier = Modifier, rating: String, theme: Theme = Theme.Light) {
+fun NumberRating(modifier: Modifier = Modifier, rating: String, theme: Theme = Theme.Light, format: TextFormatting = TextFormatting.Text3) {
     if (theme == Theme.Light) { primaryColour = Colours.LightMode.Primary }
     else { primaryColour = Colours.DarkMode.Primary }
 
 	Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
 		StarGlyph(filled = true, color = primaryColour, modifier = Modifier.size(20.dp))
-		Text(rating, color = primaryColour, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+		Text(rating, color = primaryColour, fontSize = format.size, fontWeight = format.weight)
 	}
 }
 
