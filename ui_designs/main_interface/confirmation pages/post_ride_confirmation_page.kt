@@ -71,7 +71,7 @@ fun PostRideConfirmationPage(
 					textAlign = TextAlign.Center,
 				)
 				Text(
-					text = "Students on this route will be notified and can book a seat instantly.",
+					text = "Students on this route will be notified\nand can book a seat instantly.",
 					color = Colours.LightMode.Text,
 					fontSize = TextFormatting.Text1.size,
 					fontWeight = TextFormatting.Text1.weight,
