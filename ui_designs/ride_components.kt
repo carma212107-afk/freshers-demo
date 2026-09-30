@@ -307,3 +307,95 @@ private fun IndividualSeatIcon(available: Boolean = false, modifier: Modifier = 
 			.background(if (available) Colours.LightMode.Background1 else Colours.LightMode.Primary, RoundedCornerShape(3.dp)),
 	)
 }
+
+
+// Passenger list component (for driver to see passengers in their ride)
+
+@Composable
+fun PassengerList(ride: Ride, modifier: Modifier = Modifier, displayCarReg: Boolean = false)  {
+	Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(5.dp)) {
+		Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedEvenly) {
+			Text("Your car", color = Colours.LightMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
+			Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(2.dp)) {
+				NoOfFreeSeatsIndicator(ride.getNoOfFreeSeats(), ride.noOfSeats)
+				Text("${ride.noOfBookedSeats()} / ${ride.noOfSeats} ${ride.car.makeModel[1]}", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+			}
+		}
+		if (displayCarReg) {
+			Text("${ride.car.carReg} - ${ride.car.makeModel[0]} ${ride.car.makeModel[1]}", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+		}
+		val displayedSeats = 0
+		for p in ride.passengers {
+			PassengerProfileCard(passenger = p.passengerID, frontSeat = p.frontSeat, onClick = onPassengerClick)
+			if (p.extraSeats.size > 0) {
+				for extraSeat in p.extraSeats {
+					PassengerExtraSlot(name = p.passengerID.formatFirstName(), reason = extraSeat.reason, onClick = onPassengerClick)
+				}
+			}
+			displayedSeats += 1
+		}
+		for s in displayedSeats until (ride.noOfSeats + 1) { PassengerEmptySlot() }
+	}
+}
+@Composable
+private fun PassengerProfileCard(passenger: User, frontSeat: Boolean = false, onClick: () -> Unit) {
+	Column(
+		modifier = Modifier.fillMaxWidth().border(1.dp, Colours.LightMode.Border, RoundedCornerShape(20.dp))
+			.background(Colours.LightMode.Background2, RoundedCornerShape(20.dp))
+			.clickable(onClick = onClick)
+			.padding(10.dp),
+		verticalArrangement = Arrangement.spacedBy(5.dp),
+	) {
+		Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+			passenger.getProfilePic(theme = Theme.Light, modifier = Modifier.size(50.dp))
+			Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+				if (frontSeat) { nameText = "${passenger.formatFirstName()} (front seat)" }
+				else { nameText = passenger.formatFirstName() }
+				Text(
+					nameText,
+					color = Colours.LightMode.Text,
+					fontSize = TextFormatting.Boxes1.size,
+					fontWeight = TextFormatting.Boxes1.weight,
+				)
+				Text(
+					"${passenger.university} · ${passenger.formatUniYear()}",
+					color = Colours.LightMode.Text,
+					fontSize = TextFormatting.Boxes2.size,
+					fontWeight = TextFormatting.Boxes2.weight,
+				)
+			}
+			NumberRating(passenger.getRating())
+		}
+		if (passenger.verifiedStudent) { VerificationTag("Verified student") }
+	}
+}
+@Composable
+private fun PassengerExtraSlot(name: String, reason: String, onClick: () -> Unit) {
+	Column(
+		modifier = Modifier.fillMaxWidth().border(1.dp, Colours.LightMode.Border, RoundedCornerShape(20.dp))
+			.background(Colours.LightMode.Background2, RoundedCornerShape(20.dp))
+			.clickable(onClick = onClick)
+			.padding(10.dp),
+		verticalArrangement = Arrangement.spacedBy(5.dp),
+	) {
+		Text(
+			name,
+			color = Colours.LightMode.Text,
+			fontSize = TextFormatting.Boxes1.size,
+			fontWeight = TextFormatting.Boxes1.weight,
+		)
+		Text(
+			"Extra seat for $reason",
+			color = Colours.LightMode.Text,
+			fontSize = TextFormatting.Boxes2.size,
+			fontWeight = TextFormatting.Boxes2.weight,
+		)
+	}
+}
+@Composable
+private fun EmptyPassengerSlot() {
+	Box(
+		modifier = Modifier.fillMaxWidth().height(25.dp).border(1.dp, Colours.LightMode.Border, RoundedCornerShape(20.dp))
+			.background(Colours.LightMode.Background2, RoundedCornerShape(20.dp)),
+	)
+}
