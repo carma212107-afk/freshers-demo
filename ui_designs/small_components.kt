@@ -132,6 +132,27 @@ fun ClockIcon(modifier: Modifier = Modifier) {
 	Icon(Icons.Outlined.AccessTime, contentDescription = "Clock", modifier = modifier.size(20.dp), tint = Colours.LightMode.Primary)
 }
 
+fun ConfirmationCheckmark(diameter: Dp = 100.dp) {
+	Canvas(Modifier.size(diameter)) {
+		val iconColor = Colours.Accent
+		drawCircle(
+			color = iconColor,
+			radius = size.minDimension * 0.44f,
+			style = Stroke(width = 5.dp.toPx()),
+		)
+		val check = Path().apply {
+			moveTo(size.width * 0.29f, size.height * 0.51f)
+			lineTo(size.width * 0.44f, size.height * 0.66f)
+			lineTo(size.width * 0.73f, size.height * 0.36f)
+		}
+		drawPath(
+			path = check,
+			color = iconColor,
+			style = Stroke(width = 6.dp.toPx(), cap = StrokeCap.Round),
+		)
+	}
+}
+
 
 
 @Composable
