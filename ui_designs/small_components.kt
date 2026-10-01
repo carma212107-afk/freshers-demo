@@ -79,13 +79,13 @@ fun pinIcon(modifier: Modifier = Modifier, theme: Theme = Theme.Dark) {
 	}
 }
 @Composable
-fun carIcon(modifier: Modifier = Modifier) {
+fun carIcon(modifier: Modifier = Modifier, colour: Colour = Colours.LightMode.Primary) {
 	Canvas(modifier.size(width = 42.dp, height = 20.699.dp)) {
-		drawRoundRect(Colours.LightMode.Primary, topLeft = androidx.compose.ui.geometry.Offset(1f, 5f), size = androidx.compose.ui.geometry.Size(40f, 11f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f, 4f))
-		drawCircle(Colours.LightMode.Primary, radius = 1.4f, center = androidx.compose.ui.geometry.Offset(9f, 16.5f))
-		drawCircle(Colours.LightMode.Primary, radius = 1.4f, center = androidx.compose.ui.geometry.Offset(33f, 16.5f))
-		drawLine(Colours.LightMode.Primary, androidx.compose.ui.geometry.Offset(12f, 5f), androidx.compose.ui.geometry.Offset(17f, 1.5f), 2f, StrokeCap.Round)
-		drawLine(Colours.LightMode.Primary, androidx.compose.ui.geometry.Offset(17f, 1.5f), androidx.compose.ui.geometry.Offset(30f, 1.5f), 2f, StrokeCap.Round)
+		drawRoundRect(colour, topLeft = androidx.compose.ui.geometry.Offset(1f, 5f), size = androidx.compose.ui.geometry.Size(40f, 11f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f, 4f))
+		drawCircle(colour, radius = 1.4f, center = androidx.compose.ui.geometry.Offset(9f, 16.5f))
+		drawCircle(colour, radius = 1.4f, center = androidx.compose.ui.geometry.Offset(33f, 16.5f))
+		drawLine(colour, androidx.compose.ui.geometry.Offset(12f, 5f), androidx.compose.ui.geometry.Offset(17f, 1.5f), 2f, StrokeCap.Round)
+		drawLine(colour, androidx.compose.ui.geometry.Offset(17f, 1.5f), androidx.compose.ui.geometry.Offset(30f, 1.5f), 2f, StrokeCap.Round)
 	}
 }
 @Composable
