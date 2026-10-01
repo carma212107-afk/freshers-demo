@@ -60,57 +60,67 @@ fun PostRidePage(
 
         Column(
             modifier = Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(horizontal = 30.dp, vertical = 15.dp),
-            verticalArrangement = Arrangement.spacedBy(25.dp),
+            verticalArrangement = Arrangement.spacedBy(30.dp),
         ) {
-            FormSection("Your route") {
-                RideRoute(edit = true, ride = ride)
-            }
+            Column(verticalArrangement = Arrangement.spacedBy(15.dp)) {
+                FormSection("Your route", bigTitle = true) {
+                    RideRoute(edit = true, ride = ride)
+                }
 
-            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                DateTimeField("Date", "<dd D Mon>", Modifier.weight(1f), date = true) // INPUT FIELD
-                DateTimeField("Time", "<12hr time>", Modifier.weight(1f), date = false) // INPUT FIELD
-            }
-
-            FormSection("Trip type") {
-                Row(
-                    modifier = Modifier.fillMaxWidth().border(1.dp, Colours.LightMode.Border, RoundedCornerShape(15.dp)).background(Colours.LightMode.Background2, RoundedCornerShape(15.dp)).padding(horizontal = 15.dp, vertical = 10.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                        Text("Female-only ride", color = Colours.LightMode.Text, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
-                        Text("Only female passengers can book", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
-                    }
-                    ToggleSwitch(switchedOn = femaleOnly, onClick = { femaleOnly = !femaleOnly })
+                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    DateTimeField("Date", "<dd D Mon>", Modifier.weight(1f), date = true) // INPUT FIELD
+                    DateTimeField("Time", "<12hr time>", Modifier.weight(1f), date = false) // INPUT FIELD
                 }
             }
 
-            FormSection("Car type") {
-                selectedCar = SelectorField("Select car") // INPUT FIELD (dropdown) returns car
-            }
+            Separator()
 
-            FormSection("Available seats") {
-                Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                    (1..selectedCar.noOfSeats).forEach { seat ->
-                        SeatButton(seat, selected = seat == selectedSeats) { selectedSeats = seat }
+            Column(verticalArrangement = Arrangement.spacedBy(15.dp)) {
+                FormSection("Car type", bigTitle = true) {
+                    selectedCar = SelectorField("Select car") // INPUT FIELD (dropdown) returns car
+                }
+
+                FormSection("Available seats") {
+                    Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                        (1..selectedCar.noOfSeats).forEach { seat ->
+                            SeatButton(seat, selected = seat == selectedSeats) { selectedSeats = seat }
+                        }
                     }
                 }
-            }
 
-            FormSection("Your preferences") {
-                Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
-                    Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                        PreferenceChip("<filter>") // selectable filter buttons
-                        PreferenceChip("<filter>")
-                    }
-                    Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
-                        PreferenceChip("<filter>")
-                        PreferenceChip("<filter>")
+                FormSection("Trip type") {
+                    Row(
+                        modifier = Modifier.fillMaxWidth().border(1.dp, Colours.LightMode.Border, RoundedCornerShape(15.dp)).background(Colours.LightMode.Background2, RoundedCornerShape(15.dp)).padding(horizontal = 15.dp, vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                            Text("Female-only ride", color = Colours.LightMode.Text, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
+                            Text("Only female passengers can book", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+                        }
+                        ToggleSwitch(switchedOn = femaleOnly, onClick = { femaleOnly = !femaleOnly })
                     }
                 }
             }
 
-            FormSection("Notes for passengers") {
-                InputField("Notes") // INPUT FIELD
+            Separator()
+
+            Column(verticalArrangement = Arrangement.spacedBy(15.dp)) {
+                FormSection("Your preferences", bigTitle = true) {
+                    Row(horizontalArrangement = Arrangement.spacedBy(5.dp)) {
+                        Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                            PreferenceChip("<filter>") // selectable filter buttons
+                            PreferenceChip("<filter>")
+                        }
+                        Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+                            PreferenceChip("<filter>")
+                            PreferenceChip("<filter>")
+                        }
+                    }
+                }
+
+                FormSection("Notes for passengers") {
+                    InputField("Notes") // INPUT FIELD
+                }
             }
 
             ContinueButtons(continueLabel = continueLabel, backLabel = "Discard", onContinue = onPostRide, onBack = onDiscard)
@@ -121,9 +131,14 @@ fun PostRidePage(
 }
 
 @Composable
-private fun FormSection(title: String, content: @Composable () -> Unit) {
+private fun FormSection(title: String, bigTitle: Boolean = false, content: @Composable () -> Unit) {
     Column(modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(5.dp)) {
-        Text(title, color = Colours.LightMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
+        Text(
+            title,
+            color = Colours.LightMode.Text,
+            fontSize = if (bigTitle) TextFormatting.Heading2.size else TextFormatting.Text2.size,
+            fontWeight = if (bigTitle) TextFormatting.Heading2.weight else TextFormatting.Text2.weight
+        )
         content()
     }
 }
@@ -131,7 +146,7 @@ private fun FormSection(title: String, content: @Composable () -> Unit) {
 @Composable
 private fun DateTimeField(label: String, value: String, modifier: Modifier = Modifier, date: Boolean) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(5.dp)) {
-        Text(label, color = Colours.LightMode.Text, fontSize = TextFormatting.Heading2.size, fontWeight = TextFormatting.Heading2.weight)
+        Text(label, color = Colours.LightMode.Text, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
         Row(
             modifier = Modifier.fillMaxWidth().height(40.dp).border(1.dp, Colours.LightMode.Border, RoundedCornerShape(8.dp)).background(Colours.LightMode.Background2, RoundedCornerShape(8.dp)).padding(horizontal = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
