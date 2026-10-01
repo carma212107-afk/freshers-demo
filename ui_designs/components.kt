@@ -204,23 +204,25 @@ private fun ContinueButtons(continueLabel: String, backLabel: String, onContinue
 
 @Composable
 private fun InputField(
-	label: String,
+	label: String = null,
 	value: String,
 	placeholder: String,
 	keyboardType: KeyboardType = KeyboardType.Text,
 	onValueChange: (String) -> Unit,
+  sectionTitle: Boolean = false,
 ) {
 	Column(
 		modifier = Modifier.fillMaxWidth(),
 		verticalArrangement = Arrangement.spacedBy(5.dp),
 	) {
-		Text(
-			text = label,
-			color = Colours.Accent,
-			fontSize = 20.sp,
-			fontWeight = FontWeight.Bold,
-			lineHeight = 30.sp,
-		)
+    if (label != null) {
+      Text(
+        text = label,
+        color = Colours.LightMode.Text,
+        fontSize = if (sectionTitle) TextFormatting.Heading2.size else TextFormatting.Text2.size,
+        fontWeight = if (sectionTitle) TextFormatting.Heading2.weight else TextFormatting.Text2.weight,
+      )
+    }
 		BasicTextField(
 			value = value,
 			onValueChange = onValueChange,
@@ -228,20 +230,20 @@ private fun InputField(
 				.fillMaxWidth()
 				.height(40.dp)
 				.clip(RoundedCornerShape(8.dp))
-				.background(Color.White)
-				.border(1.dp, SignUpBorder, RoundedCornerShape(8.dp))
+				.background(Colours.LightMode.Background2)
+				.border(1.dp, Colours.LightMode.Border, RoundedCornerShape(8.dp))
 				.padding(horizontal = 15.dp),
 			singleLine = true,
 			keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
 			textStyle = TextStyle(
-				color = SignUpAccent,
-				fontSize = 14.sp,
-				lineHeight = 20.sp,
+				color = Colours.LightMode.InputText,
+				fontSize = TextFormatting.InputField.size,
+        fontWeight = TextFormatting.InputField.weight,
 			),
 			decorationBox = { innerTextField ->
 				Box(contentAlignment = Alignment.CenterStart) {
 					if (value.isEmpty()) {
-						Text(placeholder, color = SignUpAccent, fontSize = 14.sp, lineHeight = 20.sp)
+						Text(placeholder, color = Colours.LightMode.InputText, fontSize = TextFormatting.InputField.size, fontWeight = TextFormatting.InputField.weight)
 					}
 					innerTextField()
 				}
