@@ -194,10 +194,3 @@ private fun PreferenceChip(label: String) {
 
     Text(label, modifier = Modifier.border(1.dp, Colours.LightMode.Border, RoundedCornerShape(20.dp)).background(Colours.LightMode.Background2, RoundedCornerShape(20.dp)).padding(horizontal = 15.dp, vertical = 3.dp), color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
 }
-
-@Composable
-private fun InputField(value: String) {
-    Row(modifier = Modifier.fillMaxWidth().height(40.dp).border(1.dp, Colours.LightMode.Border, RoundedCornerShape(8.dp)).background(Colours.LightMode.Background2, RoundedCornerShape(8.dp)).padding(horizontal = 12.dp), verticalAlignment = Alignment.CenterVertically) {
-        Text(value, color = Colours.LightMode.InputText, fontSize = TextFormatting.InputField.size, fontWeight = TextFormatting.InputField.weight)
-    }
-}
