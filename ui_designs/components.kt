@@ -198,6 +198,3 @@ private fun ContinueButtons(continueLabel: String, backLabel: String, onContinue
       }
     }
 }
-
-
-Object Variables { }
