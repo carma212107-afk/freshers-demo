@@ -234,7 +234,7 @@ fun CostBreakdown(
 			CostRow("Fuel cost", breakdown[0])
 			CostRow("Split between ${ride.getNoOfBookedSeats()} passengers", breakdown[1]) // how to shortly say "passengers and driver" ?
 			CostRow("Carma fee (10%)", breakdown[2])
-			Box(Modifier.fillMaxWidth().height(1.dp).background(Colours.Accent)) // separator line
+			Separator()
 			CostRow("Your total", breakdown[3], total = true)
 		}
 	}

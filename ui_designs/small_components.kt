@@ -153,6 +153,16 @@ fun ConfirmationCheckmark(diameter: Dp = 100.dp) {
 	}
 }
 
+@Composable
+fun Separator(modifier: Modifier = Modifier) {
+	Box(
+		modifier = modifier
+			.fillMaxWidth()
+			.height(1.dp)
+			.background(Colours.LightMode.Border),
+	)
+}
+
 
 
 @Composable
