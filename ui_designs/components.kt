@@ -198,3 +198,54 @@ private fun ContinueButtons(continueLabel: String, backLabel: String, onContinue
       }
     }
 }
+
+
+// input fields
+
+@Composable
+private fun InputField(
+	label: String,
+	value: String,
+	placeholder: String,
+	keyboardType: KeyboardType = KeyboardType.Text,
+	onValueChange: (String) -> Unit,
+) {
+	Column(
+		modifier = Modifier.fillMaxWidth(),
+		verticalArrangement = Arrangement.spacedBy(5.dp),
+	) {
+		Text(
+			text = label,
+			color = Colours.Accent,
+			fontSize = 20.sp,
+			fontWeight = FontWeight.Bold,
+			lineHeight = 30.sp,
+		)
+		BasicTextField(
+			value = value,
+			onValueChange = onValueChange,
+			modifier = Modifier
+				.fillMaxWidth()
+				.height(40.dp)
+				.clip(RoundedCornerShape(8.dp))
+				.background(Color.White)
+				.border(1.dp, SignUpBorder, RoundedCornerShape(8.dp))
+				.padding(horizontal = 15.dp),
+			singleLine = true,
+			keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
+			textStyle = TextStyle(
+				color = SignUpAccent,
+				fontSize = 14.sp,
+				lineHeight = 20.sp,
+			),
+			decorationBox = { innerTextField ->
+				Box(contentAlignment = Alignment.CenterStart) {
+					if (value.isEmpty()) {
+						Text(placeholder, color = SignUpAccent, fontSize = 14.sp, lineHeight = 20.sp)
+					}
+					innerTextField()
+				}
+			},
+		)
+	}
+}
