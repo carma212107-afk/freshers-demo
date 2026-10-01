@@ -97,13 +97,13 @@ fun profileIcon(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun BagsIcon(modifier: Modifier = Modifier) {
+fun bagsIcon(modifier: Modifier = Modifier, colour: Colour = Colours.LightMode.Primary) {
 	Canvas(modifier.size(width = 21.dp, height = 26.dp)) {
-		drawRoundRect(Colours.LightMode.Primary, topLeft = androidx.compose.ui.geometry.Offset(1f, 5f), size = androidx.compose.ui.geometry.Size(12f, 20f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(2f, 2f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
-		drawLine(Colours.LightMode.Primary, androidx.compose.ui.geometry.Offset(5f, 5f), androidx.compose.ui.geometry.Offset(5f, 1f), 2f, StrokeCap.Round)
-		drawLine(Colours.LightMode.Primary, androidx.compose.ui.geometry.Offset(5f, 1f), androidx.compose.ui.geometry.Offset(9f, 1f), 2f, StrokeCap.Round)
-		drawRoundRect(Colours.LightMode.Primary, topLeft = androidx.compose.ui.geometry.Offset(8f, 18f), size = androidx.compose.ui.geometry.Size(12f, 7f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(1f, 1f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
-		drawLine(Colours.LightMode.Primary, androidx.compose.ui.geometry.Offset(11f, 18f), androidx.compose.ui.geometry.Offset(17f, 15f), 2f, StrokeCap.Round)
+		drawRoundRect(colour, topLeft = androidx.compose.ui.geometry.Offset(1f, 5f), size = androidx.compose.ui.geometry.Size(12f, 20f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(2f, 2f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
+		drawLine(colour, androidx.compose.ui.geometry.Offset(5f, 5f), androidx.compose.ui.geometry.Offset(5f, 1f), 2f, StrokeCap.Round)
+		drawLine(colour, androidx.compose.ui.geometry.Offset(5f, 1f), androidx.compose.ui.geometry.Offset(9f, 1f), 2f, StrokeCap.Round)
+		drawRoundRect(colour, topLeft = androidx.compose.ui.geometry.Offset(8f, 18f), size = androidx.compose.ui.geometry.Size(12f, 7f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(1f, 1f), style = androidx.compose.ui.graphics.drawscope.Stroke(width = 2f))
+		drawLine(colour, androidx.compose.ui.geometry.Offset(11f, 18f), androidx.compose.ui.geometry.Offset(17f, 15f), 2f, StrokeCap.Round)
 	}
 }
 
