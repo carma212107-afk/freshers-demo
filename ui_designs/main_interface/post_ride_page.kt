@@ -94,8 +94,8 @@ fun PostRidePage(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                            Text("Female-only ride", color = Colours.LightMode.Text, fontSize = TextFormatting.Text2.size, fontWeight = TextFormatting.Text2.weight)
-                            Text("Only female passengers can book", color = Colours.LightMode.Text, fontSize = TextFormatting.Text3.size, fontWeight = TextFormatting.Text3.weight)
+                            Text("Female-only ride", color = Colours.LightMode.Text, fontSize = TextFormatting.Button1.size, fontWeight = TextFormatting.Button1.weight)
+                            Text("Only female passengers can book", color = Colours.LightMode.Text, fontSize = TextFormatting.Button2.size, fontWeight = TextFormatting.Button2.weight)
                         }
                         ToggleSwitch(switchedOn = femaleOnly, onClick = { femaleOnly = !femaleOnly })
                     }
