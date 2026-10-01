@@ -30,16 +30,16 @@ object Colours {
   // Button colours
   object Buttons {
     object Unselected {
-      background: Color = Colours.LightMode.Background2,
-      border: Color = Colours.LightMode.Border,
-      text: Color = Colours.Accent,
-      icon: Color = Colours.Accent,
+      val background: Color = Colours.LightMode.Background2,
+      val border: Color = Colours.LightMode.Border,
+      val text: Color = Colours.Accent,
+      val icon: Color = Colours.Accent,
     }
     object Selected {
-      background: Color = Colours.LightMode.Secondary,
-      border: Color = Colours.Accent,
-      text: Color = Colours.Text,
-      icon: Color = Colours.Primary,
+      val background: Color = Colours.LightMode.Secondary,
+      val border: Color = Colours.Accent,
+      val text: Color = Colours.Text,
+      val icon: Color = Colours.Primary,
     }
   }
 }
